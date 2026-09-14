@@ -570,34 +570,34 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
           <div>
             <div class="panel-title" style="margin-top:0">CHOOSE A RECEIVING ACCOUNT</div>
             <div class="bank-grid" id="bankGrid">
-              <button class="bank-card" type="button" data-bank="BPI" data-account="4036 4156 55">
+              <div class="bank-card" role="button" tabindex="0" data-bank="BPI" data-account="4036 4156 55">
                 <span class="check">✓</span>
                 <div class="bank-name">BPI</div>
                 <div class="bank-account">4036 4156 55</div>
                 <div class="bank-holder">Bank of the Philippine Islands</div>
                 <button type="button" class="bank-copy" data-copy="4036 4156 55">Copy account number</button>
-              </button>
-              <button class="bank-card" type="button" data-bank="Security Bank" data-account="0000075393112">
+              </div>
+              <div class="bank-card" role="button" tabindex="0" data-bank="Security Bank" data-account="0000075393112">
                 <span class="check">✓</span>
                 <div class="bank-name">SECURITY BANK</div>
                 <div class="bank-account">0000 0753 9311 2</div>
                 <div class="bank-holder">Security Bank Corporation</div>
                 <button type="button" class="bank-copy" data-copy="0000075393112">Copy account number</button>
-              </button>
-              <button class="bank-card" type="button" data-bank="Maribank" data-account="1563 7086 918">
+              </div>
+              <div class="bank-card" role="button" tabindex="0" data-bank="Maribank" data-account="1563 7086 918">
                 <span class="check">✓</span>
                 <div class="bank-name">MARIBANK</div>
                 <div class="bank-account">1563 7086 918</div>
                 <div class="bank-holder">Maribank Philippines</div>
                 <button type="button" class="bank-copy" data-copy="1563 7086 918">Copy account number</button>
-              </button>
-              <button class="bank-card" type="button" data-bank="GoTyme" data-account="0151 2287 9664" data-holder="EFREN E TAMBIGA">
+              </div>
+              <div class="bank-card" role="button" tabindex="0" data-bank="GoTyme" data-account="0151 2287 9664" data-holder="EFREN E TAMBIGA">
                 <span class="check">✓</span>
                 <div class="bank-name">GOTYME</div>
                 <div class="bank-account">0151 2287 9664</div>
                 <div class="bank-holder">Efren E. Tambiga</div>
                 <button type="button" class="bank-copy" data-copy="0151 2287 9664">Copy account number</button>
-              </button>
+              </div>
             </div>
 
             <div class="pay-instructions">
