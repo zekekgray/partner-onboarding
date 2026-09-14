@@ -1,4 +1,25 @@
+<!DOCTYPE html>Editor
+Code.gs
+Agreement.html
+.
+
+1234567891011121314151617181920212223242526
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ArtiPlay Academy OS — Partner Onboarding</title>
+<style>
+:root{
+  --navy:#17203a; --navy2:#202b49; --blue:#24375f; --gold:#cbb27a; --gold2:#e2d2a7;
+  --ivory:#fbfaf6; --paper:#f5f2e8; --line:#ddd3b8; --text:#23283a; --muted:#72798a;
+…</body>
+</html>
+    <div class="thankyou-footer">One Academy. One Digital Home. — the ArtiPlay team</div>
+
+    <div class="thankyou-contact">
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -424,9 +445,6 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
 .thankyou-contact-item svg{width:13px;height:13px;stroke:var(--gold2);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:0 0 13px}
 .thankyou-note{margin-top:34px;font-size:9.5px;letter-spacing:.08em;color:#7d84a0}
 @media(max-width:480px){.thankyou-contact{flex-direction:column;align-items:stretch}.thankyou-contact-item{justify-content:center}}
-</parameter>
-
-</style>
 </head>
 <body>
 <div class="app">
