@@ -40,11 +40,11 @@ button{cursor:pointer}
 .step-row:hover{background:rgba(255,255,255,.05)}
 .step-row:active{transform:scale(.97)}
 .step-row.active,.step-row.done{opacity:1}
-.step-row.active{background:rgba(255,255,255,.06);backdrop-filter:blur(6px)}
-.step-dot{position:relative;width:34px;height:34px;border:1px solid rgba(255,255,255,.22);border-radius:50%;display:grid;place-items:center;font-size:10px;color:#aeb5c5;background:rgba(255,255,255,.03);backdrop-filter:blur(4px);transition:background .35s ease,border-color .35s ease,color .35s ease,box-shadow .35s ease,transform .45s cubic-bezier(.34,1.56,.64,1)}
+.step-row.active{background:rgba(255,255,255,.06)}
+.step-dot{position:relative;width:34px;height:34px;border:1px solid rgba(255,255,255,.22);border-radius:50%;display:grid;place-items:center;font-size:10px;color:#aeb5c5;background:#1c2540;transition:background .35s ease,border-color .35s ease,color .35s ease,transform .45s cubic-bezier(.34,1.56,.64,1)}
 .step-row:not(:last-child) .step-dot::before{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);width:1px;height:26px;background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.04))}
 .step-row.done:not(:last-child) .step-dot::before{background:linear-gradient(180deg,rgba(108,168,140,.55),rgba(108,168,140,.15))}
-.step-row.active .step-dot{background:var(--gold);border-color:var(--gold);color:var(--navy);box-shadow:0 0 0 5px rgba(203,178,122,.12),0 0 18px rgba(203,178,122,.35);transform:scale(1.06)}
+.step-row.active .step-dot{background:var(--gold);border-color:var(--gold);color:var(--navy);transform:scale(1.06)}
 .step-row.done .step-dot{background:rgba(62,122,99,.28);border-color:#6ca88c;color:transparent}
 .step-row.done .step-dot::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#bde0cf;font-size:13px;font-weight:800}
 .step-name{font-size:12px;font-weight:700;letter-spacing:.04em}
@@ -97,7 +97,23 @@ h1{font:400 40px/1.08 var(--serif);color:var(--navy);margin:9px 0 10px;letter-sp
 .price-note{font-size:11px;color:#aeb5c4;line-height:1.55;margin-top:5px}
 .rule{height:1px;background:rgba(255,255,255,.12);margin:20px 0}
 .feature-pills{display:flex;flex-wrap:wrap;gap:7px}
-.pill{font-size:9px;padding:7px 9px;border:1px solid rgba(255,255,255,.12);border-radius:999px;color:#c9cfdb}
+/* === START: PILL GLASSMORPHISM === */
+.pill{
+  font-size:9px;padding:7px 9px;border-radius:999px;color:#eef0f6;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(14px) saturate(160%);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15), 0 2px 8px rgba(23,32,58,.18);
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1), background .25s ease, box-shadow .25s ease;
+  will-change:transform;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+}
+.pill:hover{background:rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.22), 0 4px 12px rgba(23,32,58,.22)}
+.pill.pressed{transform:scale(.9)}
+/* === END: PILL GLASSMORPHISM === */
 .review-strip{margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:15px;background:#f5f2e8;border:1px solid #dfd7c4;padding:14px 16px;border-radius:12px}
 .review-strip span{font-size:11px;color:#626978}
 .link-btn{border:0;background:transparent;color:#765c32;font-size:11px;font-weight:800;text-decoration:underline;text-underline-offset:3px}
@@ -130,6 +146,7 @@ h1{font:400 40px/1.08 var(--serif);color:var(--navy);margin:9px 0 10px;letter-sp
 .bank-account{font:16px/1.3 var(--serif);color:var(--navy);margin-top:8px;letter-spacing:.03em}
 .bank-holder{font-size:10.5px;color:#7d8390;margin-top:4px}
 .bank-copy{margin-top:10px;border:0;background:transparent;color:#765c32;font-size:10.5px;font-weight:800;text-decoration:underline;text-underline-offset:3px;padding:0}
+.bank-grid-loading{grid-column:1/-1;font-size:11px;color:#9a9ea8;padding:10px 2px}
 .pay-instructions{margin-top:18px;background:#f5f2e8;border:1px solid #ddd3b8;border-radius:14px;padding:16px 18px}
 .pay-instructions ol{margin:8px 0 0;padding-left:18px;font-size:11.5px;line-height:1.7;color:#4d5261}
 .pay-instructions ol li{margin-bottom:2px}
@@ -250,6 +267,7 @@ h1{font:400 40px/1.08 var(--serif);color:var(--navy);margin:9px 0 10px;letter-sp
 .agreement-doc .sign-line{margin-bottom:15px}
 .agreement-doc .fillable{width:100%;border:0;border-bottom:1px solid #c9c0a4;background:transparent;padding:4px 2px;outline:none;color:var(--navy);font-family:var(--serif)}
 .agreement-doc .fillable.sig{font-style:italic;font-size:16px}
+.agreement-doc .fillable[readonly]{color:#5b6270;background:rgba(122,92,46,.04)}
 .agreement-doc .field-note,.agreement-doc .consent-line{font-family:var(--sans);font-size:10px;color:#6b634c}
 .agreement-doc .consent-line{display:flex;gap:7px;align-items:flex-start;margin:4px 0 18px}
 .agreement-doc .contact-strip{margin-top:28px;border-top:1px solid #d9d2c0;padding-top:18px}
@@ -374,6 +392,51 @@ h1{font:400 40px/1.08 var(--serif);color:var(--navy);margin:9px 0 10px;letter-sp
     stroke-linecap:round;stroke-linejoin:round;
   }
 }
+/* === START: PORTRAIT MODE SUGGESTION === */
+.portrait-suggest{
+  display:none;
+  align-items:center;justify-content:space-between;gap:12px;
+  padding:10px 20px;
+  background:#f5f2e8;border-bottom:1px solid #ddd3b8;
+  font:600 11.5px "Helvetica Neue",Arial,sans-serif;color:#4d5261;
+  flex:0 0 auto;
+}
+.portrait-suggest button{
+  border:1px solid var(--gold);background:var(--navy);color:#fff;
+  border-radius:9px;padding:8px 14px;font-size:11px;font-weight:800;
+  white-space:nowrap;
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.portrait-suggest button:active{transform:scale(.94)}
+@media(max-width:900px) and (orientation:landscape){
+  .agreement-modal:not(.force-portrait) .portrait-suggest{display:flex}
+}
+.agreement-modal.force-portrait{
+  background:var(--ivory);
+}
+.agreement-modal.force-portrait .portrait-suggest{display:none}
+/* === END: PORTRAIT MODE SUGGESTION === */
+
+/* === START: PORTRAIT FLOATING ICON === */
+.portrait-fab{
+  position:fixed;z-index:70;
+  bottom:22px;left:20%;
+  width:48px;height:48px;
+  border-radius:50%;
+  border:1px solid rgba(203,178,122,.55);
+  background:var(--navy);color:var(--gold2);
+  display:grid;place-items:center;
+  box-shadow:0 10px 26px rgba(23,32,58,.30);
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1), background .25s ease;
+}
+.portrait-fab svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:transform .4s ease}
+.portrait-fab:active{transform:scale(.9)}
+.portrait-fab.active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.portrait-fab.active svg{transform:rotate(90deg)}
+.agreement-modal.force-portrait .portrait-fab{
+  bottom:auto;left:auto;top:22px;right:22px;
+}
+/* === END: PORTRAIT FLOATING ICON === */
 .fr-bar{display:flex;align-items:center;gap:8px;padding:10px 20px;background:#fffdf8;border-bottom:1px solid #ded9cb;flex:0 0 auto}
 .fr-bar input{border:1px solid #d8d3c7;border-radius:8px;padding:7px 10px;font-size:12px;font-family:var(--sans);outline:none;background:#fff;color:var(--navy)}
 .fr-bar input:focus{border-color:var(--navy)}
@@ -417,15 +480,49 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
 .thankyou-panel .commercial-row span:first-child{color:#9aa0b2}
 .thankyou-panel .commercial-row strong{color:#f0ede4;font-weight:600}
 .thankyou-footer{margin-top:32px;font:italic 14px var(--serif);color:var(--gold2);letter-spacing:.01em}
-.thankyou-contact-label{margin-top:38px;font-size:9px;letter-spacing:.2em;color:#7d84a0;font-weight:700}
-.thankyou-contact{margin-top:16px;display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
+ /* === START: CONTACT FOOTER CENTERED === */
+.thankyou-contact-footer{position:fixed;left:50%;bottom:24px;z-index:151;text-align:center;max-width:none;transform:translateX(-50%)}
+/* === END: CONTACT FOOTER CENTERED === */
+.thankyou-contact-label{margin-top:0;font-size:9px;letter-spacing:.2em;color:#7d84a0;font-weight:700}
+/* === START: CONTACT LINKS ROW CENTERED === */
+.thankyou-contact{margin-top:12px;display:flex;flex-wrap:nowrap;justify-content:center;align-items:center;gap:9px}
+/* === END: CONTACT LINKS ROW CENTERED === */
+.thankyou-contact-item{white-space:nowrap}
 .thankyou-contact-item{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:10px 18px;font-size:11px;color:#dfe2ea;text-decoration:none;transition:background .2s ease,border-color .2s ease,transform .2s ease}
 .thankyou-contact-item:hover{background:rgba(203,178,122,.10);border-color:rgba(203,178,122,.55);transform:translateY(-1px)}
 .thankyou-contact-item svg{width:13px;height:13px;stroke:var(--gold2);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:0 0 13px}
 .thankyou-note{margin-top:34px;font-size:9.5px;letter-spacing:.08em;color:#7d84a0}
-@media(max-width:480px){.thankyou-contact{flex-direction:column;align-items:stretch}.thankyou-contact-item{justify-content:center}}
-</parameter>
+@media(max-width:900px){
+  .thankyou-contact-footer{position:static;text-align:center;max-width:none;margin-top:32px}
+  .thankyou-contact{flex-direction:column;flex-wrap:wrap;align-items:stretch;justify-content:center}
+  .thankyou-contact-item{justify-content:center;white-space:normal}
+}
 
+/* === START: AGREEMENT HINT PILL === */
+.agreement-hint{
+  position:fixed;z-index:60;max-width:190px;
+  background:rgba(23,32,58,.94);color:#f5f2e8;
+  border:1px solid rgba(203,178,122,.45);
+  border-radius:13px;padding:10px 14px;
+  font:600 11px/1.4 "Helvetica Neue",Arial,sans-serif;
+  box-shadow:0 12px 28px rgba(23,32,58,.30);
+  backdrop-filter:blur(12px) saturate(160%);
+  -webkit-backdrop-filter:blur(12px) saturate(160%);
+  opacity:0;transform:translateY(-8px) scale(.92);
+  transition:opacity .3s ease, transform .5s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;
+  display:flex;align-items:center;gap:8px;
+}
+.agreement-hint.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+.agreement-hint.pressed{transform:scale(.94)}
+.agreement-hint-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex:0 0 6px;box-shadow:0 0 0 3px rgba(203,178,122,.25)}
+.agreement-hint:before{
+  content:"";position:absolute;width:10px;height:10px;background:inherit;
+  border-left:1px solid rgba(203,178,122,.45);border-top:1px solid rgba(203,178,122,.45);
+}
+.agreement-hint[data-arrow="top-right"]:before{top:-6px;right:22px;transform:rotate(45deg)}
+.agreement-hint[data-arrow="bottom-right"]:before{bottom:-6px;right:22px;left:auto;transform:rotate(225deg);border-left:none;border-top:none;border-right:1px solid rgba(203,178,122,.45);border-bottom:1px solid rgba(203,178,122,.45)}
+/* === END: AGREEMENT HINT PILL === */
 </style>
 </head>
 <body>
@@ -468,8 +565,8 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
         <h1>Choose what your academy needs.</h1>
         <p class="lead">Select the platform capabilities you want activated for this tenant. The exact features available depend on the selected configuration and subscription.</p>
         <div class="choice-grid">
-          <button class="choice selected" data-feature="White-Label" type="button"><span class="check">✓</span><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M8 9h13"/></svg></div><div class="choice-title">White-Label Experience</div><div class="choice-copy">Academy identity, logo, colors, imagery, content and supported access point.</div></button>
-          <button class="choice selected" data-feature="Academy Operations" type="button"><span class="check">✓</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="M8 16v-4M12 16V8M16 16v-7"/></svg></div><div class="choice-title">Academy Operations</div><div class="choice-copy">Coach/admin tools, training, attendance, events and academy administration.</div></button>
+          <button class="choice" data-feature="White-Label" type="button"><span class="check">✓</span><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M8 9h13"/></svg></div><div class="choice-title">White-Label Experience</div><div class="choice-copy">Academy identity, logo, colors, imagery, content and supported access point.</div></button>
+          <button class="choice" data-feature="Academy Operations" type="button"><span class="check">✓</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="M8 16v-4M12 16V8M16 16v-7"/></svg></div><div class="choice-title">Academy Operations</div><div class="choice-copy">Coach/admin tools, training, attendance, events and academy administration.</div></button>
           <button class="choice" data-feature="AI-Assisted" type="button"><span class="check">✓</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><path d="m5.6 5.6 2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></div><div class="choice-title">AI-Assisted</div><div class="choice-copy">Vex™ or other AI-assisted functionality where included in the configuration.</div></button>
           <button class="choice" data-feature="Rewards & Engagement" type="button"><span class="check">✓</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-3.5-6.6"/><path d="M20 5v6h-6"/></svg></div><div class="choice-title">Rewards &amp; Engagement</div><div class="choice-copy">Achievements, rewards, points, store and player engagement experiences.</div></button>
           <button class="choice" data-feature="Dashboards & Analytics" type="button"><span class="check">✓</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="m7 15 3-4 3 2 4-6"/></svg></div><div class="choice-title">Dashboards &amp; Analytics</div><div class="choice-copy">Academy-facing dashboards and analytics for operational visibility.</div></button>
@@ -569,36 +666,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
         <div class="pay-layout">
           <div>
             <div class="panel-title" style="margin-top:0">CHOOSE A RECEIVING ACCOUNT</div>
-            <div class="bank-grid" id="bankGrid">
-              <div class="bank-card" role="button" tabindex="0" data-bank="BPI" data-account="4036 4156 55">
-                <span class="check">✓</span>
-                <div class="bank-name">BPI</div>
-                <div class="bank-account">4036 4156 55</div>
-                <div class="bank-holder">Bank of the Philippine Islands</div>
-                <button type="button" class="bank-copy" data-copy="4036 4156 55">Copy account number</button>
-              </div>
-              <div class="bank-card" role="button" tabindex="0" data-bank="Security Bank" data-account="0000075393112">
-                <span class="check">✓</span>
-                <div class="bank-name">SECURITY BANK</div>
-                <div class="bank-account">0000 0753 9311 2</div>
-                <div class="bank-holder">Security Bank Corporation</div>
-                <button type="button" class="bank-copy" data-copy="0000075393112">Copy account number</button>
-              </div>
-              <div class="bank-card" role="button" tabindex="0" data-bank="Maribank" data-account="1563 7086 918">
-                <span class="check">✓</span>
-                <div class="bank-name">MARIBANK</div>
-                <div class="bank-account">1563 7086 918</div>
-                <div class="bank-holder">Maribank Philippines</div>
-                <button type="button" class="bank-copy" data-copy="1563 7086 918">Copy account number</button>
-              </div>
-              <div class="bank-card" role="button" tabindex="0" data-bank="GoTyme" data-account="0151 2287 9664" data-holder="EFREN E TAMBIGA">
-                <span class="check">✓</span>
-                <div class="bank-name">GOTYME</div>
-                <div class="bank-account">0151 2287 9664</div>
-                <div class="bank-holder">Efren E. Tambiga</div>
-                <button type="button" class="bank-copy" data-copy="0151 2287 9664">Copy account number</button>
-              </div>
-            </div>
+            <div class="bank-grid" id="bankGrid"><div class="bank-grid-loading">Loading payment accounts…</div></div>
 
             <div class="pay-instructions">
               <div class="panel-title" style="margin-bottom:0">HOW TO PAY</div>
@@ -636,7 +704,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
       <div class="step-page" id="step5">
         <div class="eyebrow">05 / DIGITAL DELIVERY</div>
         <h1>Your submission is in for review.</h1>
-        <p class="lead">Your payment reference number has been recorded. ArtiPlay Admin will verify the transfer, then email the invoice, signed agreement, and Academy digital asset pack to your registered address.</p>
+        <p class="lead">Your payment reference has been recorded. We'll verify the transfer, then email your invoice, signed agreement, and asset pack to your registered address.</p>
         <div class="success pending" id="deliveryStatusBox"><div class="success-mark" id="deliveryMark">⏳</div><div><strong id="deliveryHeadline">Payment reference submitted — pending admin verification</strong><div id="deliveryMessage">Ready to send the tenant's digital package to the registered email once payment is approved.</div></div></div>
         <div class="panel" style="margin-top:18px">
           <div class="panel-title">WHAT HAPPENS NEXT</div>
@@ -644,7 +712,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
           <div class="commercial-row"><span>2. Confirmation</span><strong>You'll get an email once approved</strong></div>
           <div class="commercial-row"><span>3. Delivery</span><strong>Invoice, signed agreement &amp; asset pack sent</strong></div>
         </div>
-        <div style="margin-top:14px;font:italic 13px var(--serif);color:#7a5c2e">One Academy. One Digital Home. — the ArtiPlay team</div>
+        <div style="margin-top:8px;font-size:11px"><a href="https://join.artiplay.app" target="_blank" rel="noopener" style="color:#765c32;font-weight:800;text-decoration:underline;text-underline-offset:3px">join.artiplay.app</a></div>
         <div class="delivery">
           <div class="asset"><div class="asset-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div><div class="asset-title">Signed Partnership &amp; Platform License Agreement.pdf</div><div class="asset-sub">Final signed legal document</div></div></div>
           <div class="asset"><div class="asset-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></div><div><div class="asset-title">Invoice.pdf</div><div class="asset-sub">₱15,000 initial deployment invoice — issued after verification</div></div></div>
@@ -673,6 +741,12 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
       <button class="primary" id="nextBtn" type="button">Review terms →</button>
     </div>
   </main>
+  <!-- === START: AGREEMENT HINT ELEMENT === -->
+  <div class="agreement-hint" id="agreementHint" data-arrow="top-right">
+    <span class="agreement-hint-dot"></span>
+    <span>Click here to read the full agreement</span>
+  </div>
+  <!-- === END: AGREEMENT HINT ELEMENT === -->
 </div>
 
 <div class="toast-stack" id="toastStack" aria-live="polite"></div>
@@ -681,28 +755,30 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
   <div class="thankyou-card">
     <div class="thankyou-mark">✓</div>
     <div class="thankyou-eyebrow">SUBMISSION COMPLETE</div>
-    <p class="thankyou-lead">Your payment reference number has been recorded. ArtiPlay Admin will verify the transfer, then email the invoice, signed agreement, and Academy digital asset pack to <strong id="thanksEmail">your registered address</strong>.</p>
+    <p class="thankyou-lead">Your payment reference has been recorded. We'll verify the transfer, then email your invoice, signed agreement, and asset pack to <strong id="thanksEmail">your registered address</strong>.</p>
 
     <div class="thankyou-divider"></div>
 
-    <div class="thankyou-footer">One Academy. One Digital Home. — the ArtiPlay team</div>
-
-    <div class="thankyou-contact-label">GET IN TOUCH</div>
+      </div>
+  <div class="thankyou-contact-footer">
     <div class="thankyou-contact">
-      <a class="thankyou-contact-item" href="https://artiplay.app" target="_blank" rel="noopener">
+      <a class="thankyou-contact-item" id="contactJoin" href="https://join.artiplay.app" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        join.artiplay.app
+      </a>
+      <a class="thankyou-contact-item" id="contactSite" href="https://artiplay.app" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14.5 14.5 0 0 1 0 18M12 3a14.5 14.5 0 0 0 0 18"/></svg>
         artiplay.app
       </a>
-      <a class="thankyou-contact-item" href="mailto:support@artiplay.app">
+      <a class="thankyou-contact-item" id="contactEmail" href="mailto:support@artiplay.app">
         <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
         support@artiplay.app
       </a>
-      <a class="thankyou-contact-item" href="tel:+639757764187">
+      <a class="thankyou-contact-item" id="contactPhone" href="tel:+639757764187">
         <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
         0975 776 4187
       </a>
     </div>
-
   </div>
 </div>
 
@@ -723,9 +799,6 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
       <div class="modal-head-right">
         <div id="tb-status" class="tb-status" role="status" aria-live="polite"></div>
         <div class="icon-group">
-          <button type="button" class="icon-btn" id="btn-find" onclick="toggleFindReplace()" title="Find and replace" aria-label="Find and replace">
-            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-          </button>
           <button type="button" class="icon-btn" onclick="window.print()" title="Print / Save as PDF" aria-label="Print">
             <svg viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><path d="M6 18H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2"/><rect x="6" y="14" width="12" height="7"/></svg>
           </button>
@@ -739,13 +812,17 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
         <button class="close" id="closeAgreement" type="button" aria-label="Close">×</button>
       </div>
     </div>
-    <div class="fr-bar" id="frBar" style="display:none;">
-      <input type="text" id="frFind" placeholder="Find in agreement">
-      <input type="text" id="frReplace" placeholder="Replace with">
-      <span id="frCount" class="fr-count">0 matches</span>
-      <button type="button" class="fr-btn" id="frReplaceAll">Replace all</button>
-      <button type="button" class="fr-btn fr-close" id="frClose" aria-label="Close find and replace">×</button>
+    <!-- === START: PORTRAIT MODE BANNER === -->
+    <div class="portrait-suggest" id="portraitSuggest">
+      <span>Want to read this in portrait mode?</span>
+      <button type="button" id="portraitModeBtn">Click here</button>
     </div>
+    <!-- === END: PORTRAIT MODE BANNER === -->
+    <!-- === START: PORTRAIT FLOATING ICON BUTTON === -->
+    <button type="button" class="portrait-fab" id="portraitFab" aria-label="Read in full portrait mode" data-tooltip="Read in portrait mode">
+      <svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+    </button>
+    <!-- === END: PORTRAIT FLOATING ICON BUTTON === -->
     <div class="agreement-scroll"><div class="agreement-doc"><!-- ================= COVER / LETTERHEAD ================= -->
 <div class="cover">
   <div class="letterhead">
@@ -1356,31 +1433,31 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
         </div>
       </div>
       <div class="sign-card">
-        <div class="sc-label">FOR THE ACADEMY</div>
+        <div class="sc-label">FOR THE ACADEMY <span style="font-weight:600;color:#9b9481;letter-spacing:0;text-transform:none">(from Step 3 — reference only)</span></div>
         <div class="sign-line">
-          <label class="sl-label field-required" for="acad_name">ACADEMY NAME</label>
-          <input class="fillable" id="acad_name" name="acad_name" type="text" placeholder="Academy name">
+          <label class="sl-label field-required" for="doc_acad_name">ACADEMY NAME</label>
+          <input class="fillable" id="doc_acad_name" name="doc_acad_name" type="text" placeholder="Academy name" readonly tabindex="-1">
         </div>
         <div class="sign-line">
-          <label class="sl-label field-required" for="acad_rep">AUTHORIZED REPRESENTATIVE</label>
-          <input class="fillable" id="acad_rep" name="acad_rep" type="text" placeholder="Full name" autocomplete="name">
+          <label class="sl-label field-required" for="doc_acad_rep">AUTHORIZED REPRESENTATIVE</label>
+          <input class="fillable" id="doc_acad_rep" name="doc_acad_rep" type="text" placeholder="Full name" readonly tabindex="-1">
         </div>
         <div class="sign-line">
-          <label class="sl-label" for="acad_position">POSITION</label>
-          <input class="fillable" id="acad_position" name="acad_position" type="text" placeholder="Position / title">
+          <label class="sl-label" for="doc_acad_position">POSITION</label>
+          <input class="fillable" id="doc_acad_position" name="doc_acad_position" type="text" placeholder="Position / title" readonly tabindex="-1">
         </div>
         <div class="sign-line">
-          <label class="sl-label field-required" for="acad_signature">SIGNATURE</label>
-          <input class="fillable sig" id="acad_signature" name="acad_signature" type="text" placeholder="Type full name as signature">
-          <div class="field-note">Typed name serves as e-signature</div>
+          <label class="sl-label field-required" for="doc_acad_signature">SIGNATURE</label>
+          <input class="fillable sig" id="doc_acad_signature" name="doc_acad_signature" type="text" placeholder="Captured in Step 3" readonly tabindex="-1">
+          <div class="field-note">Drawn signature captured in Step 3 serves as the e-signature of record</div>
         </div>
         <div class="consent-line">
-          <input type="checkbox" id="acad_consent" name="acad_consent">
-          <label for="acad_consent">I confirm the name typed above is my signature and that I am authorized to sign this Agreement on behalf of the Academy.</label>
+          <input type="checkbox" id="doc_acad_consent" name="doc_acad_consent" disabled tabindex="-1">
+          <label for="doc_acad_consent">Reflects the Academy's consent confirmation captured in Step 3.</label>
         </div>
         <div class="sign-line" style="margin-bottom:0;">
-          <label class="sl-label field-required" for="acad_date">DATE</label>
-          <input class="fillable" id="acad_date" name="acad_date" type="date">
+          <label class="sl-label field-required" for="doc_acad_date">DATE</label>
+          <input class="fillable" id="doc_acad_date" name="doc_acad_date" type="text" placeholder="Set in Step 3" readonly tabindex="-1">
         </div>
       </div>
     </div>
@@ -1389,17 +1466,17 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
       <div class="ct-title">ACADEMY CONTACT</div>
       <div class="contact-grid">
         <div class="cg-item">
-          <label class="sl-label field-required" for="acad_email">EMAIL</label>
-          <input class="fillable" id="acad_email" name="acad_email" type="email" placeholder="email@academy.com" autocomplete="email">
+          <label class="sl-label field-required" for="doc_acad_email">EMAIL</label>
+          <input class="fillable" id="doc_acad_email" name="doc_acad_email" type="email" placeholder="email@academy.com" readonly tabindex="-1">
         </div>
         <div class="cg-item">
-          <label class="sl-label" for="acad_mobile">MOBILE</label>
-          <input class="fillable" id="acad_mobile" name="acad_mobile" type="tel" placeholder="09xxxxxxxxx" autocomplete="tel">
+          <label class="sl-label" for="doc_acad_mobile">MOBILE</label>
+          <input class="fillable" id="doc_acad_mobile" name="doc_acad_mobile" type="tel" placeholder="09xxxxxxxxx" readonly tabindex="-1">
         </div>
       </div>
       <div class="sign-line" style="margin-top:5mm; margin-bottom:0;">
-        <label class="sl-label" for="acad_address">OFFICIAL ACADEMY ADDRESS</label>
-        <input class="fillable" id="acad_address" name="acad_address" type="text" placeholder="Complete address">
+        <label class="sl-label" for="doc_acad_address">OFFICIAL ACADEMY ADDRESS</label>
+        <input class="fillable" id="doc_acad_address" name="doc_acad_address" type="text" placeholder="Complete address" readonly tabindex="-1">
       </div>
     </div>
   </div>
@@ -1423,102 +1500,41 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
   const pages=[1,2,3,4,5];
   let current=1;
   let maxReached=1;
-  const selected=new Set(["White-Label","Academy Operations"]);
-  let selectedBank=null;
+  const selected=new Set();
+  let selectedChannel=null;
   let resizeSignaturePad=null;
 
   /* ============================================================
-     PRICING ENGINE — single source of truth for every ₱ shown
-     in Step 2 (Review) and Step 4 (Payment). Every number the UI
-     displays is computed here, never hand-typed elsewhere, so
-     the source of any figure is always traceable to one of the
-     line items below.
-
-     CONFIRMED WITH BUSINESS (from Agreement Article II & VI):
-       - setupFee.discounted / .regular   → §2.1 Founding Academy Pricing
-       - recurring tiers (999 / 2,999)    → confirmed by academy owner
-       - referral.commissionPct           → §6.1 Direct Referral Commission
-     ASSUMED — NOT YET CONFIRMED (flagged so they're easy to find/change):
-       - headcount definition             → assumed players+coaches combined
-       - module add-on pricing            → assumed $0, bundled in tier
-       - tax handling                     → assumed tax-inclusive, no VAT line
+     PRICING ENGINE — render-only mirror of the backend's copy.
+     The values below are DEFAULTS ONLY, used the instant the page
+     loads so the UI never looks broken while waiting on the network.
+     getPricingConfig() (Code.gs) is the actual source of truth —
+     loadPricingConfig() below overwrites this object as soon as the
+     backend responds. Never hand-edit pricing here only — edit
+     PRICING_CONFIG in Code.gs and this default will simply become
+     a same-second fallback.
      ============================================================ */
-  const PRICING_CONFIG = {
+  let PRICING_CONFIG = {
     currency: '₱',
-
-    // ---- ONE-TIME SETUP / DEPLOYMENT FEE (Agreement §2.1) ----
-    setupFee: {
-      regular: 35000,      // standard reference deployment price, no discount
-      discounted: 15000,   // Founding Academy one-time price (what this flow charges)
-      discountLabel: 'Founding Academy discount'
-    },
-
-    // ---- RECURRING PLATFORM & INFRASTRUCTURE FEE (Agreement §2.2) ----
-    // Tiered by total active seats (players + coaches/staff) on the tenant.
-    // ASSUMPTION: headcount = players + coaches/staff combined. Confirm and
-    // edit `headcountDefinition` + the tier `upTo` value if that's wrong.
+    setupFee: { regular: 35000, discounted: 15000, discountLabel: 'Founding Academy discount' },
     headcountDefinition: 'players + coaches/staff combined',
     recurringTiers: [
-      { upTo: 250,        monthly: 999  },  // 1–250 total seats
-      { upTo: Infinity,   monthly: 2999 }   // 251+ total seats
+      { upTo: 250,      monthly: 999  },
+      { upTo: Infinity, monthly: 2999 }
     ],
-
-    // ---- MODULES SELECTED IN STEP 1 ----
-    // ASSUMPTION: all modules (AI-Assisted, Rewards, Dashboards, Referral)
-    // are bundled into the recurring tier fee above at ₱0 add-on cost, per
-    // Agreement §2.2 ("continued access to supported ArtiPlay features").
-    // To make a module chargeable, give it a non-zero `monthly` here —
-    // the render layer will automatically pick it up and itemize it.
     moduleAddOns: {
-      'White-Label':              0,
-      'Academy Operations':       0,
-      'AI-Assisted':              0,
-      'Rewards & Engagement':     0,
-      'Dashboards & Analytics':   0,
-      'Referral Partner':         0
+      'White-Label': 0, 'Academy Operations': 0, 'AI-Assisted': 0,
+      'Rewards & Engagement': 0, 'Dashboards & Analytics': 0, 'Referral Partner': 0
     },
-
-    // ---- DISCOUNTS ----
-    // Founding Academy pricing IS the discount (35,000 → 15,000). No
-    // separate promo-code or seasonal-discount system exists yet — this
-    // object is a placeholder for future coupon/discount codes.
-    promoDiscounts: {
-      // 'CODE123': { type:'percent', value:10, appliesTo:'setup' }
-    },
-
-    // ---- TAX ----
-    // ASSUMPTION: tax-inclusive, no separate VAT line, because the signed
-    // Agreement's commercial tables (§2.1, §2.2, §9.2) show no VAT line
-    // item. If the business becomes VAT-registered and wants VAT broken
-    // out, set `mode` to 'exclusive' and `ratePct` to e.g. 12 — the render
-    // layer will then show a separate "VAT (12%)" line automatically.
+    promoDiscounts: {},
     tax: { mode: 'inclusive', ratePct: 0, label: 'VAT' },
-
-    // ---- SETUP FEE PRORATION / TRIAL / BILLING CYCLE ----
-    // No trial period exists in the current Agreement. Setup fee is due
-    // before deployment (Agreement §7.1); recurring fee bills monthly on
-    // the Academy's billing date, no mid-cycle proration defined yet.
     billingCycle: 'monthly',
     trialDays: 0,
     setupFeeProration: false,
-
-    // ---- RENEWAL / CANCELLATION / REFUND ----
-    // Renewal: recurring fee auto-continues monthly until terminated
-    // (Agreement §7.1). Cancellation: either party per §7.3 — no early
-    // termination fee defined. Refund: setup fee is non-refundable once
-    // deployment has started; monthly fee is non-refundable/non-prorated
-    // for the current billing cycle upon cancellation.
     renewalPolicy: 'auto-continues monthly until terminated (§7.1, §7.3)',
     cancellationPolicy: 'either party, per §7.3 — no early-termination fee on file',
-      refundPolicy: 'Setup fee non-refundable once deployment has started; monthly platform fee non-refundable and non-prorated for the current billing cycle upon cancellation',
-
-    // ---- REFERRAL COMMISSION (Agreement §6.1) ----
-    referral: {
-      commissionPct: 50,          // % of the ACTUAL setup fee received, not the ₱35,000 reference price
-      appliesTo: 'setupFeeOnly',  // recurring monthly fee is NOT commissionable per §6.1
-      attributionWindowDays: 90,  // §6.2
-      payoutBusinessDays: 15      // §6.2
-    }
+    refundPolicy: 'Setup fee non-refundable once deployment has started; monthly platform fee non-refundable and non-prorated for the current billing cycle upon cancellation',
+    referral: { commissionPct: 50, appliesTo: 'setupFeeOnly', attributionWindowDays: 90, payoutBusinessDays: 15 }
   };
 
   // Returns the recurring monthly fee for a given headcount, per the tier table above.
@@ -1537,7 +1553,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     const tier = getRecurringTier(headcount);
     const setup = isFounding ? cfg.setupFee.discounted : cfg.setupFee.regular;
     const setupDiscountAmount = isFounding ? (cfg.setupFee.regular - cfg.setupFee.discounted) : 0;
-    const moduleAddOnTotal = Object.values(cfg.moduleAddOns).reduce((a,b)=>a+b, 0); // currently always 0 — see moduleAddOns comment
+    const moduleAddOnTotal = Object.values(cfg.moduleAddOns).reduce((a,b)=>a+b, 0);
     const recurringBeforeTax = tier.monthly + moduleAddOnTotal;
     const taxAmount = cfg.tax.mode === 'exclusive' ? Math.round(recurringBeforeTax * (cfg.tax.ratePct/100)) : 0;
     const recurringTotal = recurringBeforeTax + taxAmount;
@@ -1555,7 +1571,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
       taxMode: cfg.tax.mode,
       recurringTotal,
       dueToday: setup,
-      grandTotalDueToday: setup + recurringTotal, // ASSUMPTION: first month is billed together with the setup fee at signup — confirm with business, edit here if setup-only
+      grandTotalDueToday: setup + recurringTotal,
       referralCommission,
       referralPct: cfg.referral.commissionPct
     };
@@ -1564,6 +1580,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
   function fmtPeso(n){ return PRICING_CONFIG.currency + Number(n||0).toLocaleString('en-PH'); }
 
   const $=id=>document.getElementById(id);
+  const hasGoogleScript = ()=> typeof google !== 'undefined' && google.script && google.script.run;
 
   function showToast(message, type){
     const stack=$('toastStack');
@@ -1644,30 +1661,92 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     render();
   }));
 
-  // Bank / e-wallet selection
-  document.querySelectorAll('.bank-card').forEach(card=>{
-    card.addEventListener('click',(e)=>{
-      if(e.target.classList.contains('bank-copy')) return; // handled separately
-      document.querySelectorAll('.bank-card').forEach(c=>c.classList.remove('selected'));
-      card.classList.add('selected');
-      selectedBank=card.dataset.bank;
-      const holder=card.dataset.holder?(' — '+card.dataset.holder):'';
-      $('pay_bank').value=card.dataset.bank+' · '+card.dataset.account+holder;
-    });
-  });
-  document.querySelectorAll('.bank-copy').forEach(btn=>{
-    btn.addEventListener('click',(e)=>{
+  /* ============================================================
+     PAYMENT CHANNELS — rendered from backend data (getPaymentChannels
+     in Code.gs), not hardcoded here. Event delegation is used on the
+     grid container since the cards are (re)built dynamically.
+     ============================================================ */
+  function renderBankGrid(channels){
+    const grid = $('bankGrid');
+    if(!grid) return;
+    if(!channels || !channels.length){
+      grid.innerHTML = '<div class="bank-grid-loading">No payment accounts are configured yet. Please contact ArtiPlay Admin.</div>';
+      return;
+    }
+    grid.innerHTML = channels.map(c => {
+      const holderAttr = c.holderSuffix ? ` data-holder="${c.holderSuffix}"` : '';
+      return `
+        <button class="bank-card" type="button" data-channel-id="${c.id}" data-label="${c.label}" data-account="${c.accountDisplay}"${holderAttr}>
+          <span class="check">✓</span>
+          <div class="bank-name">${c.label}</div>
+          <div class="bank-account">${c.accountDisplay}</div>
+          <div class="bank-holder">${c.holderLabel || ''}</div>
+          <button type="button" class="bank-copy" data-copy="${c.accountRaw}">Copy account number</button>
+        </button>`;
+    }).join('');
+    selectedChannel = null;
+    if($('pay_bank')) $('pay_bank').value='';
+  }
+
+  function applyPaymentChannels(channels){
+    renderBankGrid(channels || []);
+  }
+
+  function loadPaymentChannels(){
+    if(hasGoogleScript()){
+      google.script.run
+        .withSuccessHandler(applyPaymentChannels)
+        .withFailureHandler(()=>{ showToast('Could not load payment accounts. Please refresh the page.','error'); })
+        .getPaymentChannels();
+    } else {
+      // Design-time / non-Apps-Script preview fallback only — the live
+      // deployment always renders from Code.gs's getPaymentChannels().
+      applyPaymentChannels([
+        {id:'bpi',label:'BPI',accountDisplay:'4036 4156 55',accountRaw:'4036415655',holderLabel:'Bank of the Philippine Islands'},
+        {id:'secbank',label:'SECURITY BANK',accountDisplay:'0000 0753 9311 2',accountRaw:'0000075393112',holderLabel:'Security Bank Corporation'},
+        {id:'maribank',label:'MARIBANK',accountDisplay:'1563 7086 918',accountRaw:'1563 7086 918',holderLabel:'Maribank Philippines'},
+        {id:'gotyme',label:'GOTYME',accountDisplay:'0151 2287 9664',accountRaw:'0151 2287 9664',holderLabel:'Efren E. Tambiga',holderSuffix:'Efren E. Tambiga'}
+      ]);
+    }
+  }
+
+  // Event delegation on the grid container — required because cards are
+  // (re)built dynamically from backend data rather than static markup.
+  $('bankGrid').addEventListener('click', (e)=>{
+    const copyBtn = e.target.closest('.bank-copy');
+    if(copyBtn){
       e.stopPropagation();
-      const text=btn.dataset.copy;
+      const text=copyBtn.dataset.copy;
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(text).then(()=>{
-          const original=btn.textContent;
-          btn.textContent='Copied ✓';
-          setTimeout(()=>{btn.textContent=original;},1400);
+          const original=copyBtn.textContent;
+          copyBtn.textContent='Copied ✓';
+          setTimeout(()=>{copyBtn.textContent=original;},1400);
         }).catch(()=>{});
       }
-    });
+      return;
+    }
+    const card = e.target.closest('.bank-card');
+    if(!card) return;
+    $('bankGrid').querySelectorAll('.bank-card').forEach(c=>c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedChannel = { id: card.dataset.channelId, label: card.dataset.label, account: card.dataset.account };
+    const holderSuffix = card.dataset.holder ? (' — ' + card.dataset.holder) : '';
+    $('pay_bank').value = card.dataset.label + ' · ' + card.dataset.account + holderSuffix;
   });
+
+  /* === START: PILL SPRING + HAPTIC === */
+  document.querySelectorAll('.pill').forEach(pill=>{
+    pill.addEventListener('pointerdown',()=>{
+      pill.classList.add('pressed');
+      hapticTap();
+    });
+    const release=()=>pill.classList.remove('pressed');
+    pill.addEventListener('pointerup',release);
+    pill.addEventListener('pointerleave',release);
+    pill.addEventListener('pointercancel',release);
+  });
+  /* === END: PILL SPRING + HAPTIC === */
 
   function refIsValid(){
     return $('pay_reference').value.trim().length>=4;
@@ -1716,7 +1795,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
       if(!$('acad_consent').checked){ guideToField($('acad_consent')); showToast('Please confirm the e-signature acceptance.','warn');return false;}
     }
     if(current===4){
-      if(!selectedBank){ guideToField(document.getElementById('bankGrid')); showToast('Please select the account you sent the payment to.','warn'); return false; }
+      if(!selectedChannel){ guideToField(document.getElementById('bankGrid')); showToast('Please select the account you sent the payment to.','warn'); return false; }
       const amtVal=$('pay_amount').value.trim();
       if(!amtVal){ guideToField($('pay_amount')); showToast('Please enter the amount you sent.','warn'); return false; }
       const enteredAmt=parseFloat(amtVal.replace(/[^0-9.]/g,''))||0;
@@ -1743,9 +1822,66 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     window.addEventListener('popstate', ()=>{ history.pushState(null, '', location.href); });
   }
 
+  /* ============================================================
+     STEP 4 → 5 SUBMISSION — this is the call that used to be
+     entirely missing: the wizard would fake a "submitted" state
+     locally with no backend record at all. Now it calls
+     submitPaymentReference() in Code.gs, and only advances to
+     Step 5 once the backend confirms the record was saved.
+     ============================================================ */
+  function buildPaymentSubmission(){
+    return {
+      acad_name: $('acad_name').value.trim(),
+      acad_rep: $('acad_rep').value.trim(),
+      acad_position: $('acad_position').value.trim(),
+      acad_email: $('acad_email').value.trim(),
+      acad_mobile: $('acad_mobile').value.trim(),
+      acad_address: $('acad_address').value.trim(),
+      acad_signature: acadSignatureDataUrl,
+      selectedFeatures: Array.from(selected),
+      headcount: getHeadcountValue(),
+      channelId: selectedChannel ? selectedChannel.id : '',
+      bankLabel: selectedChannel ? selectedChannel.label : '',
+      amount: parseFloat(($('pay_amount').value||'').replace(/[^0-9.]/g,''))||0,
+      referenceNumber: $('pay_reference').value.trim()
+    };
+  }
+
+  function submitPaymentForVerification(){
+    const data = buildPaymentSubmission();
+    const btn = $('nextBtn');
+    const originalLabel = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    function done(){
+      btn.disabled = false;
+      btn.textContent = originalLabel;
+    }
+
+    if(hasGoogleScript()){
+      google.script.run
+        .withSuccessHandler(res=>{
+          done();
+          if(res && res.success===false){ showToast(res.error || 'Could not submit payment reference.','error'); return; }
+          current=5; render();
+        })
+        .withFailureHandler(err=>{
+          done();
+          showToast('Error submitting payment reference: '+(err && err.message ? err.message : err),'error');
+        })
+        .submitPaymentReference(data);
+    } else {
+      // Design-time / non-Apps-Script preview fallback only.
+      done();
+      current=5; render();
+    }
+  }
+
   $('nextBtn').addEventListener('click',()=>{
     if(!validStep()) return;
     hapticTap();
+    if(current===4){ submitPaymentForVerification(); return; }
     if(current<5){ current++; render(); return; }
     if(current===5){ finishSubmission(); return; }
   });
@@ -1810,9 +1946,181 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     });
   })();
 
+  /* === START: AGREEMENT HINT LOGIC === */
+  (function initAgreementHint(){
+    const hint=$('agreementHint');
+    if(!hint) return;
+    let hideTimer=null;
+
+    function getTargetBtn(){
+      const launcher=$('agreementLauncher');
+      const fab=$('agreementFab');
+      if(launcher && launcher.offsetParent!==null) return {el:launcher,arrow:'top-right'};
+      if(fab && fab.offsetParent!==null) return {el:fab,arrow:'bottom-right'};
+      return null;
+    }
+
+    function positionHint(){
+      const target=getTargetBtn();
+      if(!target){ hint.classList.remove('show'); return; }
+      const rect=target.el.getBoundingClientRect();
+      hint.setAttribute('data-arrow',target.arrow);
+      if(target.arrow==='top-right'){
+        hint.style.top=(rect.bottom+12)+'px';
+        hint.style.left=(rect.right-hint.offsetWidth+10)+'px';
+      } else {
+        hint.style.top=(rect.top-hint.offsetHeight-12)+'px';
+        hint.style.left=(rect.right-hint.offsetWidth+10)+'px';
+      }
+    }
+
+    function showHint(){
+      positionHint();
+      requestAnimationFrame(()=>{ positionHint(); hint.classList.add('show'); });
+      hideTimer=setTimeout(dismissHint,6000);
+    }
+
+    function dismissHint(){
+      hint.classList.remove('show');
+      if(hideTimer){ clearTimeout(hideTimer); hideTimer=null; }
+    }
+
+    hint.addEventListener('pointerdown',()=>{ hint.classList.add('pressed'); hapticTap(); });
+    hint.addEventListener('pointerup',()=>hint.classList.remove('pressed'));
+    hint.addEventListener('pointerleave',()=>hint.classList.remove('pressed'));
+    hint.addEventListener('click',()=>{
+      dismissHint();
+      openCompleteAgreement();
+    });
+
+    ['agreementLauncher','agreementFab'].forEach(id=>{
+      const el=$(id);
+      if(el) el.addEventListener('click',dismissHint);
+    });
+
+    window.addEventListener('resize',()=>{ if(hint.classList.contains('show')) positionHint(); });
+
+    setTimeout(showHint,900);
+  })();
+  /* === END: AGREEMENT HINT LOGIC === */
+
+  /* === START: PORTRAIT MODE TOGGLE === */
+  (function initPortraitMode(){
+    const btn=$('portraitModeBtn');
+    const fab=$('portraitFab');
+    const overlayEl=$('agreementOverlay');
+    const modal=document.querySelector('.agreement-modal');
+    if(!modal) return;
+
+    function setActive(isActive){
+      modal.classList.toggle('force-portrait',isActive);
+      if(fab) fab.classList.toggle('active',isActive);
+    }
+
+    async function enterPortrait(){
+      try{
+        if(overlayEl.requestFullscreen){ await overlayEl.requestFullscreen(); }
+        else if(overlayEl.webkitRequestFullscreen){ await overlayEl.webkitRequestFullscreen(); }
+        if(screen.orientation && screen.orientation.lock){
+          await screen.orientation.lock('portrait');
+        }
+        setActive(true);
+      }catch(err){
+        // Fullscreen or orientation lock unsupported/denied — no rotate hack fallback,
+        // just leave the view as-is so nothing looks sideways.
+        showToast('Portrait lock isn\'t supported on this browser/device.','warn');
+      }
+    }
+
+    async function exitPortrait(){
+      /* === START: RESTORE NORMAL VIEW FIRST, KEEP AGREEMENT OPEN === */
+      // Set visual state back to normal (non-portrait) IMMEDIATELY so the
+      // agreement modal never disappears while the async fullscreen/orientation
+      // exit calls below are still resolving.
+      setActive(false);
+      const overlayNow = $('agreementOverlay');
+      if(overlayNow){
+        overlayNow.classList.add('open');
+        overlayNow.setAttribute('aria-hidden','false');
+      }
+      /* === END: RESTORE NORMAL VIEW FIRST, KEEP AGREEMENT OPEN === */
+      try{
+        if(screen.orientation && screen.orientation.unlock){ screen.orientation.unlock(); }
+        if(document.fullscreenElement && document.exitFullscreen){ await document.exitFullscreen(); }
+        else if(document.webkitFullscreenElement && document.webkitExitFullscreen){ await document.webkitExitFullscreen(); }
+      }catch(err){}
+      // Re-affirm after async exit completes, in case the browser's own
+      // fullscreenchange handling touched anything.
+      setActive(false);
+      if(overlayNow){
+        overlayNow.classList.add('open');
+        overlayNow.setAttribute('aria-hidden','false');
+      }
+    }
+    /* === START: EXPOSE EXIT PORTRAIT FOR X BUTTON === */
+    window.__exitPortraitMode = exitPortrait;
+    /* === END: EXPOSE EXIT PORTRAIT FOR X BUTTON === */
+
+    function togglePortrait(){
+      hapticTap();
+      if(modal.classList.contains('force-portrait')){ exitPortrait(); }
+      else { enterPortrait(); }
+    }
+
+    if(btn) btn.addEventListener('click',togglePortrait);
+    if(fab) fab.addEventListener('click',togglePortrait);
+
+    document.addEventListener('fullscreenchange',()=>{
+      if(!document.fullscreenElement){
+        setActive(false);
+        /* === START: KEEP AGREEMENT VISIBLE ON NATIVE FULLSCREEN EXIT === */
+        const overlayNow = $('agreementOverlay');
+        if(overlayNow){
+          overlayNow.classList.add('open');
+          overlayNow.setAttribute('aria-hidden','false');
+        }
+        /* === END: KEEP AGREEMENT VISIBLE ON NATIVE FULLSCREEN EXIT === */
+      }
+    });
+  })();
+  /* === END: PORTRAIT MODE TOGGLE === */
+
+  /* ============================================================
+     AGREEMENT DOCUMENT — SYNC FROM STEP 3
+     doc_acad_* fields inside the full Agreement were previously
+     literal id duplicates of the Step 3 fields (acad_name, acad_rep,
+     etc.), which meant getElementById always resolved to Step 3's
+     copy and the modal's own inputs were silently dead. They're now
+     uniquely-id'd, read-only mirrors, synced here whenever the
+     agreement is opened, so the document always reflects what the
+     Academy actually entered in Step 3 — with a single source of
+     truth instead of two disconnected forms.
+     ============================================================ */
+  function syncAgreementDocFields(){
+    const map = {
+      doc_acad_name: 'acad_name',
+      doc_acad_rep: 'acad_rep',
+      doc_acad_position: 'acad_position',
+      doc_acad_email: 'acad_email',
+      doc_acad_mobile: 'acad_mobile',
+      doc_acad_address: 'acad_address'
+    };
+    Object.keys(map).forEach(docId=>{
+      const docEl=$(docId), srcEl=$(map[docId]);
+      if(docEl && srcEl) docEl.value = srcEl.value;
+    });
+    const docDate=$('doc_acad_date'), srcDate=$('acad_date');
+    if(docDate && srcDate) docDate.value = srcDate.value;
+    const docSig=$('doc_acad_signature'), srcRep=$('acad_rep');
+    if(docSig && srcRep) docSig.value = srcRep.value ? (srcRep.value + ' (drawn signature on file)') : '';
+    const docConsent=$('doc_acad_consent'), srcConsent=$('acad_consent');
+    if(docConsent && srcConsent) docConsent.checked = srcConsent.checked;
+  }
+
   function openCompleteAgreement(){
     const overlay = $('agreementOverlay');
     if(!overlay) return;
+    syncAgreementDocFields();
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden','false');
     document.body.classList.add('agreement-open');
@@ -1822,17 +2130,31 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
   $('openAgreement').addEventListener('click',openCompleteAgreement);
   $('agreementLauncher').addEventListener('click',openCompleteAgreement);
   $('agreementFab').addEventListener('click',openCompleteAgreement);
-  $('closeAgreement').addEventListener('click',()=>{ $('agreementOverlay').classList.remove('open'); $('agreementOverlay').setAttribute('aria-hidden','true'); document.body.classList.remove('agreement-open'); });
+  /* === START: X BUTTON — EXIT PORTRAIT FIRST, ELSE CLOSE MODAL === */
+  $('closeAgreement').addEventListener('click',()=>{
+    const modalEl = document.querySelector('.agreement-modal');
+    if(modalEl && modalEl.classList.contains('force-portrait') && window.__exitPortraitMode){
+      window.__exitPortraitMode();
+      return;
+    }
+    $('agreementOverlay').classList.remove('open');
+    $('agreementOverlay').setAttribute('aria-hidden','true');
+    document.body.classList.remove('agreement-open');
+  });
+  /* === END: X BUTTON — EXIT PORTRAIT FIRST, ELSE CLOSE MODAL === */
   $('agreementOverlay').addEventListener('click',e=>{if(e.target===$('agreementOverlay')) $('closeAgreement').click();});
   document.addEventListener('keydown',e=>{if(e.key==='Escape' && $('agreementOverlay').classList.contains('open')) $('closeAgreement').click();});
 
-  // Preserve the original Agreement's Google Apps Script hooks when this file
-  // is served inside HTML Service. The original IDs remain in the agreement modal.
+  // Data sent to Code.gs's saveAgreementToSheet() / generateAgreementPdf().
+  // Only the ArtiPlay-side (prov_*) fields and Step 3's canonical acad_*
+  // fields are read — the doc_acad_* mirrors are display-only and are
+  // never submitted, since they're derived, not authoritative.
   window.collectAgreementData=function(){
     const ids=['prov_rep','prov_position','prov_signature','prov_date','prov_consent','acad_name','acad_rep','acad_position','acad_date','acad_consent','acad_email','acad_mobile','acad_address'];
     const data={};
     ids.forEach(id=>{const el=$(id); if(el) data[id]=el.type==='checkbox'?el.checked:el.value;});
     data.acad_signature = acadSignatureDataUrl;
+    data.headcount = getHeadcountValue();
     data.payment_bank=$('pay_bank')?$('pay_bank').value:'';
     data.payment_amount=$('pay_amount')?$('pay_amount').value:'';
     data.payment_reference=$('pay_reference')?$('pay_reference').value:'';
@@ -1864,14 +2186,13 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     if(missing){ tbSetStatus('Please complete: '+missing.id,true); missing.focus(); return false; }
     return true;
   }
-  function tbHasGoogleScript(){ return typeof google!=='undefined'&&google.script&&google.script.run; }
   function tbWithTimeout(seconds){
     return setTimeout(()=>{ tbToggleButtons(false); tbSetStatus('No response from server. Try again.',true); },seconds*1000);
   }
 
   window.saveAgreement=function(){
     if(!tbValidateOrWarn()) return;
-    if(!tbHasGoogleScript()){ tbSetStatus('Google Apps Script is not available in this preview.',true); return; }
+    if(!hasGoogleScript()){ tbSetStatus('Google Apps Script is not available in this preview.',true); return; }
     tbToggleButtons(true); tbSetStatus('Saving...');
     const timer=tbWithTimeout(20);
     const data=window.collectAgreementData();
@@ -1880,7 +2201,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
 
   window.generatePdf=function(){
     if(!tbValidateOrWarn()) return;
-    if(!tbHasGoogleScript()){ tbSetStatus('Google Apps Script is not available in this preview.',true); return; }
+    if(!hasGoogleScript()){ tbSetStatus('Google Apps Script is not available in this preview.',true); return; }
     tbToggleButtons(true); tbSetStatus('Generating PDF...');
     const timer=tbWithTimeout(30);
     const data=window.collectAgreementData();
@@ -1986,7 +2307,30 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     });
   }
 
+  /* ============================================================
+     BACKEND PRICING SYNC
+     getPricingConfig() (Code.gs) is the source of truth. The
+     PRICING_CONFIG default above is only what's on screen for the
+     first instant of the page load — this quietly overwrites it as
+     soon as the backend responds, then re-renders (no visible jump
+     for a first-time visitor since the defaults match exactly).
+     ============================================================ */
+  function applyPricingConfig(cfg){
+    if(cfg) PRICING_CONFIG = cfg;
+    renderPricing();
+  }
+  function loadPricingConfig(){
+    if(hasGoogleScript()){
+      google.script.run
+        .withSuccessHandler(applyPricingConfig)
+        .withFailureHandler(()=>{ /* keep local defaults silently */ })
+        .getPricingConfig();
+    }
+  }
+
   render();
+  loadPricingConfig();
+  loadPaymentChannels();
 })();
 
 /* ===== Find & replace within the agreement document ===== */
