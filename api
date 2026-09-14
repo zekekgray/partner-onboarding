@@ -1,0 +1,604 @@
+function doGet(e) {
+  return HtmlService.createHtmlOutputFromFile('Agreement')
+    .setTitle('ArtiPlay Academy OS — Partner Onboarding')
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1, viewport-fit=cover')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+
+/* =========================================================
+   ARTIPlay MENU
+   ========================================================= */
+
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('ArtiPlay')
+    .addItem('Preview Partner Onboarding', 'previewAgreement')
+    .addItem('Open Full Agreement', 'previewFullAgreement')
+    .addToUi();
+}
+
+
+/* =========================================================
+   PARTNER ONBOARDING PREVIEW
+   ========================================================= */
+
+function previewAgreement() {
+  const html = HtmlService.createHtmlOutputFromFile('Agreement')
+    .setWidth(1280)
+    .setHeight(820);
+
+  SpreadsheetApp.getUi()
+    .showModalDialog(html, 'ArtiPlay Academy OS — Partner Onboarding');
+}
+
+
+/* =========================================================
+   FULL AGREEMENT
+   ========================================================= */
+
+function previewFullAgreement() {
+  const html = HtmlService.createHtmlOutputFromFile('Agreement')
+    .setWidth(1100)
+    .setHeight(800);
+
+  SpreadsheetApp.getUi()
+    .showModalDialog(html, 'ArtiPlay Academy OS — Partnership & Platform License Agreement');
+}
+
+
+/* =========================================================
+   SAVE AGREEMENT
+   ========================================================= */
+
+function saveAgreementToSheet(data) {
+
+  if (!data) {
+    throw new Error('No agreement data was received.');
+  }
+
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+
+  const sheetName = 'Agreements';
+
+  let sheet = ss.getSheetByName(sheetName);
+
+  if (!sheet) {
+    sheet = ss.insertSheet(sheetName);
+
+    sheet.appendRow([
+      'Timestamp',
+      'Academy Name',
+      'Representative',
+      'Position',
+      'Email',
+      'Mobile',
+      'Address',
+      'Signature',
+      'Agreement Date',
+      'Accepted',
+      'Status'
+    ]);
+
+    sheet.setFrozenRows(1);
+  }
+
+  sheet.appendRow([
+    new Date(),
+
+    data.acad_name || '',
+    data.acad_rep || '',
+    data.acad_position || '',
+    data.acad_email || '',
+    data.acad_mobile || '',
+    data.acad_address || '',
+    data.acad_signature || '',
+    data.acad_date || '',
+    data.acad_consent ? 'YES' : 'NO',
+    'SIGNED'
+  ]);
+
+  return {
+    success: true,
+    message: 'Agreement saved successfully.',
+    academy: data.acad_name || '',
+    email: data.acad_email || ''
+  };
+}
+
+
+/* =========================================================
+   GENERATE AGREEMENT PDF
+   ========================================================= */
+
+function generateAgreementPdf(data) {
+
+  if (!data) {
+    throw new Error('No agreement data was received.');
+  }
+
+  if (!data.acad_name ||
+      !data.acad_rep ||
+      !data.acad_email ||
+      !data.acad_signature ||
+      !data.acad_date ||
+      !data.acad_consent) {
+
+    throw new Error(
+      'Incomplete agreement information. Please complete all required fields.'
+    );
+  }
+
+  const folder = getAgreementFolder_();
+
+  const documentName =
+    'ArtiPlay Academy OS — Partnership Agreement — ' +
+    data.acad_name;
+
+  const doc = DocumentApp.create(documentName);
+
+  const body = doc.getBody();
+
+  body.clear();
+
+  /* -----------------------------------------
+     COVER
+     ----------------------------------------- */
+
+  const title = body.appendParagraph('ARTIPLAY');
+  title.setAlignment(DocumentApp.HorizontalAlignment.CENTER);
+
+  title.setFontFamily('Georgia');
+  title.setFontSize(24);
+  title.setBold(true);
+
+  const academyOs = body.appendParagraph('ACADEMY OS');
+  academyOs.setAlignment(DocumentApp.HorizontalAlignment.CENTER);
+  academyOs.setFontFamily('Arial');
+  academyOs.setFontSize(11);
+  academyOs.setBold(true);
+
+  body.appendParagraph('');
+
+  const agreementTitle = body.appendParagraph(
+    'PARTNERSHIP & PLATFORM LICENSE AGREEMENT'
+  );
+
+  agreementTitle.setAlignment(DocumentApp.HorizontalAlignment.CENTER);
+  agreementTitle.setFontFamily('Georgia');
+  agreementTitle.setFontSize(20);
+  agreementTitle.setBold(true);
+
+  body.appendParagraph('');
+
+  const subtitle = body.appendParagraph(
+    'Founding Academy Partnership Agreement'
+  );
+
+  subtitle.setAlignment(DocumentApp.HorizontalAlignment.CENTER);
+  subtitle.setFontFamily('Georgia');
+  subtitle.setFontSize(12);
+
+  body.appendPageBreak();
+
+
+  /* -----------------------------------------
+     PARTIES
+     ----------------------------------------- */
+
+  appendHeading_(body, 'ACADEMY PARTNERSHIP');
+
+  body.appendParagraph(
+    'Provider: ArtiPlay'
+  );
+
+  body.appendParagraph(
+    'Academy: ' + data.acad_name
+  );
+
+  body.appendParagraph(
+    'Authorized Representative: ' + data.acad_rep
+  );
+
+  if (data.acad_position) {
+    body.appendParagraph(
+      'Position / Title: ' + data.acad_position
+    );
+  }
+
+  if (data.acad_address) {
+    body.appendParagraph(
+      'Address: ' + data.acad_address
+    );
+  }
+
+  body.appendParagraph(
+    'Email: ' + data.acad_email
+  );
+
+  if (data.acad_mobile) {
+    body.appendParagraph(
+      'Mobile: ' + data.acad_mobile
+    );
+  }
+
+  body.appendParagraph(
+    'Agreement Date: ' + data.acad_date
+  );
+
+  body.appendPageBreak();
+
+
+  /* -----------------------------------------
+     COMMERCIAL SUMMARY
+     ----------------------------------------- */
+
+  appendHeading_(body, 'FOUNDING ACADEMY COMMERCIAL TERMS');
+
+  body.appendParagraph(
+    'Standard Reference Deployment: ₱35,000'
+  );
+
+  body.appendParagraph(
+    'Founding Academy Deployment: ₱15,000 one-time'
+  );
+
+  body.appendParagraph(
+    'Platform & Infrastructure Fee: ₱999/month'
+  );
+
+  body.appendParagraph(
+    'Custom Development: Quoted separately'
+  );
+
+  body.appendParagraph(
+    'Referral Partner Program: Optional'
+  );
+
+  body.appendParagraph(
+    'Direct Referral Commission: 50% of qualifying initial fee'
+  );
+
+  body.appendPageBreak();
+
+
+  /* -----------------------------------------
+     LICENSE
+     ----------------------------------------- */
+
+  appendHeading_(body, 'PLATFORM LICENSE');
+
+  body.appendParagraph(
+    'The Academy receives a limited, non-exclusive, ' +
+    'non-transferable and revocable license to access and use ' +
+    'its configured ArtiPlay Academy OS environment.'
+  );
+
+  body.appendParagraph(
+    'This Agreement does not transfer ownership of the ArtiPlay ' +
+    'platform, source code, architecture, backend systems, databases, ' +
+    'algorithms, designs, workflows or underlying intellectual property.'
+  );
+
+  body.appendParagraph(
+    'White-label configuration may include Academy name, logo, ' +
+    'colors, imagery, content, announcements, player experience ' +
+    'and supported domain configuration where available.'
+  );
+
+
+  /* -----------------------------------------
+     OPERATIONS
+     ----------------------------------------- */
+
+  appendHeading_(body, 'PLATFORM OPERATIONS & SUPPORT');
+
+  body.appendParagraph(
+    'The recurring platform fee covers the applicable Academy ' +
+    'environment, hosting and infrastructure, database infrastructure, ' +
+    'backups, maintenance, security and infrastructure updates, ' +
+    'bug fixes, monitoring, general support, supported features ' +
+    'and general improvements.'
+  );
+
+
+  /* -----------------------------------------
+     DATA
+     ----------------------------------------- */
+
+  appendHeading_(body, 'DATA & INTELLECTUAL PROPERTY');
+
+  body.appendParagraph(
+    'Academy information and data remain subject to the applicable ' +
+    'terms of the Agreement. ArtiPlay retains ownership of its ' +
+    'platform technology and underlying intellectual property.'
+  );
+
+  body.appendParagraph(
+    'Following termination, the standard data export window is ' +
+    '30 days at no additional charge, with an extended window ' +
+    'available subject to the Agreement.'
+  );
+
+
+  /* -----------------------------------------
+     PRIVACY
+     ----------------------------------------- */
+
+  appendHeading_(body, 'DATA PRIVACY & PROTECTION');
+
+  body.appendParagraph(
+    'The parties will handle applicable personal information and ' +
+    'Academy data in accordance with the Agreement and applicable law.'
+  );
+
+
+  /* -----------------------------------------
+     AI
+     ----------------------------------------- */
+
+  appendHeading_(body, 'AI-ASSISTED FEATURES');
+
+  body.appendParagraph(
+    'AI-assisted outputs may not always be accurate and are intended ' +
+    'to assist users rather than replace professional or operational judgment.'
+  );
+
+  body.appendParagraph(
+    'The Academy remains responsible for decisions made using ' +
+    'information or outputs provided through the platform.'
+  );
+
+
+  /* -----------------------------------------
+     TERMINATION
+     ----------------------------------------- */
+
+  appendHeading_(body, 'PAYMENT & TERMINATION');
+
+  body.appendParagraph(
+    'Initial deployment and recurring platform fees are payable ' +
+    'according to the applicable commercial terms.'
+  );
+
+  body.appendParagraph(
+    'Accounts may be suspended for unpaid amounts. ArtiPlay may ' +
+    'suspend or terminate access for material breach, persistent ' +
+    'non-payment, unauthorized use, abuse, security risk, illegal ' +
+    'activity, reverse engineering or unauthorized duplication/resale.'
+  );
+
+
+  /* -----------------------------------------
+     GENERAL
+     ----------------------------------------- */
+
+  appendHeading_(body, 'GENERAL LEGAL TERMS');
+
+  body.appendParagraph(
+    'The parties are independent businesses. Nothing in this Agreement ' +
+    'creates employment, agency, franchise, joint venture or legal partnership.'
+  );
+
+  body.appendParagraph(
+    'Third-party services may experience outages or changes outside ' +
+    'ArtiPlay’s reasonable control.'
+  );
+
+  body.appendParagraph(
+    'The Agreement is governed by the laws of the Republic of the Philippines.'
+  );
+
+
+  /* -----------------------------------------
+     ACCEPTANCE
+     ----------------------------------------- */
+
+  appendHeading_(body, 'ACCEPTANCE & E-SIGNATURE');
+
+  body.appendParagraph(
+    'The Academy confirms that its authorized representative has reviewed ' +
+    'the Agreement, understands the distinction between platform license ' +
+    'and ownership, accepts the applicable setup and recurring fees, ' +
+    'and agrees to the applicable platform and acceptable-use terms.'
+  );
+
+  body.appendParagraph('');
+
+  body.appendParagraph(
+    'ACADEMY'
+  ).setBold(true);
+
+  body.appendParagraph(
+    data.acad_name
+  );
+
+  body.appendParagraph(
+    'Authorized Representative: ' + data.acad_rep
+  );
+
+  body.appendParagraph(
+    'E-Signature: ' + data.acad_signature
+  );
+
+  body.appendParagraph(
+    'Date: ' + data.acad_date
+  );
+
+  body.appendParagraph('');
+
+  body.appendParagraph(
+    'Electronic Acceptance: CONFIRMED'
+  ).setBold(true);
+
+
+  /* -----------------------------------------
+     FOOTER
+     ----------------------------------------- */
+
+  body.appendParagraph('');
+
+  const footer = body.appendParagraph(
+    'ARTIPLAY™ ACADEMY OS · One Academy. One Digital Home.'
+  );
+
+  footer.setAlignment(DocumentApp.HorizontalAlignment.CENTER);
+  footer.setFontFamily('Arial');
+  footer.setFontSize(8);
+
+
+  doc.saveAndClose();
+
+  /* -----------------------------------------
+     PDF CONVERSION
+     ----------------------------------------- */
+
+  const docFile = DriveApp.getFileById(doc.getId());
+
+  const pdfBlob = docFile
+    .getAs(MimeType.PDF)
+    .setName(documentName + '.pdf');
+
+  const pdfFile = folder.createFile(pdfBlob);
+
+  /* Delete temporary Google Doc */
+  docFile.setTrashed(true);
+
+  return {
+    success: true,
+    url: pdfFile.getUrl(),
+    fileId: pdfFile.getId(),
+    fileName: pdfFile.getName()
+  };
+}
+
+
+/* =========================================================
+   AGREEMENT PDF FOLDER
+   ========================================================= */
+
+function getAgreementFolder_() {
+
+  const folderName = 'ArtiPlay Academy OS — Agreements';
+
+  const folders = DriveApp.getFoldersByName(folderName);
+
+  if (folders.hasNext()) {
+    return folders.next();
+  }
+
+  return DriveApp.createFolder(folderName);
+}
+
+
+/* =========================================================
+   DOCUMENT HEADING HELPER
+   ========================================================= */
+
+function appendHeading_(body, text) {
+
+  const heading = body.appendParagraph(text);
+
+  heading.setFontFamily('Georgia');
+  heading.setFontSize(15);
+  heading.setBold(true);
+
+  heading.setSpacingBefore(18);
+  heading.setSpacingAfter(8);
+
+  return heading;
+}
+// ===== SERVER SIDE (Code.gs) =====
+
+// Store payment channels server-side, not hardcoded in frontend
+function getPaymentChannels() {
+  return [
+    { id: 'bpi', label: 'BPI', accountName: 'Efren E. Tambiga' },
+    { id: 'secbank', label: 'Security Bank', accountName: 'Efren E. Tambiga' },
+    { id: 'maribank', label: 'Maribank', accountName: 'Efren E. Tambiga' },
+    { id: 'gotyme', label: 'GoTyme', accountName: 'Efren E. Tambiga' }
+  ];
+  // Full account numbers fetched separately via a gated endpoint,
+  // only after customer reaches checkout — not exposed in page source.
+}
+
+function getAccountNumber(channelId) {
+  const props = PropertiesService.getScriptProperties();
+  const accounts = JSON.parse(props.getProperty('PAYMENT_ACCOUNTS'));
+  return accounts[channelId] || null;
+}
+
+// Customer submits after paying
+function submitPaymentReference(data) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('PendingPayments');
+  const id = Utilities.getUuid();
+  sheet.appendRow([
+    id,
+    new Date(),
+    data.academyName,
+    data.channelId,
+    data.referenceNumber,
+    data.amount,
+    'PENDING'
+  ]);
+  return { success: true, referenceId: id };
+}
+
+// Admin approves from ArtiPlay admin panel
+function approvePayment(referenceId) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('PendingPayments');
+  const rows = sheet.getDataRange().getValues();
+  const rowIndex = rows.findIndex(r => r[0] === referenceId);
+  if (rowIndex === -1) return { success: false, error: 'Not found' };
+
+  const row = rows[rowIndex];
+  sheet.getRange(rowIndex + 1, 7).setValue('APPROVED'); // status col
+
+  const licenseCode = generateLicenseCode();
+  sheet.getRange(rowIndex + 1, 8).setValue(licenseCode); // save license col
+
+  const invoicePdf = generateInvoicePdf(row);
+  sendApprovalEmail(row, licenseCode, invoicePdf);
+
+  return { success: true, licenseCode };
+}
+
+function generateLicenseCode() {
+  return 'ARTIPLAY-' + Utilities.getUuid().split('-')[0].toUpperCase();
+}
+
+function sendApprovalEmail(row, licenseCode, invoicePdf) {
+  const academyName = row[2];
+  const email = row[8]; // assuming email column
+  MailApp.sendEmail({
+    to: email,
+    subject: 'ArtiPlay Academy License Approved',
+    htmlBody: `
+      <p>Hi ${academyName},</p>
+      <p>Your payment has been verified. Your academy license code is:</p>
+      <h2>${licenseCode}</h2>
+      <p>Your invoice is attached.</p>
+    `,
+    attachments: [invoicePdf]
+  });
+}
+// ===== CLIENT SIDE (checkout.html) =====
+async function submitReference() {
+  const data = {
+    academyName: document.getElementById('academyName').value,
+    channelId: document.getElementById('channel').value,
+    referenceNumber: document.getElementById('refNumber').value,
+    amount: document.getElementById('amount').value
+  };
+
+  document.getElementById('submitBtn').disabled = true;
+  google.script.run
+    .withSuccessHandler(res => {
+      showStatus('Submitted! Waiting for admin approval. You will receive your invoice and license code via email.');
+    })
+    .withFailureHandler(err => {
+      showStatus('Error: ' + err.message);
+      document.getElementById('submitBtn').disabled = false;
+    })
+    .submitPaymentReference(data);
+}
