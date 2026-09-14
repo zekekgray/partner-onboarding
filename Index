@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ArtiPlay Academy OS — Partner Onboarding</title>
+<style>
+:root{
+  --navy:#17203a; --navy2:#202b49; --blue:#24375f; --gold:#cbb27a; --gold2:#e2d2a7;
+  --ivory:#fbfaf6; --paper:#f5f2e8; --line:#ddd3b8; --text:#23283a; --muted:#72798a;
+  --green:#3e7a63; --red:#a3492f;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#e9e6de;color:var(--text);font-family:var(--sans);overflow:hidden}
+body{padding:0}
+button,input{font:inherit}
+input{-webkit-tap-highlight-color:transparent}
+button{cursor:pointer}
+.app{
+  width:100%;height:100vh;height:100dvh;margin:0;
+  display:grid;grid-template-columns:370px minmax(0,1fr);overflow:hidden;border-radius:0;
+  background:var(--ivory);box-shadow:none;border:0
+}
+.rail{
+  background:linear-gradient(165deg,var(--navy) 0%,#141d34 55%,#0e1526 100%);color:#f5f2e8;padding:42px 30px 26px;
+  display:flex;flex-direction:column;position:relative;overflow:hidden
+}
+.rail:after{content:none}
+.rail:before{content:"";position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(203,178,122,.12),transparent 70%);left:-120px;top:-80px;pointer-events:none}
+.brand{position:relative;z-index:1}
+.brand-word{font-size:25px;letter-spacing:.13em;font-weight:600}
+.brand-sub{font-size:11px;letter-spacing:.22em;color:var(--gold2);margin-top:3px}
+.rail-kicker{margin-top:55px;font-size:10px;letter-spacing:.2em;color:var(--gold2);font-weight:700}
+.rail-title{font:400 34px/1.08 var(--serif);margin:12px 0 14px;max-width:280px}
+.rail-copy{font:14px/1.65 var(--sans);color:#bfc5d2;max-width:285px}
+.steps{margin-top:38px;display:grid;gap:4px;position:relative;z-index:1}
+.step-row{display:grid;grid-template-columns:34px 1fr;gap:13px;align-items:center;min-height:56px;opacity:.5;padding:6px 10px;margin:0 -10px;border-radius:14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .3s ease,background .25s ease,transform .45s cubic-bezier(.34,1.56,.64,1)}
+.step-row:hover{background:rgba(255,255,255,.05)}
+.step-row:active{transform:scale(.97)}
+.step-row.active,.step-row.done{opacity:1}
+.step-row.active{background:rgba(255,255,255,.06);backdrop-filter:blur(6px)}
+.step-dot{position:relative;width:34px;height:34px;border:1px solid rgba(255,255,255,.22);border-radius:50%;display:grid;place-items:center;font-size:10px;color:#aeb5c5;background:rgba(255,255,255,.03);backdrop-filter:blur(4px);transition:background .35s ease,border-color .35s ease,color .35s ease,box-shadow .35s ease,transform .45s cubic-bezier(.34,1.56,.64,1)}
+.step-row:not(:last-child) .step-dot::before{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);width:1px;height:26px;background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.04))}
+.step-row.done:not(:last-child) .step-dot::before{background:linear-gradient(180deg,rgba(108,168,140,.55),rgba(108,168,140,.15))}
+.step-row.active .step-dot{background:var(--gold);border-color:var(--gold);color:var(--navy);box-shadow:0 0 0 5px rgba(203,178,122,.12),0 0 18px rgba(203,178,122,.35);transform:scale(1.06)}
+.step-row.done .step-dot{background:rgba(62,122,99,.28);border-color:#6ca88c;color:transparent}
+.step-row.done .step-dot::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#bde0cf;font-size:13px;font-weight:800}
+.step-name{font-size:12px;font-weight:700;letter-spacing:.04em}
+.step-desc{font-size:10px;color:#8f98aa;margin-top:2px}
+.rail-foot{margin-top:auto;padding-top:22px;display:flex;justify-content:center;position:relative;z-index:1}
+.rail-foot span{font-size:8.5px;letter-spacing:.14em;color:#a9b0c2;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:7px 14px;backdrop-filter:blur(6px)}
+.main{min-width:0;min-height:0;background:var(--ivory);display:flex;flex-direction:column}
+.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;border-bottom:1px solid #e5dfd1;background:rgba(251,250,246,.94)}
+.top-status{font-size:10px;letter-spacing:.14em;color:#8b8f99;font-weight:700}
+.top-secure{font-size:10px;color:#687081;display:flex;gap:8px;align-items:center}
+.secure-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.content{padding:38px 44px 30px;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1 1 auto;min-height:0}
+.content::-webkit-scrollbar,.agreement-scroll::-webkit-scrollbar{width:8px}
+.content::-webkit-scrollbar-thumb,.agreement-scroll::-webkit-scrollbar-thumb{background:#d7d0bf;border-radius:10px}
+.eyebrow{font-size:10px;letter-spacing:.18em;color:#8b6b37;font-weight:800}
+h1{font:400 40px/1.08 var(--serif);color:var(--navy);margin:9px 0 10px;letter-spacing:-.02em}
+.lead{font:15px/1.65 var(--serif);color:#606676;max-width:760px;margin:0}
+.step-page{display:none;animation:enter .28s ease}
+.step-page.active{display:block}
+@keyframes enter{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:28px}
+.choice{border:1px solid #ddd7ca;background:#fffdf8;border-radius:16px;padding:20px;min-height:146px;text-align:left;transition:.2s;position:relative}
+.choice:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(23,32,58,.07)}
+.choice.selected{border-color:var(--blue);background:#f6f7fb;box-shadow:inset 0 0 0 1px var(--blue)}
+.choice .check{position:absolute;right:15px;top:15px;width:22px;height:22px;border-radius:50%;border:1px solid #d2d0c8;display:grid;place-items:center;font-size:11px;color:transparent}
+.choice.selected .check{background:var(--navy);border-color:var(--navy);color:#fff}
+.ico{width:40px;height:40px;border-radius:12px;background:#eef0f5;color:var(--navy);display:grid;place-items:center;margin-bottom:17px}
+.ico svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.choice-title{font-weight:800;font-size:13px;color:var(--navy)}
+.choice-copy{font-size:11px;line-height:1.5;color:#777d8a;margin-top:5px}
+.bottom{padding:18px 34px;border-top:1px solid #e5dfd1;display:flex;align-items:center;justify-content:space-between;background:#faf9f5;flex:0 0 auto}
+.back{border:0;background:transparent;color:#707687;font-size:12px;font-weight:700;padding:12px 6px}
+.primary{border:0;background:var(--navy);color:#fff;border-radius:11px;padding:13px 20px;font-size:12px;font-weight:800;min-width:170px;box-shadow:0 8px 20px rgba(23,32,58,.16);transition:transform .45s cubic-bezier(.34,1.56,.64,1),box-shadow .25s ease,background .25s ease;will-change:transform}
+.primary:hover{transform:translateY(-1px);background:#10172b}
+.primary:active{transform:scale(.94);box-shadow:0 4px 10px rgba(23,32,58,.16)}
+.primary:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.secondary{border:1px solid #d8d3c7;background:#fffdf8;color:var(--navy);border-radius:11px;padding:12px 16px;font-size:12px;font-weight:800}
+.summary-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:28px}
+.panel{background:#fffdf8;border:1px solid #dfd9cd;border-radius:18px;padding:23px}
+.panel-title{font-size:11px;letter-spacing:.14em;font-weight:800;color:#7e6742;margin-bottom:15px}
+.commercial-list{display:grid;gap:0}
+.commercial-row{display:flex;justify-content:space-between;gap:18px;padding:12px 0;border-bottom:1px solid #ece7dc;font-size:12px}
+.commercial-row:last-child{border-bottom:0}
+.commercial-row span:first-child{color:#747a88}
+.commercial-row strong{color:var(--navy);text-align:right}
+.price-card{background:var(--navy);color:#fff;border-radius:18px;padding:25px;position:relative;overflow:hidden}
+.price-card:after{content:"";position:absolute;width:190px;height:190px;border:1px solid rgba(203,178,122,.2);border-radius:50%;right:-100px;top:-80px}
+.price-label{font-size:9px;letter-spacing:.15em;color:var(--gold2);font-weight:800}
+.price{font:400 38px var(--serif);margin-top:9px}
+.price-note{font-size:11px;color:#aeb5c4;line-height:1.55;margin-top:5px}
+.rule{height:1px;background:rgba(255,255,255,.12);margin:20px 0}
+.feature-pills{display:flex;flex-wrap:wrap;gap:7px}
+.pill{font-size:9px;padding:7px 9px;border:1px solid rgba(255,255,255,.12);border-radius:999px;color:#c9cfdb}
+.review-strip{margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:15px;background:#f5f2e8;border:1px solid #dfd7c4;padding:14px 16px;border-radius:12px}
+.review-strip span{font-size:11px;color:#626978}
+.link-btn{border:0;background:transparent;color:#765c32;font-size:11px;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:27px}
+.field{display:grid;gap:0;position:relative;background:#fffdf8;border:1px solid #e3ddcc;border-radius:14px;padding:11px 14px 12px;transition:border-color .25s ease,box-shadow .25s ease,transform .2s cubic-bezier(.34,1.56,.64,1);box-shadow:0 1px 2px rgba(23,32,58,.03)}
+.field.full{grid-column:1/-1}
+.field:focus-within{border-color:var(--navy);box-shadow:0 0 0 4px rgba(23,32,58,.08);transform:translateY(-1px)}
+.field label{font-size:9px;letter-spacing:.1em;color:#9a9ea8;font-weight:800;transition:color .2s ease}
+.field:focus-within label{color:var(--navy)}
+.field input{width:100%;border:0;background:transparent;padding:5px 0 0;margin:0;color:var(--navy);font-size:14px;outline:none;font-family:var(--sans);-webkit-appearance:none;appearance:none}
+.field input::placeholder{color:#c3bea9}
+.field input[type="date"]{color-scheme:light;font-variant-numeric:tabular-nums}
+.field input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(13%) sepia(22%) saturate(1200%) hue-rotate(190deg);opacity:.65;cursor:pointer;transition:opacity .2s ease}
+.field input[type="date"]::-webkit-calendar-picker-indicator:hover{opacity:1}
+.field input[inputmode="numeric"],.field input[type="tel"]{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.signature-preview{margin-top:22px;border:1px dashed #c9c0a4;border-radius:16px;background:#fffdf8;padding:20px 18px;text-align:center;transition:border-color .25s ease,background .25s ease}
+.signature-preview:has(.sig-name:not(:empty)){border-style:solid;border-color:var(--gold);background:#fffcf3}
+.sig-name{font:italic 26px var(--serif);color:var(--navy);min-height:34px}
+.consent{margin-top:17px;display:flex;gap:11px;align-items:flex-start;font-size:11px;line-height:1.55;color:#656b78;background:#fffdf8;border:1px solid #e3ddcc;border-radius:14px;padding:14px 16px;transition:border-color .2s ease,background .2s ease}
+.consent:has(input:checked){border-color:var(--navy);background:#f6f7fb}
+.consent input{margin-top:2px;width:17px;height:17px;accent-color:var(--navy);flex-shrink:0}
+.pay-layout{display:grid;grid-template-columns:1fr 330px;gap:22px;margin-top:28px}
+.bank-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px}
+.bank-card{border:1px solid #ddd7ca;background:#fffdf8;border-radius:16px;padding:17px 18px;text-align:left;transition:.2s;position:relative}
+.bank-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(23,32,58,.07)}
+.bank-card.selected{border-color:var(--blue);background:#f6f7fb;box-shadow:inset 0 0 0 1px var(--blue)}
+.bank-card .check{position:absolute;right:14px;top:14px;width:20px;height:20px;border-radius:50%;border:1px solid #d2d0c8;display:grid;place-items:center;font-size:10px;color:transparent}
+.bank-card.selected .check{background:var(--navy);border-color:var(--navy);color:#fff}
+.bank-name{font-weight:800;font-size:12.5px;color:var(--navy);letter-spacing:.02em}
+.bank-account{font:16px/1.3 var(--serif);color:var(--navy);margin-top:8px;letter-spacing:.03em}
+.bank-holder{font-size:10.5px;color:#7d8390;margin-top:4px}
+.bank-copy{margin-top:10px;border:0;background:transparent;color:#765c32;font-size:10.5px;font-weight:800;text-decoration:underline;text-underline-offset:3px;padding:0}
+.pay-instructions{margin-top:18px;background:#f5f2e8;border:1px solid #ddd3b8;border-radius:14px;padding:16px 18px}
+.pay-instructions ol{margin:8px 0 0;padding-left:18px;font-size:11.5px;line-height:1.7;color:#4d5261}
+.pay-instructions ol li{margin-bottom:2px}
+.payment-note{font-size:10px;color:#858b98;line-height:1.5;margin-top:12px}
+.ref-status{display:inline-flex;align-items:center;gap:6px;font-size:9.5px;font-weight:800;letter-spacing:.05em;padding:5px 10px;border-radius:999px;background:#f1ecdb;color:#8b6b37;margin-top:10px}
+.ref-status.ok{background:#e9f3ee;color:#2f6b52}
+.order-box{border:1px solid #ded9ce;border-radius:18px;background:#fffdf8;padding:22px;height:max-content}
+.order-total{display:flex;justify-content:space-between;align-items:end;padding:17px 0;border-bottom:1px solid #e6e1d7}
+.order-total span{font-size:11px;color:#777d88}
+.order-total strong{font:28px var(--serif);color:var(--navy)}
+.recurring{padding:15px 0;font-size:11px;color:#6d7380;display:flex;justify-content:space-between}
+.delivery{margin-top:27px;display:grid;gap:11px}
+.asset{display:flex;align-items:center;gap:13px;padding:14px;border:1px solid #e0dbd0;border-radius:13px;background:#fffdf8}
+.asset-icon{width:38px;height:38px;border-radius:10px;background:#eef0f5;color:var(--navy);display:grid;place-items:center}
+.asset-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6}
+.asset-title{font-size:12px;font-weight:800;color:var(--navy)}
+.asset-sub{font-size:10px;color:#858a95;margin-top:3px}
+.success{margin-top:27px;background:#f1f7f3;border:1px solid #cfe2d6;border-radius:17px;padding:18px;display:flex;gap:14px;align-items:center}
+.success.pending{background:#faf6e9;border-color:#e5d9ab}
+.success-mark{width:40px;height:40px;border-radius:50%;background:#3e7a63;color:white;display:grid;place-items:center;font-weight:800}
+.success.pending .success-mark{background:#b28c3a}
+.success strong{font-size:12px;color:#275844}
+.success.pending strong{color:#7a5c2e}
+.success div:last-child{font-size:11px;color:#65766c;margin-top:3px}
+/* Agreement modal */
+.overlay{position:fixed;inset:0;background:rgba(13,19,35,.68);backdrop-filter:blur(8px);z-index:50;display:none;padding:0}
+.overlay.open{display:flex}
+.agreement-modal{width:100%;height:100%;margin:0;background:#e9e6de;border-radius:0;overflow:hidden;box-shadow:none;display:flex;flex-direction:column}
+.modal-head{height:62px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px 0 24px;flex:0 0 auto}
+.modal-title{font-size:11px;letter-spacing:.13em;font-weight:800}
+.close{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:transparent;color:#fff;display:grid;place-items:center;font-size:19px}
+
+/* Apple-like hover tooltip — works on any element with [data-tooltip] */
+[data-tooltip]{position:relative}
+[data-tooltip]::after{
+  content:attr(data-tooltip);
+  position:absolute;
+  top:50%;
+  right:calc(100% + 9px);
+  transform:translateY(-50%) translateX(4px) scale(.92);
+  background:#1c1c1e;
+  color:#fff;
+  font-family:var(--sans);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.01em;
+  padding:6px 10px;
+  border-radius:7px;
+  white-space:nowrap;
+  pointer-events:none;
+  opacity:0;
+  box-shadow:0 8px 20px rgba(0,0,0,.22);
+  transition:opacity .16s ease, transform .16s cubic-bezier(.34,1.56,.64,1);
+  z-index:80;
+}
+[data-tooltip]:hover::after,[data-tooltip]:focus-visible::after{opacity:1;transform:translateY(-50%) translateX(0) scale(1)}
+@media(max-width:700px){[data-tooltip]::after,[data-tooltip]::before{display:none}}
+.modal-head-right{display:flex;align-items:center;gap:14px}
+.tb-status{font-family:"Helvetica Neue",Arial,sans-serif;font-size:9px;color:#a9b0c2;min-width:110px;text-align:right}
+.icon-group{display:flex;align-items:center;gap:6px;background:rgba(242,239,230,.08);border:1px solid rgba(242,239,230,.14);border-radius:999px;padding:4px}
+.icon-btn{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:50%;width:34px;height:34px;padding:0;display:inline-flex;align-items:center;justify-content:center;transition:background .15s ease,border-color .15s ease,transform .1s ease}
+.icon-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.icon-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.5)}
+.icon-btn:active{transform:scale(.94)}
+.icon-btn:disabled{opacity:.45;cursor:not-allowed}
+.agreement-scroll{overflow:auto;flex:1}
+.agreement-doc{max-width:820px;margin:28px auto 40px;background:var(--ivory);box-shadow:0 4px 28px rgba(23,32,58,.18)}
+.agreement-doc .cover{min-height:760px;padding:55px 62px;display:flex;flex-direction:column;background:#fbfaf6;position:relative}
+.agreement-doc .letterhead{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--navy);padding-bottom:18px}
+.agreement-doc .mark-word{font-size:15px;letter-spacing:.08em;color:var(--navy);font-weight:600}
+.agreement-doc .mark-sub{font-size:10px;letter-spacing:.12em;color:#7a5c2e}
+.agreement-doc .letterhead-doc{text-align:right;font-size:10px;color:#6b7180;line-height:1.5}
+.agreement-doc .cover-title-block{margin-top:130px;text-align:center}
+.agreement-doc .cover-kicker,.agreement-doc .part-kicker{font-size:10px;letter-spacing:.14em;color:#7a5c2e;font-weight:700}
+.agreement-doc .cover-title{font:400 34px/1.25 var(--serif);color:var(--navy);max-width:600px;margin:10px auto 16px}
+.agreement-doc .cover-rule{width:170px;height:1px;background:var(--gold);margin:20px auto}
+.agreement-doc .cover-subtitle{font:italic 15px/1.55 var(--serif);color:#4d5261;max-width:530px;margin:auto}
+.agreement-doc .parties-block{margin:55px auto 0;max-width:650px;width:100%;display:flex;border-top:1px solid #d9d2c0;border-bottom:1px solid #d9d2c0;padding:25px 0}
+.agreement-doc .party{flex:1;text-align:center}
+.agreement-doc .party+.party{border-left:1px solid #d9d2c0}
+.agreement-doc .p-label,.agreement-doc .cover-footer .label,.agreement-doc .sl-label{font-size:9px;letter-spacing:.1em;color:#9b9481}
+.agreement-doc .p-value{font:16px var(--serif);color:var(--navy);margin-top:5px}
+.agreement-doc .cover-tags{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 25px;margin-top:25px;font-size:10px;color:#6b7180}
+.agreement-doc .cover-tags span::before{content:"· ";color:var(--gold)}
+.agreement-doc .cover-tags span:first-child::before{content:""}
+.agreement-doc .cover-footer{margin-top:auto;padding-top:25px;display:flex;justify-content:space-between;gap:15px;border-top:1px solid #d9d2c0;align-items:end}
+.agreement-doc .cover-footer-tagline{font:italic 13px var(--serif);color:#7a5c2e}
+.agreement-doc .toc,.agreement-doc .page-inner{padding:48px 62px 25px}
+.agreement-doc .toc{border-bottom:1px solid #e4dfd4}
+.agreement-doc .toc-heading{font-size:10px;letter-spacing:.14em;color:#7a5c2e}
+.agreement-doc .toc-title{font:400 22px var(--serif);color:var(--navy);margin:5px 0 25px;border-bottom:2px solid var(--navy);padding-bottom:13px}
+.agreement-doc .toc-row{display:flex;gap:18px;padding:11px 0;border-bottom:1px dotted #d9d2c0;text-decoration:none;color:inherit}
+.agreement-doc .toc-num,.agreement-doc .sec-num{color:#7a5c2e;font-size:12px}
+.agreement-doc .toc-label{font-size:13px}
+.agreement-doc .part{padding:28px 0 5px;scroll-margin-top:70px}
+.agreement-doc .part-title{font:400 23px var(--serif);color:var(--navy);margin:5px 0 25px;border-bottom:2px solid var(--navy);padding-bottom:14px}
+.agreement-doc .sec{margin-bottom:25px}
+.agreement-doc .sec-head{display:flex;gap:8px;align-items:baseline;margin-bottom:7px}
+.agreement-doc .sec-title{font-size:15px;font-weight:800;color:var(--navy)}
+.agreement-doc .sec p,.agreement-doc .sec li{font:14px/1.68 var(--serif);color:#383d4a}
+.agreement-doc .sec p{margin:0 0 10px}
+.agreement-doc .sec ul{margin:7px 0 12px;padding-left:22px}
+.agreement-doc .sec li{margin-bottom:5px}
+.agreement-doc .callout-row{display:flex;gap:14px;flex-wrap:wrap;margin:13px 0}
+.agreement-doc .callout{flex:1;min-width:230px;background:#f5f2e8;border:1px solid #ddd3b8;border-left:3px solid #7a5c2e;padding:15px 18px}
+.agreement-doc .callout .k{font-size:9px;letter-spacing:.06em;color:#6b634c}
+.agreement-doc .callout .v{font:21px var(--serif);color:var(--navy);margin-top:4px}
+.agreement-doc .callout .note,.agreement-doc .note-box{font-size:10px;line-height:1.5;color:#6b634c}
+.agreement-doc .note-box{background:#f5f2e8;border:1px solid #ddd3b8;padding:14px 18px;margin:10px 0}
+.agreement-doc table.commercial{width:100%;border-collapse:collapse;font-size:11px;margin-top:12px}
+.agreement-doc table.commercial th{text-align:left;border-bottom:2px solid var(--navy);padding:9px;font-size:9px;letter-spacing:.06em;color:var(--navy)}
+.agreement-doc table.commercial td{padding:9px;border-bottom:1px solid #e3ddc9;color:#383d4a}
+.agreement-doc table.commercial td:last-child,.agreement-doc table.commercial th:last-child{text-align:right}
+.agreement-doc table.commercial tr.highlight td{font-weight:700;background:#f5f2e8;color:var(--navy)}
+.agreement-doc .sign-grid{display:flex;gap:35px;flex-wrap:wrap}
+.agreement-doc .sign-card{flex:1;min-width:270px;border-top:2px solid var(--navy);padding-top:15px}
+.agreement-doc .sc-label{font-size:10px;letter-spacing:.1em;color:#7a5c2e;font-weight:800;margin-bottom:18px}
+.agreement-doc .sign-line{margin-bottom:15px}
+.agreement-doc .fillable{width:100%;border:0;border-bottom:1px solid #c9c0a4;background:transparent;padding:4px 2px;outline:none;color:var(--navy);font-family:var(--serif)}
+.agreement-doc .fillable.sig{font-style:italic;font-size:16px}
+.agreement-doc .field-note,.agreement-doc .consent-line{font-family:var(--sans);font-size:10px;color:#6b634c}
+.agreement-doc .consent-line{display:flex;gap:7px;align-items:flex-start;margin:4px 0 18px}
+.agreement-doc .contact-strip{margin-top:28px;border-top:1px solid #d9d2c0;padding-top:18px}
+.agreement-doc .contact-grid{display:flex;gap:25px}
+.agreement-doc .cg-item{flex:1}
+.agreement-doc .closing{min-height:700px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px;border-top:1px solid #e2ddd1}
+.agreement-doc .closing-word{font-size:10px;letter-spacing:.14em;color:#7a5c2e}
+.agreement-doc .closing-title{font:400 25px var(--serif);color:var(--navy);margin:9px 0}
+.agreement-doc .closing-sub{font:italic 14px/1.65 var(--serif);color:#5b6270;max-width:560px}
+.agreement-doc .closing-tagline{font:italic 15px var(--serif);color:#7a5c2e;margin-top:24px}
+.agreement-doc .closing-built-by{margin-top:35px;font-size:9px;letter-spacing:.06em;color:#9b9481}
+@media(max-width:1000px){
+ .app{grid-template-columns:300px 1fr}
+ .content{padding:30px} .choice-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+ .app{display:flex;flex-direction:column;overflow:hidden;height:100vh} .rail{display:none} .main{flex:1;min-height:0}
+ .topbar{padding:0 18px} .content{padding:25px 18px} .bottom{padding:15px 18px}
+ h1{font-size:32px} .choice-grid,.summary-grid,.pay-layout,.form-grid,.bank-grid{grid-template-columns:1fr}
+ .field.full{grid-column:auto} .overlay{padding:0} .agreement-modal{height:100%;border-radius:0}
+ .agreement-doc{margin:0;box-shadow:none} .agreement-doc .cover,.agreement-doc .toc,.agreement-doc .page-inner{padding:32px 24px}
+ .agreement-doc .cover-title-block{margin-top:70px} .agreement-doc .parties-block,.agreement-doc .contact-grid{flex-direction:column;gap:18px}
+ .agreement-doc .party+.party{border-left:0;border-top:1px solid #d9d2c0;padding-top:18px}
+ .agreement-doc .cover-footer{flex-direction:column;align-items:flex-start}
+}
+
+/* =========================================================
+   COMPLETE AGREEMENT QUICK ACCESS
+   Visible in the top-right of the onboarding application.
+   ========================================================= */
+.topbar-actions{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+.agreement-launcher{
+  appearance:none;
+  border:1px solid rgba(203,178,122,.72);
+  background:#fffdf8;
+  color:var(--navy);
+  border-radius:13px;
+  min-height:48px;
+  padding:6px 12px 6px 7px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  box-shadow:0 7px 20px rgba(23,32,58,.09);
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.agreement-launcher:hover{
+  transform:translateY(-1px);
+  border-color:var(--gold);
+  box-shadow:0 11px 27px rgba(23,32,58,.14);
+}
+.agreement-launcher:active{transform:scale(.985)}
+.agreement-launcher:focus-visible{
+  outline:3px solid rgba(203,178,122,.28);
+  outline-offset:2px;
+}
+.agreement-launcher-icon{
+  width:36px;height:36px;
+  border-radius:10px;
+  background:var(--navy);
+  color:var(--gold2);
+  display:grid;
+  place-items:center;
+  flex:0 0 36px;
+}
+.agreement-launcher-icon svg{
+  width:19px;height:19px;
+  fill:none;stroke:currentColor;
+  stroke-width:1.55;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.agreement-launcher-text{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  line-height:1.1;
+}
+.agreement-launcher-text strong{
+  font-size:11px;
+  letter-spacing:.04em;
+  font-weight:800;
+}
+.agreement-launcher-text small{
+  margin-top:4px;
+  font-size:8px;
+  letter-spacing:.07em;
+  color:#7a7f8b;
+  text-transform:uppercase;
+}
+
+
+.agreement-fab{display:none}
+@media(max-width:760px){
+  .topbar{padding:0 14px}
+  .topbar-actions{gap:0}
+  .top-secure{display:none}
+  .agreement-launcher{display:none}
+  .agreement-fab{
+    display:grid;
+    place-items:center;
+    position:fixed;
+    right:18px;
+    bottom:88px;
+    width:50px;height:50px;
+    border:1px solid #000;
+    border-radius:50%;
+    background:#fff;
+    color:#000;
+    z-index:40;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  .agreement-fab:active{transform:scale(.9)}
+  .agreement-fab svg{
+    width:22px;height:22px;
+    fill:none;stroke:currentColor;
+    stroke-width:1.55;
+    stroke-linecap:round;stroke-linejoin:round;
+  }
+}
+.fr-bar{display:flex;align-items:center;gap:8px;padding:10px 20px;background:#fffdf8;border-bottom:1px solid #ded9cb;flex:0 0 auto}
+.fr-bar input{border:1px solid #d8d3c7;border-radius:8px;padding:7px 10px;font-size:12px;font-family:var(--sans);outline:none;background:#fff;color:var(--navy)}
+.fr-bar input:focus{border-color:var(--navy)}
+#frFind{width:220px}
+#frReplace{width:220px}
+.fr-count{font-size:11px;color:#8b8f99;min-width:90px}
+.fr-btn{border:1px solid #d8d3c7;background:#fff;border-radius:8px;padding:7px 12px;font-size:11px;font-weight:800;color:var(--navy);cursor:pointer}
+.fr-btn:hover{background:#f5f2e8}
+.fr-close{width:30px;padding:0;font-size:16px;color:#767c89;border:none;background:transparent}
+mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
+@media(max-width:700px){.fr-bar{flex-wrap:wrap}#frFind,#frReplace{width:140px}}
+
+.toast-stack{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:10px;align-items:center;pointer-events:none;width:calc(100% - 32px);max-width:420px}
+.toast{pointer-events:auto;display:flex;align-items:flex-start;gap:11px;background:#17203a;color:#f5f2e8;border:1px solid rgba(203,178,122,.35);border-radius:14px;padding:13px 16px;box-shadow:0 14px 34px rgba(23,32,58,.32);font-family:"Helvetica Neue",Arial,sans-serif;font-size:12.5px;line-height:1.5;opacity:0;transform:translateY(14px) scale(.96);transition:opacity .25s ease,transform .3s cubic-bezier(.34,1.56,.64,1);max-width:100%}
+.toast.show{opacity:1;transform:translateY(0) scale(1)}
+.toast.leaving{opacity:0;transform:translateY(-6px) scale(.97)}
+.toast-icon{flex:0 0 20px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;margin-top:1px}
+.toast.warn .toast-icon{background:#cbb27a;color:#17203a}
+.toast.error .toast-icon{background:#c0745a;color:#2a1410}
+.toast-msg{flex:1}
+.toast-close{flex:0 0 auto;background:transparent;border:0;color:#aeb5c5;font-size:15px;line-height:1;padding:2px 0 0 4px}
+@media(max-width:700px){.toast-stack{bottom:18px;width:calc(100% - 24px)}}
+
+.thankyou-full{position:fixed;inset:0;z-index:150;background:radial-gradient(circle at 50% -10%,rgba(203,178,122,.10),transparent 45%),linear-gradient(165deg,var(--navy) 0%,#141d34 55%,#0e1526 100%);display:none;align-items:center;justify-content:center;padding:56px 24px;overflow-y:auto}
+.thankyou-full.show{display:flex}
+.thankyou-full.show .thankyou-card{animation:tyRise .6s cubic-bezier(.22,1,.36,1)}
+@keyframes tyRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.thankyou-card{max-width:460px;width:100%;text-align:center;color:#f5f2e8}
+.thankyou-mark{width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--gold2),var(--gold));color:var(--navy);display:grid;place-items:center;margin:0 auto 30px;font-size:32px;font-weight:800;box-shadow:0 0 0 8px rgba(203,178,122,.09),0 18px 40px rgba(0,0,0,.32)}
+.thankyou-eyebrow{font-size:10px;letter-spacing:.24em;color:var(--gold2);font-weight:800}
+.thankyou-title{font:400 32px/1.25 var(--serif);margin:14px 0 0}
+.thankyou-title span{color:var(--gold2)}
+.thankyou-lead{font:15px/1.75 var(--serif);color:#b7bdcc;max-width:400px;margin:20px auto 0}
+.thankyou-lead strong{color:#f5f2e8;font-weight:600}
+.thankyou-divider{width:44px;height:1px;background:rgba(203,178,122,.4);margin:36px auto}
+.thankyou-panel{margin-top:0;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:26px 24px;text-align:left;backdrop-filter:blur(6px)}
+.thankyou-panel .panel-title{color:var(--gold2);font-size:10px;letter-spacing:.18em;margin-bottom:17px}
+.thankyou-panel .commercial-row{border-bottom:1px solid rgba(255,255,255,.07);padding:11px 0;font-size:11.5px}
+.thankyou-panel .commercial-row:last-child{border-bottom:0;padding-bottom:0}
+.thankyou-panel .commercial-row:first-child{padding-top:0}
+.thankyou-panel .commercial-row span:first-child{color:#9aa0b2}
+.thankyou-panel .commercial-row strong{color:#f0ede4;font-weight:600}
+.thankyou-footer{margin-top:32px;font:italic 14px var(--serif);color:var(--gold2);letter-spacing:.01em}
+.thankyou-contact-label{margin-top:38px;font-size:9px;letter-spacing:.2em;color:#7d84a0;font-weight:700}
+.thankyou-contact{margin-top:16px;display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
+.thankyou-contact-item{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:10px 18px;font-size:11px;color:#dfe2ea;text-decoration:none;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.thankyou-contact-item:hover{background:rgba(203,178,122,.10);border-color:rgba(203,178,122,.55);transform:translateY(-1px)}
+.thankyou-contact-item svg{width:13px;height:13px;stroke:var(--gold2);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:0 0 13px}
+.thankyou-note{margin-top:34px;font-size:9.5px;letter-spacing:.08em;color:#7d84a0}
+@media(max-width:480px){.thankyou-contact{flex-direction:column;align-items:stretch}.thankyou-contact-item{justify-content:center}}
+</parameter>
+
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="rail">
+    <div class="brand"><div class="brand-word">ARTIPLAY</div><div class="brand-sub">ACADEMY OS</div></div>
+    <div class="rail-kicker">PARTNER ONBOARDING</div>
+    <div class="rail-title">One academy.<br>One digital home.</div>
+    <div class="rail-copy">A guided experience for reviewing, accepting, and activating your Academy partnership.</div>
+    <div class="steps">
+      <div class="step-row active" data-step="1"><div class="step-dot">01</div><div><div class="step-name">Configure</div><div class="step-desc">Choose the academy experience</div></div></div>
+      <div class="step-row" data-step="2"><div class="step-dot">02</div><div><div class="step-name">Review</div><div class="step-desc">Commercial &amp; legal essentials</div></div></div>
+      <div class="step-row" data-step="3"><div class="step-dot">03</div><div><div class="step-name">Sign</div><div class="step-desc">Accept and e-sign</div></div></div>
+      <div class="step-row" data-step="4"><div class="step-dot">04</div><div><div class="step-name">Payment</div><div class="step-desc">Bank transfer &amp; verification</div></div></div>
+      <div class="step-row" data-step="5"><div class="step-dot">05</div><div><div class="step-name">Delivery</div><div class="step-desc">Invoice &amp; digital asset pack</div></div></div>
+    </div>
+    <div class="rail-foot"><span>FOUNDING ACADEMY SERIES · DOCUMENT 2.0</span></div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="top-status" id="topStatus">PARTNERSHIP &amp; PLATFORM LICENSE</div>
+      <div class="topbar-actions">
+        <button class="agreement-launcher" id="agreementLauncher" type="button"
+                aria-label="Open complete Partnership and Platform License Agreement"
+                data-tooltip="Agreement">
+          <span class="agreement-launcher-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M7 3.5h7L18 7.5v13H7z"/>
+              <path d="M14 3.5V7.5h4"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="step-page active" id="step1">
+        <div class="eyebrow">01 / CONFIGURE YOUR ACADEMY</div>
+        <h1>Choose what your academy needs.</h1>
+        <p class="lead">Select the platform capabilities you want activated for this tenant. The exact features available depend on the selected configuration and subscription.</p>
+        <div class="choice-grid">
+          <button class="choice selected" data-feature="White-Label" type="button"><span class="check">✓</span><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M8 9h13"/></svg></div><div class="choice-title">White-Label Experience</div><div class="choice-copy">Academy identity, logo, colors, imagery, content and supported access point.</div></button>
+          <button class="choice selected" data-feature="Academy Operations" type="button"><span class="check">✓</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="M8 16v-4M12 16V8M16 16v-7"/></svg></div><div class="choice-title">Academy Operations</div><div class="choice-copy">Coach/admin tools, training, attendance, events and academy administration.</div></button>
+          <button class="choice" data-feature="AI-Assisted" type="button"><span class="check">✓</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><path d="m5.6 5.6 2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></div><div class="choice-title">AI-Assisted</div><div class="choice-copy">Vex™ or other AI-assisted functionality where included in the configuration.</div></button>
+          <button class="choice" data-feature="Rewards & Engagement" type="button"><span class="check">✓</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-3.5-6.6"/><path d="M20 5v6h-6"/></svg></div><div class="choice-title">Rewards &amp; Engagement</div><div class="choice-copy">Achievements, rewards, points, store and player engagement experiences.</div></button>
+          <button class="choice" data-feature="Dashboards & Analytics" type="button"><span class="check">✓</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="m7 15 3-4 3 2 4-6"/></svg></div><div class="choice-title">Dashboards &amp; Analytics</div><div class="choice-copy">Academy-facing dashboards and analytics for operational visibility.</div></button>
+          <button class="choice" data-feature="Referral Partner" type="button"><span class="check">✓</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.2 1.2"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.2-1.2"/></svg></div><div class="choice-title">Referral Partner</div><div class="choice-copy">Optional Academy Partner referral arrangement with qualifying commission terms.</div></button>
+        </div>
+
+        <div class="panel" style="margin-top:22px">
+          <div class="panel-title" style="margin-bottom:10px">ESTIMATED ACADEMY SIZE</div>
+          <p class="row-sub" style="margin:0 0 14px;color:#777d8a;font-size:11.5px;line-height:1.5">This sets your monthly platform tier. Counts every active seat on the tenant — players, coaches, and admins combined.</p>
+          <div class="form-grid" style="margin-top:0">
+            <div class="field full">
+              <label>TOTAL PLAYERS + COACHES/STAFF *</label>
+              <input id="headcount_input" type="text" inputmode="numeric" placeholder="e.g. 120">
+            </div>
+          </div>
+          <div id="tierPreview" class="ref-status" style="margin-top:12px">Enter a headcount to see your monthly tier</div>
+        </div>
+      </div>
+
+      <div class="step-page" id="step2">
+        <div class="eyebrow">02 / REVIEW BEFORE SIGNING</div>
+        <h1>The important terms, at a glance.</h1>
+        <p class="lead">The full Agreement remains available in its original legal form. This screen surfaces the commercial decisions and protections the tenant should understand first.</p>
+        <div class="summary-grid">
+          <div class="panel">
+            <div class="panel-title">FOUNDING ACADEMY COMMERCIAL SUMMARY</div>
+            <div class="commercial-list">
+              <div class="commercial-row"><span>Standard reference deployment (no discount)</span><strong id="sumRegularSetup">₱35,000</strong></div>
+              <div class="commercial-row"><span>Founding Academy discount applied</span><strong id="sumDiscountAmount" style="color:var(--green)">−₱20,000</strong></div>
+              <div class="commercial-row"><span>Founding Academy deployment (one-time)</span><strong id="sumSetupFee">₱15,000</strong></div>
+              <div class="commercial-row"><span>Academy size / tier</span><strong id="sumTierLabel">Enter headcount in Step 1</strong></div>
+              <div class="commercial-row"><span>Platform &amp; infrastructure (monthly)</span><strong id="sumRecurring">— / month</strong></div>
+              <div class="commercial-row" id="sumTaxRow" style="display:none"><span id="sumTaxLabel">VAT</span><strong id="sumTaxAmount">₱0</strong></div>
+              <div class="commercial-row"><span>Module add-ons</span><strong id="sumModuleAddOns">₱0 — bundled in tier</strong></div>
+              <div class="commercial-row"><span>Billing cycle</span><strong>Monthly, auto-continues until terminated</strong></div>
+              <div class="commercial-row"><span>Trial period</span><strong>None</strong></div>
+              <div class="commercial-row"><span>Proration on setup fee</span><strong>Not applicable — due in full before deployment</strong></div>
+              <div class="commercial-row"><span>Referral Partner</span><strong>Optional</strong></div>
+              <div class="commercial-row"><span>Direct referral commission</span><strong id="sumReferralPct">50% of the actual setup fee received</strong></div>
+              <div class="commercial-row"><span>Cancellation</span><strong>Either party — no early-termination fee on file</strong></div>
+              <div class="commercial-row"><span>Refund policy</span><strong>Setup fee non-refundable once deployment starts; monthly fee non-refundable/non-prorated on cancellation</strong></div>
+              <div class="commercial-row"><span>Data export window</span><strong>30 days standard</strong></div>
+              <div class="commercial-row"><span>Post-termination retention</span><strong>90 days</strong></div>
+              <div class="commercial-row"><span>Uptime target</span><strong>99% monthly</strong></div>
+              <div class="commercial-row"><span>Backup</span><strong>Daily · 7-day rolling</strong></div>
+            </div>
+          </div>
+          <div>
+            <div class="price-card">
+              <div class="price-label">FOUNDING ACADEMY DEPLOYMENT</div>
+              <div class="price" id="priceCardSetup">₱15,000</div>
+              <div class="price-note">One-time initial White-Label deployment under the Founding Academy commercial terms.</div>
+              <div class="rule"></div>
+              <div class="price-label">THEN</div>
+              <div style="font:25px var(--serif);margin-top:5px" id="priceCardRecurring">— / month</div>
+              <div class="price-note" id="priceCardTierNote">Enter your academy's headcount in Step 1 to see your monthly tier.</div>
+              <div class="rule"></div>
+              <div class="price-label">GRAND TOTAL DUE TODAY</div>
+              <div style="font:25px var(--serif);margin-top:5px" id="priceCardGrandTotal">₱15,000</div>
+              <div class="price-note">Founding Academy deployment + first month's platform fee, billed together at signup.</div>
+              <div class="rule"></div>
+              <div class="feature-pills"><span class="pill">Tenant environment</span><span class="pill">Platform updates</span><span class="pill">Bug fixes</span><span class="pill">General support</span></div>
+            </div>
+            <div class="review-strip"><span>Need the complete legal wording?</span><button class="link-btn" type="button" id="openAgreement">Open full agreement ↗</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-page" id="step3">
+        <div class="eyebrow">03 / ACCEPT &amp; E-SIGN</div>
+        <h1>Make the partnership official.</h1>
+        <p class="lead">Enter the Academy representative details. Your typed full name is used as the e-signature in the same manner supported by the original Agreement.</p>
+        <div class="form-grid">
+          <div class="field"><label>ACADEMY NAME *</label><input id="acad_name" type="text" placeholder="Academy name"></div>
+          <div class="field"><label>AUTHORIZED REPRESENTATIVE *</label><input id="acad_rep" type="text" placeholder="Full name"></div>
+          <div class="field"><label>POSITION / TITLE</label><input id="acad_position" type="text" placeholder="Position / title"></div>
+          <div class="field"><label>EMAIL *</label><input id="acad_email" type="email" placeholder="email@academy.com"></div>
+          <div class="field"><label>MOBILE</label><input id="acad_mobile" type="tel" placeholder="09xxxxxxxxx"></div>
+          <div class="field"><label>DATE *</label><input id="acad_date" type="date"></div>
+          <div class="field full"><label>OFFICIAL ACADEMY ADDRESS</label><input id="acad_address" type="text" placeholder="Complete address"></div>
+        </div>
+        <div class="signature-preview" style="text-align:left">
+          <div class="panel-title">DRAW YOUR SIGNATURE *</div>
+          <canvas id="acad_signature_pad" width="760" height="160" style="width:100%;max-width:100%;height:160px;background:#fffdf8;border:1px solid #e3ddcc;border-radius:10px;touch-action:none;cursor:crosshair;display:block"></canvas>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div style="font-size:10px;color:#9a9ea8">Draw with your mouse, stylus, or finger.</div>
+            <button type="button" id="sigClearBtn" class="secondary" style="padding:8px 14px">Clear</button>
+          </div>
+        </div>
+        <label class="consent"><input id="acad_consent" type="checkbox"><span>I confirm the signature drawn above is my own, I am authorized to sign this Agreement on behalf of the Academy, and I accept the applicable Agreement terms and commercial fees.</span></label>
+      </div>
+
+      <div class="step-page" id="step4">
+        <div class="eyebrow">04 / PAYMENT</div>
+        <h1>Complete the initial deployment.</h1>
+        <p class="lead">Pay the Founding Academy deployment fee by bank or e-wallet transfer to any of the accounts below, then submit your reference number for verification. Your admin will confirm receipt before the invoice is issued.</p>
+        <div class="pay-layout">
+          <div>
+            <div class="panel-title" style="margin-top:0">CHOOSE A RECEIVING ACCOUNT</div>
+            <div class="bank-grid" id="bankGrid">
+              <button class="bank-card" type="button" data-bank="BPI" data-account="4036 4156 55">
+                <span class="check">✓</span>
+                <div class="bank-name">BPI</div>
+                <div class="bank-account">4036 4156 55</div>
+                <div class="bank-holder">Bank of the Philippine Islands</div>
+                <button type="button" class="bank-copy" data-copy="4036 4156 55">Copy account number</button>
+              </button>
+              <button class="bank-card" type="button" data-bank="Security Bank" data-account="0000075393112">
+                <span class="check">✓</span>
+                <div class="bank-name">SECURITY BANK</div>
+                <div class="bank-account">0000 0753 9311 2</div>
+                <div class="bank-holder">Security Bank Corporation</div>
+                <button type="button" class="bank-copy" data-copy="0000075393112">Copy account number</button>
+              </button>
+              <button class="bank-card" type="button" data-bank="Maribank" data-account="1563 7086 918">
+                <span class="check">✓</span>
+                <div class="bank-name">MARIBANK</div>
+                <div class="bank-account">1563 7086 918</div>
+                <div class="bank-holder">Maribank Philippines</div>
+                <button type="button" class="bank-copy" data-copy="1563 7086 918">Copy account number</button>
+              </button>
+              <button class="bank-card" type="button" data-bank="GoTyme" data-account="0151 2287 9664" data-holder="EFREN E TAMBIGA">
+                <span class="check">✓</span>
+                <div class="bank-name">GOTYME</div>
+                <div class="bank-account">0151 2287 9664</div>
+                <div class="bank-holder">Efren E. Tambiga</div>
+                <button type="button" class="bank-copy" data-copy="0151 2287 9664">Copy account number</button>
+              </button>
+            </div>
+
+            <div class="pay-instructions">
+              <div class="panel-title" style="margin-bottom:0">HOW TO PAY</div>
+              <ol>
+                <li>Select the account you'll be sending payment to above.</li>
+                <li>Transfer <strong>₱15,000</strong> from your bank or e-wallet app to that account.</li>
+                <li>Copy the reference / transaction number from your bank's confirmation receipt.</li>
+                <li>Paste the reference number below and submit for verification.</li>
+                <li>ArtiPlay Admin will review and approve your payment — you'll be notified once confirmed.</li>
+              </ol>
+            </div>
+
+            <div class="form-grid" style="margin-top:20px">
+              <div class="field"><label>ACCOUNT PAID TO</label><input id="pay_bank" type="text" placeholder="Select an account above" readonly></div>
+              <div class="field"><label>AMOUNT SENT (₱) *</label><input id="pay_amount" type="text" inputmode="decimal" placeholder="e.g. 15000"><div id="amountMismatchNote" style="font-size:9.5px;color:#a3492f;margin-top:4px;display:none">Doesn't match the grand total due today</div></div>
+              <div class="field full"><label>PAYMENT REFERENCE / TRANSACTION NUMBER *</label><input id="pay_reference" type="text" placeholder="e.g. from your bank's confirmation receipt"></div>
+            </div>
+            <div id="refStatus" class="ref-status">Awaiting reference number</div>
+
+            <div class="payment-note">This preview does not process or move funds automatically. Payment is completed manually by the Academy through its own banking app, and verified by ArtiPlay Admin using the submitted reference number before the Agreement moves to Delivery.</div>
+          </div>
+          <div class="order-box">
+            <div class="panel-title">ORDER SUMMARY</div>
+            <div class="commercial-row"><span>Founding Academy deployment</span><strong id="orderSetupFee">₱15,000</strong></div>
+            <div class="commercial-row"><span>Platform fee (first month)</span><strong id="orderFirstMonth">— / month</strong></div>
+            <div class="order-total"><span>GRAND TOTAL DUE TODAY</span><strong id="orderDueToday">₱15,000</strong></div>
+            <div class="recurring"><span>Then, platform fee</span><strong id="orderRecurring">— / month</strong></div>
+            <div class="commercial-row" id="orderTaxRow" style="display:none"><span id="orderTaxLabel">VAT</span><strong id="orderTaxAmount">₱0</strong></div>
+            <div class="commercial-row"><span>Academy size</span><strong id="orderHeadcount">Not entered</strong></div>
+            <div class="commercial-row"><span>Selected configuration</span><strong id="selectedCount">2 features</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-page" id="step5">
+        <div class="eyebrow">05 / DIGITAL DELIVERY</div>
+        <h1>Your submission is in for review.</h1>
+        <p class="lead">Your payment reference number has been recorded. ArtiPlay Admin will verify the transfer, then email the invoice, signed agreement, and Academy digital asset pack to your registered address.</p>
+        <div class="success pending" id="deliveryStatusBox"><div class="success-mark" id="deliveryMark">⏳</div><div><strong id="deliveryHeadline">Payment reference submitted — pending admin verification</strong><div id="deliveryMessage">Ready to send the tenant's digital package to the registered email once payment is approved.</div></div></div>
+        <div class="panel" style="margin-top:18px">
+          <div class="panel-title">WHAT HAPPENS NEXT</div>
+          <div class="commercial-row"><span>1. Verification</span><strong>Admin reviews your payment reference</strong></div>
+          <div class="commercial-row"><span>2. Confirmation</span><strong>You'll get an email once approved</strong></div>
+          <div class="commercial-row"><span>3. Delivery</span><strong>Invoice, signed agreement &amp; asset pack sent</strong></div>
+        </div>
+        <div style="margin-top:14px;font:italic 13px var(--serif);color:#7a5c2e">One Academy. One Digital Home. — the ArtiPlay team</div>
+        <div class="delivery">
+          <div class="asset"><div class="asset-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div><div class="asset-title">Signed Partnership &amp; Platform License Agreement.pdf</div><div class="asset-sub">Final signed legal document</div></div></div>
+          <div class="asset"><div class="asset-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></div><div><div class="asset-title">Invoice.pdf</div><div class="asset-sub">₱15,000 initial deployment invoice — issued after verification</div></div></div>
+          <div class="asset"><div class="asset-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg></div><div><div class="asset-title">Academy Digital Asset Pack.pdf</div><div class="asset-sub">Onboarding information and tenant setup essentials</div></div></div>
+        </div>
+        <div class="panel" style="margin-top:18px">
+          <div class="panel-title">PAYMENT &amp; DELIVERY STATUS</div>
+          <div class="commercial-row"><span>Academy</span><strong id="finalAcademy">—</strong></div>
+          <div class="commercial-row"><span>Registered email</span><strong id="finalEmail">—</strong></div>
+          <div class="commercial-row"><span>Signed by</span><strong id="finalSignedBy">—</strong></div>
+          <div class="commercial-row"><span>Paid to</span><strong id="finalBank">—</strong></div>
+          <div class="commercial-row"><span>Reference number</span><strong id="finalReference">—</strong></div>
+          <div class="commercial-row"><span>Verification status</span><strong style="color:#b28c3a" id="finalStatus">Pending admin approval</strong></div>
+          <div style="margin-top:14px;padding-top:14px;border-top:1px solid #ece7dc">
+            <div style="font-size:9px;letter-spacing:.1em;color:#9a9ea8;font-weight:800;margin-bottom:8px">CAPTURED E-SIGNATURE</div>
+            <img id="finalSignatureImg" src="" alt="Academy signature" style="max-width:220px;max-height:70px;display:none;background:#fffdf8;border:1px solid #e3ddcc;border-radius:8px;padding:6px">
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="bottom">
+      <button class="back" id="backBtn" type="button">← Back</button>
+      <div style="font-size:10px;color:#858a95" id="footerStatus">Select your configuration to continue.</div>
+      <button class="primary" id="nextBtn" type="button">Review terms →</button>
+    </div>
+  </main>
+</div>
+
+<div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+<div class="thankyou-full" id="thankYouFull" role="dialog" aria-modal="true" aria-label="Submission complete">
+  <div class="thankyou-card">
+    <div class="thankyou-mark">✓</div>
+    <div class="thankyou-eyebrow">SUBMISSION COMPLETE</div>
+    <p class="thankyou-lead">Your payment reference number has been recorded. ArtiPlay Admin will verify the transfer, then email the invoice, signed agreement, and Academy digital asset pack to <strong id="thanksEmail">your registered address</strong>.</p>
+
+    <div class="thankyou-divider"></div>
+
+    <div class="thankyou-footer">One Academy. One Digital Home. — the ArtiPlay team</div>
+
+    <div class="thankyou-contact-label">GET IN TOUCH</div>
+    <div class="thankyou-contact">
+      <a class="thankyou-contact-item" href="https://artiplay.app" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14.5 14.5 0 0 1 0 18M12 3a14.5 14.5 0 0 0 0 18"/></svg>
+        artiplay.app
+      </a>
+      <a class="thankyou-contact-item" href="mailto:support@artiplay.app">
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        support@artiplay.app
+      </a>
+      <a class="thankyou-contact-item" href="tel:+639757764187">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
+        0975 776 4187
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Mobile / narrow-screen Agreement quick access -->
+<button class="agreement-fab" id="agreementFab" type="button"
+        aria-label="Open complete Partnership and Platform License Agreement"
+        data-tooltip="Agreement">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M7 3.5h7L18 7.5v13H7z"/>
+    <path d="M14 3.5V7.5h4"/>
+  </svg>
+</button>
+
+<div class="overlay" id="agreementOverlay" aria-hidden="true">
+  <div class="agreement-modal" role="dialog" aria-modal="true" aria-label="Full Partnership Agreement">
+    <div class="modal-head">
+      <div class="modal-title">ARTIPLAY™ · PARTNERSHIP &amp; PLATFORM LICENSE AGREEMENT · VERSION 2.0</div>
+      <div class="modal-head-right">
+        <div id="tb-status" class="tb-status" role="status" aria-live="polite"></div>
+        <div class="icon-group">
+          <button type="button" class="icon-btn" id="btn-find" onclick="toggleFindReplace()" title="Find and replace" aria-label="Find and replace">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          </button>
+          <button type="button" class="icon-btn" onclick="window.print()" title="Print / Save as PDF" aria-label="Print">
+            <svg viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><path d="M6 18H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2"/><rect x="6" y="14" width="12" height="7"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="btn-pdf" onclick="generatePdf()" title="Generate PDF" aria-label="Generate PDF">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="btn-save" onclick="saveAgreement()" title="Save" aria-label="Save">
+            <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
+          </button>
+        </div>
+        <button class="close" id="closeAgreement" type="button" aria-label="Close">×</button>
+      </div>
+    </div>
+    <div class="fr-bar" id="frBar" style="display:none;">
+      <input type="text" id="frFind" placeholder="Find in agreement">
+      <input type="text" id="frReplace" placeholder="Replace with">
+      <span id="frCount" class="fr-count">0 matches</span>
+      <button type="button" class="fr-btn" id="frReplaceAll">Replace all</button>
+      <button type="button" class="fr-btn fr-close" id="frClose" aria-label="Close find and replace">×</button>
+    </div>
+    <div class="agreement-scroll"><div class="agreement-doc"><!-- ================= COVER / LETTERHEAD ================= -->
+<div class="cover">
+  <div class="letterhead">
+    <div class="letterhead-mark">
+      <div>
+        <div class="mark-word">ARTIPLAY</div>
+        <div class="mark-sub">ACADEMY OS</div>
+      </div>
+    </div>
+    <div class="letterhead-doc">
+      Document Version 2.0<br>
+      Founding Academy Series
+    </div>
+  </div>
+
+  <div class="cover-title-block">
+    <div class="cover-kicker">ACADEMY PARTNERSHIP AGREEMENT</div>
+    <h1 class="cover-title">Partnership &amp; Platform License Agreement</h1>
+    <div class="cover-rule"></div>
+    <p class="cover-subtitle">Governing the Academy's access to, and use of, the ArtiPlay Academy OS platform.</p>
+
+    <div class="parties-block">
+      <div class="party">
+        <div class="p-label">PROVIDER</div>
+        <div class="p-value">ArtiPlay</div>
+      </div>
+      <div class="party">
+        <div class="p-label">ACADEMY</div>
+        <div class="p-value">[ Academy Name ]</div>
+      </div>
+    </div>
+
+    <div class="cover-tags">
+      <span>White-Label Ready</span>
+      <span>Founding Academy Terms</span>
+      <span>Referral Partner Program</span>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div class="cover-footer-block">
+      <div class="label">PLATFORM</div>
+      <div class="value">ArtiPlay™ Academy OS</div>
+    </div>
+    <div class="cover-footer-block">
+      <div class="label">GOVERNING LAW</div>
+      <div class="value">Republic of the Philippines</div>
+    </div>
+    <div class="cover-footer-tagline">One Academy. One Digital Home.</div>
+  </div>
+</div>
+
+<!-- ================= TABLE OF CONTENTS ================= -->
+<div class="toc">
+  <div class="toc-heading">CONTENTS</div>
+  <h2 class="toc-title">Table of Articles</h2>
+  <a class="toc-row" href="#art-1"><div class="toc-num">I.</div><div class="toc-label">The Platform</div></a>
+  <a class="toc-row" href="#art-2"><div class="toc-num">II.</div><div class="toc-label">Founding Academy Commercial Terms</div></a>
+  <a class="toc-row" href="#art-3"><div class="toc-num">III.</div><div class="toc-label">Accounts, Data &amp; Intellectual Property</div></a>
+  <a class="toc-row" href="#art-4"><div class="toc-num">IV.</div><div class="toc-label">Data Privacy &amp; Protection</div></a>
+  <a class="toc-row" href="#art-5"><div class="toc-num">V.</div><div class="toc-label">Platform Operations &amp; Support</div></a>
+  <a class="toc-row" href="#art-6"><div class="toc-num">VI.</div><div class="toc-label">Growth &amp; Referral Partnership</div></a>
+  <a class="toc-row" href="#art-7"><div class="toc-num">VII.</div><div class="toc-label">Payment &amp; Termination</div></a>
+  <a class="toc-row" href="#art-8"><div class="toc-num">VIII.</div><div class="toc-label">General Legal Terms</div></a>
+  <a class="toc-row" href="#art-9"><div class="toc-num">IX.</div><div class="toc-label">Acceptance, Commercial Summary &amp; Signatures</div></a>
+</div>
+
+<div class="page-inner">
+
+<!-- ================= ARTICLE I ================= -->
+<div class="part" id="art-1">
+  <div class="part-kicker">ARTICLE I</div>
+  <div class="part-title">The Platform</div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§1.1</div><div class="sec-title">Purpose</div></div>
+    <p>This Agreement establishes the Academy's access to and use of the ArtiPlay Academy OS — a digital platform built to support academy operations, player engagement, communication, training administration, achievements, rewards, academy services, and related digital experiences.</p>
+    <p>Depending on the Academy's activated configuration, ArtiPlay may include:</p>
+    <ul class="tight">
+      <li>Player and parent-facing application interfaces</li>
+      <li>Coach and administrator tools</li>
+      <li>Training and attendance management</li>
+      <li>RSVP and event functionality</li>
+      <li>Player achievements</li>
+      <li>Academy announcements and messaging</li>
+      <li>Rewards and points systems</li>
+      <li>Academy store functionality</li>
+      <li>Player engagement features</li>
+      <li>ByteSense™ or related performance/scoring features</li>
+      <li>Vex™ or other AI-assisted features</li>
+      <li>Academy dashboards and analytics</li>
+      <li>Digital academy content</li>
+      <li>White-label branding and academy-specific presentation</li>
+      <li>Other features introduced by the Provider from time to time</li>
+    </ul>
+    <p>The exact features available to the Academy depend on its selected configuration and subscription.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§1.2</div><div class="sec-title">Grant of License</div></div>
+    <p>Subject to compliance with this Agreement and payment of applicable fees, the Provider grants the Academy a limited, non-exclusive, non-transferable, revocable license to access and use its configured ArtiPlay environment for the Academy's internal operations and authorized members.</p>
+    <p>The Academy does not acquire ownership of ArtiPlay, its source code, architecture, backend systems, databases, algorithms, designs, workflows, or underlying intellectual property. <strong class="inline">The license is for use of the platform — not ownership of the platform.</strong></p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§1.3</div><div class="sec-title">White-Label Experience</div></div>
+    <p>Where a White-Label configuration is purchased, the Provider may configure the ArtiPlay experience to reflect the Academy's identity, including its name, logo, colors, imagery, content, announcements, player experience, and — where available — a dedicated domain or access point.</p>
+    <p>The Academy may represent the configured application as its digital academy platform for its members. However, all underlying software, technology, architecture, systems, source code, frameworks, components, and intellectual property remain the exclusive property of the Provider unless expressly agreed otherwise in writing.</p>
+  </div>
+</div>
+
+<!-- ================= ARTICLE II ================= -->
+<div class="part" id="art-2">
+  <div class="part-kicker">ARTICLE II</div>
+  <div class="part-title">Founding Academy Commercial Terms</div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§2.1</div><div class="sec-title">Founding Academy Pricing</div></div>
+    <p>For the Academy's initial deployment, the Provider may extend a special Founding Academy rate for the White-Label deployment.</p>
+    <div class="callout-row">
+      <div class="callout">
+        <div class="k">INITIAL WHITE-LABEL DEPLOYMENT</div>
+        <div class="v"><span class="strike">₱35,000</span>₱15,000</div>
+        <div class="note">One-time · Founding Academy price</div>
+      </div>
+    </div>
+    <p>The Founding Academy price is a special commercial arrangement and does not establish the regular market price of future ArtiPlay deployments. It may be extended in consideration of the Academy serving as an early deployment, product feedback partner, demonstration environment, and potential referral partner.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§2.2</div><div class="sec-title">Platform &amp; Infrastructure Fee</div></div>
+    <div class="callout-row">
+      <div class="callout">
+        <div class="k">RECURRING PLATFORM FEE</div>
+        <div class="v">₱999<span class="unit"> / month</span></div>
+      </div>
+    </div>
+    <p>This recurring fee covers the Academy's continued access to the ArtiPlay platform, and may include:</p>
+    <ul class="tight">
+      <li>Platform hosting and Academy environment</li>
+      <li>Database infrastructure and automated backups as described in §5.10</li>
+      <li>System maintenance, security, and infrastructure updates</li>
+      <li>Bug fixes and platform monitoring</li>
+      <li>General technical support</li>
+      <li>Continued access to supported ArtiPlay features</li>
+      <li>General platform improvements and updates</li>
+    </ul>
+    <p>The monthly platform fee does not automatically include custom software development requested exclusively for the Academy.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§2.3</div><div class="sec-title">Custom Development</div></div>
+    <p>Requests that materially change or extend the standard ArtiPlay platform may be treated as Custom Development — for example, new modules, custom workflows or integrations, specialized reporting, major UI restructuring, custom automation, custom database architecture, or academy-specific functionality outside the standard platform.</p>
+    <p>Custom Development may be quoted separately. No custom development is considered included in the monthly platform fee unless expressly stated in writing.</p>
+  </div>
+</div>
+
+<!-- ================= ARTICLE III ================= -->
+<div class="part" id="art-3">
+  <div class="part-kicker">ARTICLE III</div>
+  <div class="part-title">Accounts, Data &amp; Intellectual Property</div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§3.1</div><div class="sec-title">Academy Account &amp; Tenant Environment</div></div>
+    <p>Each participating Academy may be provisioned with its own logical Academy environment ("Tenant"), configured with Academy-specific settings, branding, administrators, coaches, players, and other authorized users.</p>
+    <p>The Academy is responsible for ensuring that only authorized individuals receive access, and shall promptly notify the Provider of suspected unauthorized access, compromised credentials, or misuse of the platform.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§3.2</div><div class="sec-title">Academy Administrators</div></div>
+    <p>The Academy shall designate one or more authorized administrators, who may be responsible for managing users, academy information, announcements, player and training/event information, academy content, activity review, and access permissions.</p>
+    <p>The Academy is responsible for actions performed through its administrator accounts.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§3.3</div><div class="sec-title">Player, Parent &amp; Member Information</div></div>
+    <p>The Academy remains responsible for the accuracy and lawful collection of information submitted by or on behalf of its players, parents, coaches, and members, and for obtaining any required permissions, notices, or consents — including appropriate parent or legal guardian permissions where minors use the platform.</p>
+    <p>The Provider shall use Academy data for purposes reasonably necessary to operate, maintain, secure, support, and improve the platform, subject to applicable law and the Parties' agreed privacy arrangements.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§3.4</div><div class="sec-title">Data Ownership</div></div>
+    <p>The Academy retains its rights to its Academy-specific operational information and content — including player and coach records, training information, announcements, academy-created content, branding, and academy-specific records. The Provider does not obtain ownership of this information merely because it is stored or processed through ArtiPlay.</p>
+    <p>The Provider, in turn, retains ownership of the ArtiPlay software, source code, architecture, infrastructure, databases and structures, algorithms, AI systems, UI and design systems, templates, proprietary workflows, platform components, documentation, trademarks, branding, product concepts, and technical methodologies.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§3.5</div><div class="sec-title">Intellectual Property</div></div>
+    <p>All intellectual property associated with ArtiPlay remains the property of the Provider unless expressly transferred through a separate written agreement. The Academy may not:</p>
+    <ul class="tight">
+      <li>Copy the ArtiPlay source code or reverse engineer the platform</li>
+      <li>Reproduce the platform for another organization</li>
+      <li>Sell or sublicense the underlying software</li>
+      <li>Extract proprietary systems or architecture</li>
+      <li>Create a competing platform substantially based on ArtiPlay</li>
+      <li>Remove proprietary notices</li>
+      <li>Represent the underlying ArtiPlay technology as its own software</li>
+    </ul>
+    <p>White-labeling changes the Academy-facing identity of the platform but does not transfer ownership of the underlying technology.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§3.6</div><div class="sec-title">Academy Branding</div></div>
+    <p>The Academy grants the Provider permission to use the Academy's name, logo, and approved branding materials solely to configure, operate, demonstrate, and support the Academy's ArtiPlay environment. The Provider may request permission before publicly displaying the Academy as a customer, case study, or reference partner.</p>
+    <p>The Academy may withdraw permission for public promotional use by written notice, subject to previously published materials and reasonable removal periods.</p>
+  </div>
+</div>
+
+<!-- ================= ARTICLE IV — DATA PRIVACY &amp; PROTECTION ================= -->
+<div class="part" id="art-4">
+  <div class="part-kicker">ARTICLE IV</div>
+  <div class="part-title">Data Privacy &amp; Protection</div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§4.1</div><div class="sec-title">Roles of the Parties</div></div>
+    <p>For personal data processed through ArtiPlay in connection with the Academy's players, parents/guardians, coaches, and staff ("Academy Personal Data"), the Academy acts as the <strong class="inline">Personal Information Controller</strong> and the Provider acts as the <strong class="inline">Personal Information Processor</strong>, each as defined under the Philippine Data Privacy Act of 2012 (Republic Act No. 10173) and its Implementing Rules and Regulations ("DPA"). The Provider processes Academy Personal Data only on the Academy's documented instructions, as reflected in this Agreement and the Academy's configuration of the platform.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§4.2</div><div class="sec-title">Purpose and Scope of Processing</div></div>
+    <p>The Provider shall process Academy Personal Data solely for the following purposes: operating and maintaining the Academy's ArtiPlay environment; enabling player, parent, and coach account access; administering attendance, training, RSVP, achievements, rewards, and communication features; providing academy dashboards and analytics to the Academy; delivering platform support; and improving the security, stability, and performance of ArtiPlay. The Provider shall not use Academy Personal Data for its own independent marketing purposes, nor sell or trade Academy Personal Data to third parties.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§4.3</div><div class="sec-title">Data Retention</div></div>
+    <div class="callout-row">
+      <div class="callout">
+        <div class="k">ACTIVE ACCOUNT RETENTION</div>
+        <div class="v">Duration <span class="unit">of subscription</span></div>
+        <div class="note">Academy Personal Data is retained for as long as the Academy's account remains active</div>
+      </div>
+      <div class="callout">
+        <div class="k">POST-TERMINATION RETENTION</div>
+        <div class="v">90 <span class="unit">days</span></div>
+        <div class="note">Default window before deletion or anonymization, unless a longer period is required by law</div>
+      </div>
+    </div>
+    <p>Following the retention window above, the Provider shall delete or irreversibly anonymize Academy Personal Data from its production systems, except where retention is required to comply with a legal obligation, resolve a dispute, or enforce this Agreement. Backup copies are purged in the ordinary course of the Provider's backup rotation cycle.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§4.4</div><div class="sec-title">Data Subject Requests</div></div>
+    <p>The Academy is the primary point of contact for data subject requests (access, correction, erasure, objection, or portability) from its players, parents, or coaches. Where a data subject request is submitted directly to the Provider, the Provider shall promptly forward it to the Academy and reasonably assist the Academy in responding within the timelines required under the DPA. The Provider shall provide reasonable technical assistance to export, correct, or delete specific data subject records upon the Academy's written request.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§4.5</div><div class="sec-title">Security Measures</div></div>
+    <p>The Provider shall implement reasonable and appropriate organizational, physical, and technical security measures to protect Academy Personal Data against accidental or unlawful destruction, alteration, disclosure, or access, including:</p>
+    <ul class="tight">
+      <li>Encryption of data in transit</li>
+      <li>Access controls limiting internal access to authorized personnel on a need-to-know basis</li>
+      <li>Regular security patching and monitoring of platform infrastructure</li>
+      <li>Logical separation of each Academy's Tenant environment and data</li>
+      <li>Periodic review of access permissions and administrator accounts</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§4.6</div><div class="sec-title">Personal Data Breach Notification</div></div>
+    <p>If the Provider becomes aware of a personal data breach affecting Academy Personal Data that is reasonably likely to require notification to the National Privacy Commission or affected data subjects under the DPA, the Provider shall notify the Academy without undue delay, and in any event within <strong class="inline">72 hours</strong> of becoming aware of the breach. The notification shall describe, to the extent known, the nature of the breach, the categories and approximate number of data subjects and records affected, the likely consequences, and the measures taken or proposed to address the breach. The Academy remains responsible for making any required notification to the National Privacy Commission and to affected data subjects, with the Provider's reasonable cooperation.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§4.7</div><div class="sec-title">Subprocessors</div></div>
+    <p>The Academy authorizes the Provider to engage third-party subprocessors (such as cloud hosting, database, storage, communication, or AI service providers) reasonably necessary to operate ArtiPlay, provided that each subprocessor is bound by data protection obligations materially consistent with this Article. The Provider remains responsible for each subprocessor's compliance with this Agreement. A current list of material subprocessors is available to the Academy upon written request.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§4.8</div><div class="sec-title">Cross-Border Data Transfers</div></div>
+    <p>Academy Personal Data may be hosted, stored, or processed on servers located outside the Philippines, including through the Provider's cloud infrastructure and subprocessors. Where such a transfer occurs, the Provider shall ensure that the receiving party is bound by data protection obligations that provide a comparable level of protection to that required under the DPA.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§4.9</div><div class="sec-title">Children's and Minors' Data</div></div>
+    <div class="note-box">
+      <strong>Minors on the Platform</strong> — Where players using ArtiPlay are minors, the Academy is responsible for obtaining verifiable parental or legal guardian consent prior to enabling the minor's account, and for ensuring that only information reasonably necessary for academy operations (e.g., name, age group, training records, achievements) is collected. The Provider shall not knowingly use minors' personal data for profiling, advertising, or any purpose beyond the operation of the Academy's ArtiPlay environment.
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§4.10</div><div class="sec-title">Data Handling After Termination</div></div>
+    <p>Upon termination of this Agreement, and subject to §6.4 (Data Export After Termination), the Provider shall make Academy Personal Data available for export within a reasonable period, and shall thereafter delete or anonymize Academy Personal Data from its active systems in accordance with §4.3, unless retention is required by law or necessary to resolve an outstanding dispute or obligation between the Parties.</p>
+  </div>
+</div>
+
+<!-- ================= ARTICLE V ================= -->
+<div class="part" id="art-5">
+  <div class="part-kicker">ARTICLE V</div>
+  <div class="part-title">Platform Operations &amp; Support</div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§5.1</div><div class="sec-title">Platform Evolution</div></div>
+    <p>ArtiPlay is an evolving software platform. The Provider may improve existing features, modify technical infrastructure, improve security, update interfaces, add new capabilities, replace obsolete technologies, introduce new modules, improve performance, and retire features that are no longer commercially or technically viable — while endeavoring to maintain the Academy's core experience.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§5.2</div><div class="sec-title">Availability &amp; Maintenance</div></div>
+    <p>The Provider will use commercially reasonable efforts to maintain the availability of ArtiPlay. Temporary interruptions may occur due to maintenance, software updates, infrastructure failures, third-party service outages, internet disruptions, security incidents, force majeure events, or other circumstances outside the Provider's reasonable control. Uninterrupted or error-free operation is not guaranteed at all times.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§5.3</div><div class="sec-title">Support</div></div>
+    <p>The monthly platform fee includes reasonable platform-related support within the capabilities of the Provider's support system. Support does not include unlimited custom development; requests requiring substantial development, investigation, data restructuring, or custom implementation may be quoted separately.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§5.4</div><div class="sec-title">Uptime Target</div></div>
+    <div class="callout-row">
+      <div class="callout">
+        <div class="k">MONTHLY UPTIME TARGET</div>
+        <div class="v">99<span class="unit">%</span></div>
+        <div class="note">Measured monthly; a target, not a guaranteed service level</div>
+      </div>
+    </div>
+    <p>The Provider targets 99% platform availability measured on a monthly basis. This target excludes: scheduled maintenance performed in accordance with §4.7; outages or degraded performance caused by the Provider's third-party infrastructure, hosting, or cloud service providers that are outside the Provider's reasonable control; internet service disruptions affecting the Academy's own connectivity; and force majeure events. Failure to meet the uptime target does not, by itself, constitute a material breach of this Agreement, but repeated or sustained failure to meet the target may be raised by the Academy for good-faith discussion of remediation or commercial adjustment.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§5.5</div><div class="sec-title">Severity Levels</div></div>
+    <table class="commercial">
+      <thead>
+        <tr><th>Severity</th><th>Definition</th></tr>
+      </thead>
+      <tbody>
+        <tr class="highlight"><td>Critical</td><td>Platform is completely inaccessible to substantially all Academy users, with no available workaround</td></tr>
+        <tr><td>High</td><td>A major feature (e.g., login, attendance, payments) is broken or unusable, with no reasonable workaround</td></tr>
+        <tr><td>Medium</td><td>A feature is impaired or behaving incorrectly, but a workaround exists or impact is limited</td></tr>
+        <tr><td>Low</td><td>Cosmetic issue, minor inconvenience, or a request for clarification/enhancement</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§5.6</div><div class="sec-title">Response &amp; Resolution Targets</div></div>
+    <table class="commercial">
+      <thead>
+        <tr><th>Severity</th><th>Target First Response</th><th>Target Resolution</th></tr>
+      </thead>
+      <tbody>
+        <tr class="highlight"><td>Critical</td><td>Within 4 hours</td><td>Best effort, ongoing updates every 4–6 hours until resolved</td></tr>
+        <tr><td>High</td><td>Within 1 business day</td><td>Best effort within 3 business days</td></tr>
+        <tr><td>Medium</td><td>Within 2 business days</td><td>Best effort within the next scheduled update cycle</td></tr>
+        <tr><td>Low</td><td>Within 5 business days</td><td>Addressed at the Provider's discretion in a future update</td></tr>
+      </tbody>
+    </table>
+    <p>Resolution targets are best-effort service objectives, not guaranteed deadlines. Actual resolution time may vary depending on the complexity of the issue, dependency on third-party infrastructure providers, and whether the issue originates from the Academy's own data, configuration, or third-party integrations.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§5.7</div><div class="sec-title">Scheduled Maintenance Notice</div></div>
+    <p>The Provider shall provide the Academy with at least 24 hours' advance notice of scheduled maintenance reasonably expected to cause platform downtime or degraded performance, through the Academy's registered contact channel. Shorter or no advance notice may be given for urgent security patches or fixes reasonably necessary to protect the platform or Academy data from an active or imminent threat.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§5.8</div><div class="sec-title">Emergency Incident Procedure</div></div>
+    <p>For Critical and High severity incidents, the Provider shall:  (a) acknowledge the incident within the response target in §5.6; (b) provide the Academy with a brief description of the known impact and, where available, an estimated timeframe for resolution; (c) provide periodic status updates until the incident is resolved; and (d) upon request, provide the Academy a brief written summary after resolution describing the cause and corrective steps taken, where the cause is reasonably known.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§5.9</div><div class="sec-title">Dependency on Third-Party Infrastructure</div></div>
+    <div class="note-box">
+      <strong>Shared Responsibility</strong> — ArtiPlay is built on third-party cloud hosting, database, and deployment infrastructure providers. The availability, performance, and security commitments of those third-party providers form part of the practical foundation of the uptime and response targets in this Article. Where an outage, data incident, or degraded performance originates solely from such a third-party provider's own service failure, and is outside the Provider's reasonable control, the Provider's obligation is limited to using commercially reasonable efforts to mitigate impact, communicate status to the Academy, and pursue remediation through the responsible third-party provider.
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§5.10</div><div class="sec-title">Backup &amp; Disaster Recovery</div></div>
+    <div class="callout-row">
+      <div class="callout">
+        <div class="k">BACKUP FREQUENCY</div>
+        <div class="v">Daily<span class="unit"> automated</span></div>
+        <div class="note">Automated database backups performed at least once every 24 hours</div>
+      </div>
+      <div class="callout">
+        <div class="k">BACKUP RETENTION</div>
+        <div class="v">7 <span class="unit">days rolling</span></div>
+        <div class="note">Minimum window of recoverable daily backups, per the Provider's infrastructure plan</div>
+      </div>
+    </div>
+    <div class="callout-row">
+      <div class="callout">
+        <div class="k">RECOVERY POINT OBJECTIVE (RPO)</div>
+        <div class="v">≤ 24 <span class="unit">hours</span></div>
+        <div class="note">Maximum data loss window in a restoration scenario</div>
+      </div>
+      <div class="callout">
+        <div class="k">RECOVERY TIME OBJECTIVE (RTO)</div>
+        <div class="v">≤ 48 <span class="unit">hours</span></div>
+        <div class="note">Target time to restore service from the most recent viable backup</div>
+      </div>
+    </div>
+    <p>Backups are performed automatically at the database infrastructure level and are not a substitute for the Academy independently exporting or retaining copies of critical records it considers essential. The RPO and RTO figures above are operational targets based on the Provider's current infrastructure plan and are not a guaranteed service level; actual recovery time may vary depending on the nature and cause of the incident.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§5.11</div><div class="sec-title">Data Loss, Corruption &amp; Restoration Responsibility</div></div>
+    <p>The Provider is responsible for restoring Academy data from the most recent available backup where data loss or corruption results from a failure of the Provider's systems, infrastructure, or processes. The Provider is not responsible for data loss or corruption caused by: (a) inaccurate, incomplete, or improperly formatted data submitted by the Academy or its users; (b) actions taken by the Academy's own administrators or users, including accidental deletion, unauthorized access due to the Academy's failure to safeguard credentials, or misuse of bulk-edit or import features; or (c) failures originating solely from third-party infrastructure providers under §5.9, beyond the Provider's reasonable control.</p>
+    <p>Upon becoming aware of a data loss or corruption event, the Provider shall notify the Academy within the timeframe applicable to the incident's severity under §5.6, and shall use commercially reasonable efforts to restore affected data from the most recent viable backup consistent with the RPO in §5.10.</p>
+  </div>
+</div>
+
+<!-- ================= ARTICLE VI ================= -->
+<div class="part" id="art-6">
+  <div class="part-kicker">ARTICLE VI</div>
+  <div class="part-title">Growth &amp; Referral Partnership</div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§6.1</div><div class="sec-title">Referral &amp; Academy Partner Program</div></div>
+    <p>A participating Academy may optionally become an ArtiPlay Academy Partner. If the Academy directly introduces another qualified academy, sports organization, or business that subsequently becomes a paying customer, it may receive a referral commission under the Provider's then-current referral program.</p>
+    <div class="callout-row">
+      <div class="callout">
+        <div class="k">DIRECT REFERRAL COMMISSION</div>
+        <div class="v">50%</div>
+        <div class="note">of the actual initial deployment / setup fee received by the Provider</div>
+      </div>
+    </div>
+    <div class="note-box">
+      <strong>Example</strong> — The commission is calculated from the actual amount received, not the standard reference price. A referred academy that pays the ₱15,000 Founding Academy price yields a referring Academy commission of <strong>₱7,500</strong> (50% of the amount actually received).
+    </div>
+    <p>The commission is calculated from the actual, agreed, and paid initial deployment/setup fee — not from any standard reference price. The remaining 50% belongs to the Provider. The Provider remains responsible for product demonstration, commercial proposal, contracting, payment collection, technical implementation, deployment, and platform support. The referring Academy is not required to provide technical support or software development. A commission applies only when the Provider confirms the prospect qualifies as a registered referral, under the Provider's reasonable attribution, payment, eligibility, and anti-abuse rules.</p>
+    <p>The referring Academy may, at its sole discretion, allocate any portion of its own 50% commission to the member, player, parent, or representative who introduced the referral (a "Referral Token" or similar Academy-designated reward). The Provider has no obligation to fund, supplement, or directly pay such a token, and any amount the Academy provides comes from the Academy's own share — it does not reduce the Provider's 50%.</p>
+    <p>The commission applies only to the one-time initial deployment/setup fee. The recurring ₱999 monthly platform fee — including any discounted annual prepayment equivalent — is not commissionable, unless the Provider expressly establishes a separate written recurring referral program.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§6.2</div><div class="sec-title">Referral Protection</div></div>
+    <p>A referral must be submitted to the Provider before or at the time the prospect is introduced. A prospect already actively engaged in discussions with the Provider may not qualify as a new referral. Unless otherwise specified, referral attribution remains valid for up to <strong class="inline">90 days</strong> from the confirmed introduction. The Provider reserves the right to reject duplicate, self-referred, fraudulent, or otherwise invalid referrals.</p>
+    <p>Approved commissions become payable once the referral is registered and accepted, the referred customer has signed the applicable agreement, and the Provider has received and cleared the corresponding setup payment. Commissions are released within <strong class="inline">15 business days</strong> after the customer's payment clears. If the setup fee is paid in installments, the 50% commission is released proportionally as each installment clears. If any portion of a qualifying payment is later refunded, charged back, or reversed, the corresponding commission is adjusted proportionally and any amount already released may be deducted from future commissions. Referral commissions are subject to applicable Philippine taxes and withholding requirements; the Provider may deduct required withholding before releasing the net commission.</p>
+  </div>
+</div>
+
+<!-- ================= ARTICLE VII ================= -->
+<div class="part" id="art-7">
+  <div class="part-kicker">ARTICLE VII</div>
+  <div class="part-title">Payment &amp; Termination</div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§7.1</div><div class="sec-title">Payment</div></div>
+    <p>Applicable setup and subscription fees are paid according to the commercial terms agreed by the Parties. Unless otherwise stated: initial deployment fees are due before deployment; monthly platform fees are due according to the Academy's billing date; unpaid accounts may be subject to restricted access or suspension; and reactivation may require settlement of outstanding amounts. Taxes, payment processing fees, third-party services, or other pass-through costs may be charged separately where applicable.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§7.2</div><div class="sec-title">Non-Payment</div></div>
+    <p>If an Academy account becomes overdue, the Provider may provide reasonable notice and an opportunity to settle the outstanding balance. If payment remains unpaid, the Provider may suspend platform access until the account is current. Academy data is not deleted solely due to suspension; it remains subject to the backup, retention, and restoration terms of §5.10, and to the data retention terms of §4.3.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§7.3</div><div class="sec-title">Termination</div></div>
+    <p>Either Party may terminate the Agreement in accordance with the applicable commercial terms. The Provider may terminate or suspend access for material breach, persistent non-payment, unauthorized use, abuse of the platform, security risk, illegal activity, attempted reverse engineering, or attempted unauthorized duplication or resale of the platform.</p>
+    <p>Termination of access does not transfer ownership of ArtiPlay or any Provider intellectual property to the Academy.</p>
+  </div>
+
+   <div class="sec">
+    <div class="sec-head"><div class="sec-num">§7.4</div><div class="sec-title">Data Export After Termination</div></div>
+    <div class="callout-row">
+      <div class="callout">
+        <div class="k">STANDARD EXPORT WINDOW</div>
+        <div class="v">30 <span class="unit">days</span></div>
+        <div class="note">From the effective date of termination, at no additional charge</div>
+      </div>
+      <div class="callout">
+        <div class="k">EXTENDED EXPORT WINDOW</div>
+        <div class="v">Up to 90 <span class="unit">days</span></div>
+        <div class="note">Available upon written request before the standard window lapses</div>
+      </div>
+    </div>
+    <p>Upon termination, the Provider shall make the Academy's exportable data available for retrieval within the Standard Export Window above, in commonly readable formats — <strong class="inline">CSV or JSON</strong> for structured records, and <strong class="inline">PDF</strong> for document-style or summary content. The following categories are included, to the extent they exist in and are technically exportable from the Academy's Tenant:</p>
+    <table class="commercial">
+      <thead>
+        <tr><th>Data Category</th><th>Export Format</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Player, parent, and coach records</td><td>CSV / JSON</td></tr>
+        <tr><td>Attendance records</td><td>CSV / JSON</td></tr>
+        <tr><td>Training and event/RSVP records</td><td>CSV / JSON</td></tr>
+        <tr><td>Payment and transaction records</td><td>CSV / PDF</td></tr>
+        <tr><td>Academy announcements and messages</td><td>CSV / PDF</td></tr>
+        <tr><td>Player achievements and rewards/points history</td><td>CSV / JSON</td></tr>
+        <tr><td>Media and content uploaded by the Academy (photos, files)</td><td>Original file format, where technically exportable</td></tr>
+      </tbody>
+    </table>
+    <p>If the Academy requests an extension to the Extended Export Window, submits the request after the Standard Export Window has lapsed, or requests a data format, structure, or delivery method beyond the Provider's standard export tooling, the Provider may charge a reasonable fee reflecting the actual time and resources required, quoted in advance.</p>
+    <p>Excluded from any export are: system-generated proprietary outputs unique to the Provider's underlying algorithms, scoring models, or AI systems (e.g., ByteSense™ or Vex™-derived internal computations, as distinct from the Academy-facing results already visible on the platform); the Provider's software, source code, system architecture, and infrastructure; and any data the Provider is legally prohibited from disclosing. Data subject to an unresolved payment dispute or other outstanding contractual obligation may be withheld from export until the obligation is resolved, except where withholding a data subject's own personal data would violate the Academy's or Provider's obligations under the Data Privacy Act.</p>
+    <p>After the Extended Export Window lapses without a request from the Academy, the Provider shall proceed with deletion or anonymization of the data in accordance with §4.3 and §5.10.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§7.5</div><div class="sec-title">Prohibited Use</div></div>
+    <p>The Academy shall not use ArtiPlay to conduct unlawful activities; upload malicious software; attempt unauthorized access; circumvent security mechanisms; abuse the platform; misrepresent the platform; reverse engineer the software; interfere with platform operations; access another Academy's data; or resell the underlying platform without authorization.</p>
+  </div>
+</div>
+
+<!-- ================= ARTICLE VIII ================= -->
+<div class="part" id="art-8">
+  <div class="part-kicker">ARTICLE VIII</div>
+  <div class="part-title">General Legal Terms</div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§8.1</div><div class="sec-title">Third-Party Services</div></div>
+    <p>ArtiPlay may rely on third-party services, APIs, infrastructure providers, communication services, analytics services, AI services, payment services, or other external technologies. The Provider is not responsible for outages or changes caused exclusively by third-party providers outside its reasonable control.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§8.2</div><div class="sec-title">AI-Assisted Features</div></div>
+    <p>Certain ArtiPlay functionality may use artificial intelligence or automated systems. AI-generated outputs may not always be accurate, complete, or appropriate, and are intended to assist — not replace — the judgment of coaches, administrators, parents, or other responsible individuals. The Academy remains responsible for decisions made using AI-assisted information.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§8.3</div><div class="sec-title">No Guarantee of Business Results</div></div>
+    <p>The Provider does not guarantee that use of ArtiPlay will increase enrollment, revenue, player performance, attendance, retention, referrals, or produce any specific financial result. Business outcomes depend on how the Academy implements and uses the platform.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§8.4</div><div class="sec-title">Limitation of Liability</div></div>
+    <p>To the maximum extent permitted by law, the Provider shall not be liable for indirect, incidental, special, consequential, or loss-of-profit damages arising from use of the platform. The Provider's aggregate liability shall, to the extent permitted by law, be limited to fees actually paid by the Academy during the applicable period giving rise to the claim. Nothing here excludes liability that cannot legally be excluded.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§8.5</div><div class="sec-title">Confidentiality</div></div>
+    <p>Each Party shall reasonably protect confidential information received from the other — including business strategies, pricing, technical information, non-public product information, customer information, operational information, credentials, and proprietary systems — and shall not disclose it to unauthorized third parties except where required by law or reasonably necessary to perform this Agreement.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§8.6</div><div class="sec-title">Independent Business Relationship</div></div>
+    <p>The Academy and the Provider are independent contracting parties. Nothing in this Agreement creates an employment relationship, legal partnership, joint venture, agency relationship, or franchise relationship — including through the optional Academy Partner referral arrangement.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§8.7</div><div class="sec-title">Modifications to Commercial Terms</div></div>
+    <p>The Provider may update standard ArtiPlay pricing for future customers. Any special Founding Academy pricing expressly agreed with the Academy remains subject to the specific commercial terms provided to it. Changes to the Academy's own recurring fee should be communicated with reasonable advance notice, unless required due to extraordinary infrastructure, regulatory, third-party, or operational circumstances.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§8.8</div><div class="sec-title">Entire Agreement</div></div>
+    <p>This Agreement, together with any applicable order form, pricing sheet, proposal, or written commercial addendum, constitutes the understanding between the Parties regarding the Academy's use of ArtiPlay. Any material amendment should be made in writing and accepted by both Parties.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§8.9</div><div class="sec-title">Governing Law</div></div>
+    <p>This Agreement shall be governed by the laws of the Republic of the Philippines, without prejudice to any mandatory rights or protections available to either Party under applicable law.</p>
+  </div>
+</div>
+
+<!-- ================= ARTICLE IX — ACCEPTANCE (FILLABLE) ================= -->
+<div class="part" id="art-9">
+  <div class="part-kicker">ARTICLE IX</div>
+  <div class="part-title">Acceptance, Commercial Summary &amp; Signatures</div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§9.1</div><div class="sec-title">Acceptance</div></div>
+    <p>By signing below, the Academy confirms that it:</p>
+    <ul class="accept-list">
+      <li>Has reviewed this Agreement</li>
+      <li>Understands the nature of the ArtiPlay platform</li>
+      <li>Understands that the Academy receives a license to use the platform rather than ownership of the underlying software</li>
+      <li>Accepts the applicable setup and recurring fees</li>
+      <li>Agrees to comply with the platform's acceptable-use requirements</li>
+      <li>Understands the optional referral partner arrangement</li>
+      <li>Authorizes its designated representative to enter into this Agreement</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§9.2</div><div class="sec-title">Commercial Summary — Founding Academy Terms</div></div>
+    <table class="commercial">
+      <thead>
+        <tr><th>Item</th><th>Founding Academy Terms</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Standard Reference Deployment</td><td>₱35,000</td></tr>
+        <tr class="highlight"><td>Founding Academy Deployment</td><td>₱15,000 one-time</td></tr>
+        <tr><td>Platform &amp; Infrastructure</td><td>₱999 / month</td></tr>
+        <tr><td>White-Label Experience</td><td>Included</td></tr>
+        <tr><td>Academy Tenant</td><td>Included</td></tr>
+        <tr><td>General Platform Updates</td><td>Included</td></tr>
+        <tr><td>General Bug Fixes</td><td>Included</td></tr>
+        <tr><td>Custom Development</td><td>Quoted separately</td></tr>
+        <tr><td>Referral Partner</td><td>Optional</td></tr>
+        <tr><td>Direct Referral Commission</td><td>50% of the actual qualifying initial deployment/setup fee received</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec" style="margin-top:10mm;">
+    <div class="sign-grid">
+      <div class="sign-card">
+        <div class="sc-label">FOR ARTIPLAY</div>
+        <div class="sign-line">
+          <label class="sl-label" for="prov_rep">AUTHORIZED REPRESENTATIVE</label>
+          <input class="fillable" id="prov_rep" name="prov_rep" type="text" placeholder="Full name" autocomplete="name">
+        </div>
+        <div class="sign-line">
+          <label class="sl-label" for="prov_position">POSITION</label>
+          <input class="fillable" id="prov_position" name="prov_position" type="text" placeholder="Position / title">
+        </div>
+        <div class="sign-line">
+          <label class="sl-label field-required" for="prov_signature">SIGNATURE</label>
+          <input class="fillable sig" id="prov_signature" name="prov_signature" type="text" placeholder="Type full name as signature">
+          <div class="field-note">Typed name serves as e-signature</div>
+        </div>
+        <div class="consent-line">
+          <input type="checkbox" id="prov_consent" name="prov_consent">
+          <label for="prov_consent">I confirm the name typed above is my signature and that I am authorized to sign this Agreement on behalf of ArtiPlay.</label>
+        </div>
+        <div class="sign-line" style="margin-bottom:0;">
+          <label class="sl-label field-required" for="prov_date">DATE</label>
+          <input class="fillable" id="prov_date" name="prov_date" type="date">
+        </div>
+      </div>
+      <div class="sign-card">
+        <div class="sc-label">FOR THE ACADEMY</div>
+        <div class="sign-line">
+          <label class="sl-label field-required" for="acad_name">ACADEMY NAME</label>
+          <input class="fillable" id="acad_name" name="acad_name" type="text" placeholder="Academy name">
+        </div>
+        <div class="sign-line">
+          <label class="sl-label field-required" for="acad_rep">AUTHORIZED REPRESENTATIVE</label>
+          <input class="fillable" id="acad_rep" name="acad_rep" type="text" placeholder="Full name" autocomplete="name">
+        </div>
+        <div class="sign-line">
+          <label class="sl-label" for="acad_position">POSITION</label>
+          <input class="fillable" id="acad_position" name="acad_position" type="text" placeholder="Position / title">
+        </div>
+        <div class="sign-line">
+          <label class="sl-label field-required" for="acad_signature">SIGNATURE</label>
+          <input class="fillable sig" id="acad_signature" name="acad_signature" type="text" placeholder="Type full name as signature">
+          <div class="field-note">Typed name serves as e-signature</div>
+        </div>
+        <div class="consent-line">
+          <input type="checkbox" id="acad_consent" name="acad_consent">
+          <label for="acad_consent">I confirm the name typed above is my signature and that I am authorized to sign this Agreement on behalf of the Academy.</label>
+        </div>
+        <div class="sign-line" style="margin-bottom:0;">
+          <label class="sl-label field-required" for="acad_date">DATE</label>
+          <input class="fillable" id="acad_date" name="acad_date" type="date">
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-strip">
+      <div class="ct-title">ACADEMY CONTACT</div>
+      <div class="contact-grid">
+        <div class="cg-item">
+          <label class="sl-label field-required" for="acad_email">EMAIL</label>
+          <input class="fillable" id="acad_email" name="acad_email" type="email" placeholder="email@academy.com" autocomplete="email">
+        </div>
+        <div class="cg-item">
+          <label class="sl-label" for="acad_mobile">MOBILE</label>
+          <input class="fillable" id="acad_mobile" name="acad_mobile" type="tel" placeholder="09xxxxxxxxx" autocomplete="tel">
+        </div>
+      </div>
+      <div class="sign-line" style="margin-top:5mm; margin-bottom:0;">
+        <label class="sl-label" for="acad_address">OFFICIAL ACADEMY ADDRESS</label>
+        <input class="fillable" id="acad_address" name="acad_address" type="text" placeholder="Complete address">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CLOSING ================= -->
+<div class="closing">
+  <div class="closing-word">WELCOME TO ARTIPLAY™</div>
+  <div class="closing-title">The Academy OS</div>
+  <p class="closing-sub">ArtiPlay is built to help modern academies move beyond scattered messages, spreadsheets, paper records, and disconnected tools — and into a single digital experience designed around the academy, its coaches, its players, and its community.</p>
+  <div class="closing-tagline">One Academy. One Digital Home.</div>
+  <div class="closing-built-by">BUILT BY ARTIPLAY</div>
+</div>
+
+</div><!-- /page-inner --></div></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const pages=[1,2,3,4,5];
+  let current=1;
+  let maxReached=1;
+  const selected=new Set(["White-Label","Academy Operations"]);
+  let selectedBank=null;
+  let resizeSignaturePad=null;
+
+  /* ============================================================
+     PRICING ENGINE — single source of truth for every ₱ shown
+     in Step 2 (Review) and Step 4 (Payment). Every number the UI
+     displays is computed here, never hand-typed elsewhere, so
+     the source of any figure is always traceable to one of the
+     line items below.
+
+     CONFIRMED WITH BUSINESS (from Agreement Article II & VI):
+       - setupFee.discounted / .regular   → §2.1 Founding Academy Pricing
+       - recurring tiers (999 / 2,999)    → confirmed by academy owner
+       - referral.commissionPct           → §6.1 Direct Referral Commission
+     ASSUMED — NOT YET CONFIRMED (flagged so they're easy to find/change):
+       - headcount definition             → assumed players+coaches combined
+       - module add-on pricing            → assumed $0, bundled in tier
+       - tax handling                     → assumed tax-inclusive, no VAT line
+     ============================================================ */
+  const PRICING_CONFIG = {
+    currency: '₱',
+
+    // ---- ONE-TIME SETUP / DEPLOYMENT FEE (Agreement §2.1) ----
+    setupFee: {
+      regular: 35000,      // standard reference deployment price, no discount
+      discounted: 15000,   // Founding Academy one-time price (what this flow charges)
+      discountLabel: 'Founding Academy discount'
+    },
+
+    // ---- RECURRING PLATFORM & INFRASTRUCTURE FEE (Agreement §2.2) ----
+    // Tiered by total active seats (players + coaches/staff) on the tenant.
+    // ASSUMPTION: headcount = players + coaches/staff combined. Confirm and
+    // edit `headcountDefinition` + the tier `upTo` value if that's wrong.
+    headcountDefinition: 'players + coaches/staff combined',
+    recurringTiers: [
+      { upTo: 250,        monthly: 999  },  // 1–250 total seats
+      { upTo: Infinity,   monthly: 2999 }   // 251+ total seats
+    ],
+
+    // ---- MODULES SELECTED IN STEP 1 ----
+    // ASSUMPTION: all modules (AI-Assisted, Rewards, Dashboards, Referral)
+    // are bundled into the recurring tier fee above at ₱0 add-on cost, per
+    // Agreement §2.2 ("continued access to supported ArtiPlay features").
+    // To make a module chargeable, give it a non-zero `monthly` here —
+    // the render layer will automatically pick it up and itemize it.
+    moduleAddOns: {
+      'White-Label':              0,
+      'Academy Operations':       0,
+      'AI-Assisted':              0,
+      'Rewards & Engagement':     0,
+      'Dashboards & Analytics':   0,
+      'Referral Partner':         0
+    },
+
+    // ---- DISCOUNTS ----
+    // Founding Academy pricing IS the discount (35,000 → 15,000). No
+    // separate promo-code or seasonal-discount system exists yet — this
+    // object is a placeholder for future coupon/discount codes.
+    promoDiscounts: {
+      // 'CODE123': { type:'percent', value:10, appliesTo:'setup' }
+    },
+
+    // ---- TAX ----
+    // ASSUMPTION: tax-inclusive, no separate VAT line, because the signed
+    // Agreement's commercial tables (§2.1, §2.2, §9.2) show no VAT line
+    // item. If the business becomes VAT-registered and wants VAT broken
+    // out, set `mode` to 'exclusive' and `ratePct` to e.g. 12 — the render
+    // layer will then show a separate "VAT (12%)" line automatically.
+    tax: { mode: 'inclusive', ratePct: 0, label: 'VAT' },
+
+    // ---- SETUP FEE PRORATION / TRIAL / BILLING CYCLE ----
+    // No trial period exists in the current Agreement. Setup fee is due
+    // before deployment (Agreement §7.1); recurring fee bills monthly on
+    // the Academy's billing date, no mid-cycle proration defined yet.
+    billingCycle: 'monthly',
+    trialDays: 0,
+    setupFeeProration: false,
+
+    // ---- RENEWAL / CANCELLATION / REFUND ----
+    // Renewal: recurring fee auto-continues monthly until terminated
+    // (Agreement §7.1). Cancellation: either party per §7.3 — no early
+    // termination fee defined. Refund: setup fee is non-refundable once
+    // deployment has started; monthly fee is non-refundable/non-prorated
+    // for the current billing cycle upon cancellation.
+    renewalPolicy: 'auto-continues monthly until terminated (§7.1, §7.3)',
+    cancellationPolicy: 'either party, per §7.3 — no early-termination fee on file',
+      refundPolicy: 'Setup fee non-refundable once deployment has started; monthly platform fee non-refundable and non-prorated for the current billing cycle upon cancellation',
+
+    // ---- REFERRAL COMMISSION (Agreement §6.1) ----
+    referral: {
+      commissionPct: 50,          // % of the ACTUAL setup fee received, not the ₱35,000 reference price
+      appliesTo: 'setupFeeOnly',  // recurring monthly fee is NOT commissionable per §6.1
+      attributionWindowDays: 90,  // §6.2
+      payoutBusinessDays: 15      // §6.2
+    }
+  };
+
+  // Returns the recurring monthly fee for a given headcount, per the tier table above.
+  function getRecurringTier(headcount){
+    const n = Math.max(0, parseInt(headcount, 10) || 0);
+    for(const tier of PRICING_CONFIG.recurringTiers){
+      if(n <= tier.upTo) return tier;
+    }
+    return PRICING_CONFIG.recurringTiers[PRICING_CONFIG.recurringTiers.length - 1];
+  }
+
+  // Full computed breakdown — every field here maps 1:1 to a line in the UI.
+  // isFounding=true uses the discounted ₱15,000 setup fee; false uses ₱35,000.
+  function computePricing(headcount, isFounding){
+    const cfg = PRICING_CONFIG;
+    const tier = getRecurringTier(headcount);
+    const setup = isFounding ? cfg.setupFee.discounted : cfg.setupFee.regular;
+    const setupDiscountAmount = isFounding ? (cfg.setupFee.regular - cfg.setupFee.discounted) : 0;
+    const moduleAddOnTotal = Object.values(cfg.moduleAddOns).reduce((a,b)=>a+b, 0); // currently always 0 — see moduleAddOns comment
+    const recurringBeforeTax = tier.monthly + moduleAddOnTotal;
+    const taxAmount = cfg.tax.mode === 'exclusive' ? Math.round(recurringBeforeTax * (cfg.tax.ratePct/100)) : 0;
+    const recurringTotal = recurringBeforeTax + taxAmount;
+    const referralCommission = Math.round(setup * (cfg.referral.commissionPct/100));
+    return {
+      headcount: Math.max(0, parseInt(headcount,10) || 0),
+      tierLabel: tier.upTo === Infinity ? `${tier.upTo === Infinity ? 'Above ' + (cfg.recurringTiers[0].upTo) : ''}` : `Up to ${tier.upTo}`,
+      setupFee: setup,
+      setupFeeRegular: cfg.setupFee.regular,
+      setupDiscountAmount,
+      moduleAddOnTotal,
+      recurringBase: tier.monthly,
+      taxAmount,
+      taxLabel: cfg.tax.label,
+      taxMode: cfg.tax.mode,
+      recurringTotal,
+      dueToday: setup,
+      grandTotalDueToday: setup + recurringTotal, // ASSUMPTION: first month is billed together with the setup fee at signup — confirm with business, edit here if setup-only
+      referralCommission,
+      referralPct: cfg.referral.commissionPct
+    };
+  }
+
+  function fmtPeso(n){ return PRICING_CONFIG.currency + Number(n||0).toLocaleString('en-PH'); }
+
+  const $=id=>document.getElementById(id);
+
+  function showToast(message, type){
+    const stack=$('toastStack');
+    if(!stack){ alert(message); return; }
+    const el=document.createElement('div');
+    el.className='toast '+(type||'warn');
+    el.innerHTML='<span class="toast-icon">'+(type==='error'?'!':'i')+'</span><span class="toast-msg"></span><button type="button" class="toast-close" aria-label="Dismiss">×</button>';
+    el.querySelector('.toast-msg').textContent=message;
+    stack.appendChild(el);
+    requestAnimationFrame(()=>el.classList.add('show'));
+    function dismiss(){
+      el.classList.add('leaving');
+      el.classList.remove('show');
+      setTimeout(()=>el.remove(),260);
+    }
+    el.querySelector('.toast-close').addEventListener('click',dismiss);
+    setTimeout(dismiss,4200);
+  }
+
+  function guideToField(el){
+    if(!el) return;
+    el.scrollIntoView({behavior:'smooth',block:'center'});
+    setTimeout(()=>{ el.focus({preventScroll:true}); },320);
+  }
+
+  function render(){
+    pages.forEach(n=>$('step'+n).classList.toggle('active',n===current));
+    document.querySelectorAll('.step-row').forEach(row=>{
+      const n=+row.dataset.step;
+      row.classList.toggle('active',n===current);
+      row.classList.toggle('done',n<current);
+    });
+    if(current>maxReached) maxReached=current;
+    if(current===3){
+      const padEl=$('acad_signature_pad');
+      if(padEl && padEl.width===0 && resizeSignaturePad) resizeSignaturePad();
+    }
+    if(current===4){
+      const amtEl=$('pay_amount');
+      if(amtEl && !amtEl.value.trim()){
+        const p=computePricing(getHeadcountValue(), true);
+        amtEl.value=p.grandTotalDueToday;
+      }
+      updateAmountStatus();
+    }
+    const labels={
+      1:['PARTNERSHIP & PLATFORM LICENSE','Next'],
+      2:['COMMERCIAL & LEGAL REVIEW','Next'],
+      3:['ACADEMY ACCEPTANCE','Next'],
+      4:['BANK TRANSFER & VERIFICATION','Submit for verification →'],
+      5:['DIGITAL DELIVERY','Finish']
+    };
+    $('topStatus').textContent=labels[current][0];
+    $('nextBtn').textContent=labels[current][1];
+    $('backBtn').style.visibility=current===1?'hidden':'visible';
+    $('footerStatus').textContent=current===1?selected.size+' capabilities selected.':current===5?'Awaiting admin verification.':'Step '+current+' of 5';
+    $('selectedCount').textContent=selected.size+' feature'+(selected.size===1?'':'s');
+    renderPricing();
+    if(current===5){
+      $('finalAcademy').textContent=$('acad_name').value||'Academy';
+      $('finalEmail').textContent=$('acad_email').value||'registered email';
+      $('finalSignedBy').textContent=$('acad_rep').value||'—';
+      $('finalBank').textContent=$('pay_bank').value||'—';
+      $('finalReference').textContent=$('pay_reference').value||'—';
+      const sigImg=$('finalSignatureImg');
+      if(sigImg){
+        if(acadSignatureDataUrl){ sigImg.src=acadSignatureDataUrl; sigImg.style.display='inline-block'; }
+        else { sigImg.style.display='none'; }
+      }
+      $('deliveryMessage').textContent='Digital package prepared for '+($('acad_email').value||'the registered email')+'. It will be sent automatically once ArtiPlay Admin approves the submitted payment reference.';
+    }
+  }
+
+  document.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+    const key=btn.dataset.feature;
+    if(selected.has(key)) selected.delete(key); else selected.add(key);
+    btn.classList.toggle('selected',selected.has(key));
+    render();
+  }));
+
+  // Bank / e-wallet selection
+  document.querySelectorAll('.bank-card').forEach(card=>{
+    card.addEventListener('click',(e)=>{
+      if(e.target.classList.contains('bank-copy')) return; // handled separately
+      document.querySelectorAll('.bank-card').forEach(c=>c.classList.remove('selected'));
+      card.classList.add('selected');
+      selectedBank=card.dataset.bank;
+      const holder=card.dataset.holder?(' — '+card.dataset.holder):'';
+      $('pay_bank').value=card.dataset.bank+' · '+card.dataset.account+holder;
+    });
+  });
+  document.querySelectorAll('.bank-copy').forEach(btn=>{
+    btn.addEventListener('click',(e)=>{
+      e.stopPropagation();
+      const text=btn.dataset.copy;
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(()=>{
+          const original=btn.textContent;
+          btn.textContent='Copied ✓';
+          setTimeout(()=>{btn.textContent=original;},1400);
+        }).catch(()=>{});
+      }
+    });
+  });
+
+  function refIsValid(){
+    return $('pay_reference').value.trim().length>=4;
+  }
+  function updateAmountStatus(){
+    const el=$('pay_amount');
+    const note=$('amountMismatchNote');
+    if(!el || !note) return;
+    const entered=parseFloat(el.value.replace(/[^0-9.]/g,''))||0;
+    const p=computePricing(getHeadcountValue(), true);
+    note.style.display = (entered>0 && entered!==p.grandTotalDueToday) ? 'block' : 'none';
+  }
+  function updateRefStatus(){
+    const el=$('refStatus');
+    if(refIsValid()){
+      el.textContent='Reference number captured — ready to submit';
+      el.classList.add('ok');
+    } else {
+      el.textContent='Awaiting reference number';
+      el.classList.remove('ok');
+    }
+  }
+  $('pay_reference').addEventListener('input',updateRefStatus);
+  const payAmountEl=$('pay_amount');
+  if(payAmountEl) payAmountEl.addEventListener('input',updateAmountStatus);
+
+  function validStep(){
+    if(current===1 && selected.size===0){ guideToField(document.querySelector('.choice-grid')); showToast('Please select at least one capability.','warn'); return false; }
+    if(current===1){
+      const hc=$('headcount_input').value.trim();
+      if(!hc || !/^[0-9]+$/.test(hc) || parseInt(hc,10)<=0){
+        guideToField($('headcount_input'));
+        showToast('Please enter a valid number of players + coaches/staff.','warn');
+        return false;
+      }
+    }
+    if(current===3){
+      const required=['acad_name','acad_rep','acad_email','acad_date'];
+      const missing=required.find(id=>!$(id).value.trim());
+      if(missing){ guideToField($(missing)); showToast('Please complete the required Academy fields before continuing.','warn'); return false; }
+      if(acadSignatureEmpty){
+        guideToField($('acad_signature_pad'));
+        showToast('Please draw your signature before continuing.','warn');
+        return false;
+      }
+      if(!$('acad_consent').checked){ guideToField($('acad_consent')); showToast('Please confirm the e-signature acceptance.','warn');return false;}
+    }
+    if(current===4){
+      if(!selectedBank){ guideToField(document.getElementById('bankGrid')); showToast('Please select the account you sent the payment to.','warn'); return false; }
+      const amtVal=$('pay_amount').value.trim();
+      if(!amtVal){ guideToField($('pay_amount')); showToast('Please enter the amount you sent.','warn'); return false; }
+      const enteredAmt=parseFloat(amtVal.replace(/[^0-9.]/g,''))||0;
+      const expectedAmt=computePricing(getHeadcountValue(), true).grandTotalDueToday;
+      if(enteredAmt!==expectedAmt){
+        guideToField($('pay_amount'));
+        showToast('The amount sent ('+fmtPeso(enteredAmt)+') doesn\'t match the grand total due today ('+fmtPeso(expectedAmt)+'). Please verify.','error');
+        return false;
+      }
+      if(!refIsValid()){ guideToField($('pay_reference')); showToast('Please enter the payment reference / transaction number from your receipt.','warn'); return false; }
+    }
+    return true;
+  }
+
+  function hapticTap(){ if(navigator.vibrate) navigator.vibrate(8); }
+
+  function finishSubmission(){
+    $('thanksEmail').textContent=$('acad_email').value||'your registered address';
+    document.querySelector('.app').style.display='none';
+    $('agreementFab').style.display='none';
+    $('thankYouFull').classList.add('show');
+    // Lock navigation: block back button and any further app interaction.
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', ()=>{ history.pushState(null, '', location.href); });
+  }
+
+  $('nextBtn').addEventListener('click',()=>{
+    if(!validStep()) return;
+    hapticTap();
+    if(current<5){ current++; render(); return; }
+    if(current===5){ finishSubmission(); return; }
+  });
+  $('backBtn').addEventListener('click',()=>{ hapticTap(); if(current>1) current--;render();});
+
+  document.querySelectorAll('.step-row').forEach(row=>{
+    row.addEventListener('click',()=>{
+      const n=+row.dataset.step;
+      if(n<=maxReached && n!==current){ hapticTap(); current=n; render(); }
+    });
+  });
+
+  let acadSignatureEmpty = true;
+  let acadSignatureDataUrl = '';
+  (function initSignaturePad(){
+    const canvas = $('acad_signature_pad');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let drawing = false, lastX = 0, lastY = 0;
+    function resizeCanvas(){
+      const ratio = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * ratio;
+      canvas.height = 160 * ratio;
+      ctx.scale(ratio, ratio);
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#17203a';
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    resizeSignaturePad = resizeCanvas;
+    function pos(e){
+      const rect = canvas.getBoundingClientRect();
+      return { x: (e.clientX - rect.left), y: (e.clientY - rect.top) };
+    }
+    function start(e){
+      drawing = true; acadSignatureEmpty = false;
+      const p = pos(e); lastX = p.x; lastY = p.y;
+      if(e.pointerId!=null && canvas.setPointerCapture) canvas.setPointerCapture(e.pointerId);
+    }
+    function move(e){
+      if(!drawing) return;
+      const p = pos(e);
+      ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(p.x, p.y); ctx.stroke();
+      lastX = p.x; lastY = p.y;
+    }
+    function end(){
+      if(!drawing) return;
+      drawing = false;
+      acadSignatureDataUrl = canvas.toDataURL('image/png');
+    }
+    canvas.addEventListener('pointerdown', start);
+    canvas.addEventListener('pointermove', move);
+    canvas.addEventListener('pointerup', end);
+    canvas.addEventListener('pointerleave', end);
+    $('sigClearBtn').addEventListener('click', ()=>{
+      const rect = canvas.getBoundingClientRect();
+      ctx.clearRect(0,0,rect.width,160);
+      acadSignatureEmpty = true;
+      acadSignatureDataUrl = '';
+    });
+  })();
+
+  function openCompleteAgreement(){
+    const overlay = $('agreementOverlay');
+    if(!overlay) return;
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+    document.body.classList.add('agreement-open');
+    const scroll = overlay.querySelector('.agreement-scroll');
+    if(scroll) scroll.scrollTop = 0;
+  }
+  $('openAgreement').addEventListener('click',openCompleteAgreement);
+  $('agreementLauncher').addEventListener('click',openCompleteAgreement);
+  $('agreementFab').addEventListener('click',openCompleteAgreement);
+  $('closeAgreement').addEventListener('click',()=>{ $('agreementOverlay').classList.remove('open'); $('agreementOverlay').setAttribute('aria-hidden','true'); document.body.classList.remove('agreement-open'); });
+  $('agreementOverlay').addEventListener('click',e=>{if(e.target===$('agreementOverlay')) $('closeAgreement').click();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape' && $('agreementOverlay').classList.contains('open')) $('closeAgreement').click();});
+
+  // Preserve the original Agreement's Google Apps Script hooks when this file
+  // is served inside HTML Service. The original IDs remain in the agreement modal.
+  window.collectAgreementData=function(){
+    const ids=['prov_rep','prov_position','prov_signature','prov_date','prov_consent','acad_name','acad_rep','acad_position','acad_date','acad_consent','acad_email','acad_mobile','acad_address'];
+    const data={};
+    ids.forEach(id=>{const el=$(id); if(el) data[id]=el.type==='checkbox'?el.checked:el.value;});
+    data.acad_signature = acadSignatureDataUrl;
+    data.payment_bank=$('pay_bank')?$('pay_bank').value:'';
+    data.payment_amount=$('pay_amount')?$('pay_amount').value:'';
+    data.payment_reference=$('pay_reference')?$('pay_reference').value:'';
+    data.timestamp=new Date().toISOString();
+    return data;
+  };
+
+  function tbSetStatus(msg,isError){
+    const s=$('tb-status'); if(!s) return;
+    s.textContent=msg; s.style.color=isError?'#e39a9a':'#a9b0c2';
+  }
+  function tbToggleButtons(disabled){
+    const save=$('btn-save'), pdf=$('btn-pdf');
+    if(save) save.disabled=disabled;
+    if(pdf) pdf.disabled=disabled;
+  }
+  function tbFirstMissingRequired(){
+    const req=['acad_name','acad_rep','acad_date','acad_email','acad_consent'];
+    for(const id of req){
+      const el=$(id); if(!el) continue;
+      const empty=el.type==='checkbox'?!el.checked:!el.value.trim();
+      if(empty) return el;
+    }
+    if(acadSignatureEmpty) return $('acad_signature_pad');
+    return null;
+  }
+  function tbValidateOrWarn(){
+    const missing=tbFirstMissingRequired();
+    if(missing){ tbSetStatus('Please complete: '+missing.id,true); missing.focus(); return false; }
+    return true;
+  }
+  function tbHasGoogleScript(){ return typeof google!=='undefined'&&google.script&&google.script.run; }
+  function tbWithTimeout(seconds){
+    return setTimeout(()=>{ tbToggleButtons(false); tbSetStatus('No response from server. Try again.',true); },seconds*1000);
+  }
+
+  window.saveAgreement=function(){
+    if(!tbValidateOrWarn()) return;
+    if(!tbHasGoogleScript()){ tbSetStatus('Google Apps Script is not available in this preview.',true); return; }
+    tbToggleButtons(true); tbSetStatus('Saving...');
+    const timer=tbWithTimeout(20);
+    const data=window.collectAgreementData();
+    google.script.run.withSuccessHandler(res=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('Saved to Sheet ✓'+(res&&res.row?(' (row '+res.row+')'):''));}).withFailureHandler(err=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('Error: '+err.message,true);}).saveAgreementToSheet(data);
+  };
+
+  window.generatePdf=function(){
+    if(!tbValidateOrWarn()) return;
+    if(!tbHasGoogleScript()){ tbSetStatus('Google Apps Script is not available in this preview.',true); return; }
+    tbToggleButtons(true); tbSetStatus('Generating PDF...');
+    const timer=tbWithTimeout(30);
+    const data=window.collectAgreementData();
+    google.script.run.withSuccessHandler(res=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('PDF ready ✓');window.open(res.url,'_blank');}).withFailureHandler(err=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('Error: '+err.message,true);}).generateAgreementPdf(data);
+  };
+
+  (function trackDirty(){
+    const ids=['prov_rep','prov_position','prov_signature','prov_date','prov_consent','acad_name','acad_rep','acad_position','acad_signature','acad_date','acad_consent','acad_email','acad_mobile','acad_address'];
+    let dirty=false;
+    ids.forEach(id=>{
+      const el=$(id); if(!el) return;
+      const mark=()=>{ if(!dirty){ dirty=true; tbSetStatus('Unsaved changes...'); } };
+      el.addEventListener('input',mark);
+      el.addEventListener('change',mark);
+    });
+  })();
+
+  if(window.__ARTIPLAY_PREFILL__){
+    Object.keys(window.__ARTIPLAY_PREFILL__).forEach(id=>{
+      const el=$(id); if(el && el.type!=='checkbox') el.value=window.__ARTIPLAY_PREFILL__[id];
+    });
+  }
+
+  // Auto-tooltip: any button with aria-label/title gets a hover overlay,
+  // no manual tagging needed per button.
+  document.querySelectorAll('button[aria-label], button[title]').forEach(btn=>{
+    if(!btn.hasAttribute('data-tooltip')){
+      const label=btn.getAttribute('aria-label')||btn.getAttribute('title');
+      if(label) btn.setAttribute('data-tooltip',label);
+    }
+    btn.removeAttribute('title'); // avoid native browser tooltip double-up
+  });
+
+  // ---- Pricing render: pulls every ₱ figure from PRICING_CONFIG / computePricing() ----
+  function getHeadcountValue(){
+    const el = $('headcount_input');
+    return el ? (parseInt((el.value||'').replace(/[^0-9]/g,''),10) || 0) : 0;
+  }
+  function renderPricing(){
+    const headcount = getHeadcountValue();
+    const p = computePricing(headcount, true /* Founding Academy discount applies */);
+    const tierText = headcount>0 ? (headcount<=PRICING_CONFIG.recurringTiers[0].upTo ? `Up to ${PRICING_CONFIG.recurringTiers[0].upTo} seats · ${headcount} entered` : `${PRICING_CONFIG.recurringTiers[0].upTo}+ seats · ${headcount} entered`) : 'Enter headcount in Step 1';
+    const recurText = fmtPeso(p.recurringBase)+' / month';
+
+    // Step 1 tier preview chip
+    const tierPreviewEl = $('tierPreview');
+    if(tierPreviewEl){
+      if(headcount>0){
+        tierPreviewEl.textContent = `${headcount} total seats → ${fmtPeso(p.recurringBase)}/month tier`;
+        tierPreviewEl.classList.add('ok');
+      } else {
+        tierPreviewEl.textContent = 'Enter a headcount to see your monthly tier';
+        tierPreviewEl.classList.remove('ok');
+      }
+    }
+
+    // Step 2 commercial summary panel
+    if($('sumRegularSetup')) $('sumRegularSetup').textContent = fmtPeso(p.setupFeeRegular);
+    if($('sumDiscountAmount')) $('sumDiscountAmount').textContent = '−'+fmtPeso(p.setupDiscountAmount);
+    if($('sumSetupFee')) $('sumSetupFee').textContent = fmtPeso(p.setupFee)+' one-time';
+    if($('sumTierLabel')) $('sumTierLabel').textContent = tierText;
+    if($('sumRecurring')) $('sumRecurring').textContent = recurText;
+    if($('sumModuleAddOns')) $('sumModuleAddOns').textContent = p.moduleAddOnTotal>0 ? fmtPeso(p.moduleAddOnTotal)+' / month' : '₱0 — bundled in tier';
+    if($('sumReferralPct')) $('sumReferralPct').textContent = p.referralPct+'% of the actual setup fee received';
+    const sumTaxRow = $('sumTaxRow');
+    if(sumTaxRow){
+      if(p.taxMode==='exclusive' && p.taxAmount>0){
+        sumTaxRow.style.display='';
+        $('sumTaxLabel').textContent = p.taxLabel+' ('+PRICING_CONFIG.tax.ratePct+'%)';
+        $('sumTaxAmount').textContent = fmtPeso(p.taxAmount);
+      } else { sumTaxRow.style.display='none'; }
+    }
+
+    // Step 2 price card
+    if($('priceCardSetup')) $('priceCardSetup').textContent = fmtPeso(p.setupFee);
+    if($('priceCardRecurring')) $('priceCardRecurring').textContent = recurText;
+    if($('priceCardTierNote')) $('priceCardTierNote').textContent = headcount>0
+      ? `Platform & infrastructure fee — ${tierText}.`
+      : `Platform & infrastructure fee. Enter your academy's headcount in Step 1 to confirm your tier.`;
+    if($('priceCardGrandTotal')) $('priceCardGrandTotal').textContent = fmtPeso(p.grandTotalDueToday);
+
+    // Step 4 order summary
+    if($('orderSetupFee')) $('orderSetupFee').textContent = fmtPeso(p.setupFee);
+    if($('orderFirstMonth')) $('orderFirstMonth').textContent = fmtPeso(p.recurringTotal);
+    if($('orderDueToday')) $('orderDueToday').textContent = fmtPeso(p.grandTotalDueToday);
+    if($('orderRecurring')) $('orderRecurring').textContent = recurText;
+    if($('orderHeadcount')) $('orderHeadcount').textContent = headcount>0 ? (headcount+' seats · '+tierText.split(' · ')[0]) : 'Not entered';
+    const orderTaxRow = $('orderTaxRow');
+    if(orderTaxRow){
+      if(p.taxMode==='exclusive' && p.taxAmount>0){
+        orderTaxRow.style.display='';
+        $('orderTaxLabel').textContent = p.taxLabel+' ('+PRICING_CONFIG.tax.ratePct+'%)';
+        $('orderTaxAmount').textContent = fmtPeso(p.taxAmount);
+      } else { orderTaxRow.style.display='none'; }
+    }
+  }
+  const headcountEl = $('headcount_input');
+  if(headcountEl){
+    headcountEl.addEventListener('input', ()=>{
+      const cleaned = headcountEl.value.replace(/[^0-9]/g,'');
+      if(headcountEl.value !== cleaned) headcountEl.value = cleaned;
+      renderPricing();
+    });
+  }
+
+  render();
+})();
+
+/* ===== Find & replace within the agreement document ===== */
+function frGetRoot(){ return document.querySelector('.agreement-doc'); }
+function frEscapeRegExp(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+
+function frCountMatches(query){
+  if(!query) return 0;
+  const root=frGetRoot();
+  if(!root) return 0;
+  const walker=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+  const re=new RegExp(frEscapeRegExp(query),'gi');
+  let count=0, node;
+  while(node=walker.nextNode()){
+    const m=node.nodeValue.match(re);
+    if(m) count+=m.length;
+  }
+  return count;
+}
+
+function frReplaceAll(query, replacement){
+  if(!query) return 0;
+  const root=frGetRoot();
+  if(!root) return 0;
+  const walker=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+  const re=new RegExp(frEscapeRegExp(query),'gi');
+  const nodes=[];
+  let node;
+  while(node=walker.nextNode()) nodes.push(node);
+  let count=0;
+  nodes.forEach(n=>{
+    const m=n.nodeValue.match(re);
+    if(m){ count+=m.length; n.nodeValue=n.nodeValue.replace(re, replacement); }
+  });
+  return count;
+}
+
+function toggleFindReplace(){
+  const bar=document.getElementById('frBar');
+  if(!bar) return;
+  const showing=bar.style.display!=='none';
+  bar.style.display=showing?'none':'flex';
+  if(!showing) document.getElementById('frFind').focus();
+}
+
+(function initFindReplace(){
+  const findInput=document.getElementById('frFind');
+  const replaceInput=document.getElementById('frReplace');
+  const countEl=document.getElementById('frCount');
+  const replaceBtn=document.getElementById('frReplaceAll');
+  const closeBtn=document.getElementById('frClose');
+  if(!findInput) return;
+
+  findInput.addEventListener('input',()=>{
+    const n=frCountMatches(findInput.value.trim());
+    countEl.textContent=n+' match'+(n===1?'':'es');
+  });
+
+  replaceBtn.addEventListener('click',()=>{
+    const query=findInput.value.trim();
+    if(!query) return;
+    const replacement=replaceInput.value;
+    const n=frReplaceAll(query, replacement);
+    countEl.textContent='Replaced '+n+' match'+(n===1?'':'es');
+  });
+
+  findInput.addEventListener('keydown',e=>{ if(e.key==='Enter') replaceBtn.click(); });
+  closeBtn.addEventListener('click',()=>toggleFindReplace());
+})();
+</script>
+</body>
+</html>
