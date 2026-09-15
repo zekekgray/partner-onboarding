@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ArtiPlay Academy OS — Partner Onboarding</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
 :root{
   --navy:#17203a; --navy2:#202b49; --blue:#24375f; --gold:#cbb27a; --gold2:#e2d2a7;
@@ -146,7 +147,6 @@ h1{font:400 40px/1.08 var(--serif);color:var(--navy);margin:9px 0 10px;letter-sp
 .bank-account{font:16px/1.3 var(--serif);color:var(--navy);margin-top:8px;letter-spacing:.03em}
 .bank-holder{font-size:10.5px;color:#7d8390;margin-top:4px}
 .bank-copy{margin-top:10px;border:0;background:transparent;color:#765c32;font-size:10.5px;font-weight:800;text-decoration:underline;text-underline-offset:3px;padding:0}
-.bank-grid-loading{grid-column:1/-1;font-size:11px;color:#9a9ea8;padding:10px 2px}
 .pay-instructions{margin-top:18px;background:#f5f2e8;border:1px solid #ddd3b8;border-radius:14px;padding:16px 18px}
 .pay-instructions ol{margin:8px 0 0;padding-left:18px;font-size:11.5px;line-height:1.7;color:#4d5261}
 .pay-instructions ol li{margin-bottom:2px}
@@ -267,7 +267,6 @@ h1{font:400 40px/1.08 var(--serif);color:var(--navy);margin:9px 0 10px;letter-sp
 .agreement-doc .sign-line{margin-bottom:15px}
 .agreement-doc .fillable{width:100%;border:0;border-bottom:1px solid #c9c0a4;background:transparent;padding:4px 2px;outline:none;color:var(--navy);font-family:var(--serif)}
 .agreement-doc .fillable.sig{font-style:italic;font-size:16px}
-.agreement-doc .fillable[readonly]{color:#5b6270;background:rgba(122,92,46,.04)}
 .agreement-doc .field-note,.agreement-doc .consent-line{font-family:var(--sans);font-size:10px;color:#6b634c}
 .agreement-doc .consent-line{display:flex;gap:7px;align-items:flex-start;margin:4px 0 18px}
 .agreement-doc .contact-strip{margin-top:28px;border-top:1px solid #d9d2c0;padding-top:18px}
@@ -523,6 +522,8 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
 .agreement-hint[data-arrow="top-right"]:before{top:-6px;right:22px;transform:rotate(45deg)}
 .agreement-hint[data-arrow="bottom-right"]:before{bottom:-6px;right:22px;left:auto;transform:rotate(225deg);border-left:none;border-top:none;border-right:1px solid rgba(203,178,122,.45);border-bottom:1px solid rgba(203,178,122,.45)}
 /* === END: AGREEMENT HINT PILL === */
+</parameter>
+
 </style>
 </head>
 <body>
@@ -666,7 +667,36 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
         <div class="pay-layout">
           <div>
             <div class="panel-title" style="margin-top:0">CHOOSE A RECEIVING ACCOUNT</div>
-            <div class="bank-grid" id="bankGrid"><div class="bank-grid-loading">Loading payment accounts…</div></div>
+            <div class="bank-grid" id="bankGrid">
+              <button class="bank-card" type="button" data-bank="BPI" data-account="4036 4156 55">
+                <span class="check">✓</span>
+                <div class="bank-name">BPI</div>
+                <div class="bank-account">4036 4156 55</div>
+                <div class="bank-holder">Bank of the Philippine Islands</div>
+                <button type="button" class="bank-copy" data-copy="4036 4156 55">Copy account number</button>
+              </button>
+              <button class="bank-card" type="button" data-bank="Security Bank" data-account="0000075393112">
+                <span class="check">✓</span>
+                <div class="bank-name">SECURITY BANK</div>
+                <div class="bank-account">0000 0753 9311 2</div>
+                <div class="bank-holder">Security Bank Corporation</div>
+                <button type="button" class="bank-copy" data-copy="0000075393112">Copy account number</button>
+              </button>
+              <button class="bank-card" type="button" data-bank="Maribank" data-account="1563 7086 918">
+                <span class="check">✓</span>
+                <div class="bank-name">MARIBANK</div>
+                <div class="bank-account">1563 7086 918</div>
+                <div class="bank-holder">Maribank Philippines</div>
+                <button type="button" class="bank-copy" data-copy="1563 7086 918">Copy account number</button>
+              </button>
+              <button class="bank-card" type="button" data-bank="GoTyme" data-account="0151 2287 9664" data-holder="EFREN E TAMBIGA">
+                <span class="check">✓</span>
+                <div class="bank-name">GOTYME</div>
+                <div class="bank-account">0151 2287 9664</div>
+                <div class="bank-holder">Efren E. Tambiga</div>
+                <button type="button" class="bank-copy" data-copy="0151 2287 9664">Copy account number</button>
+              </button>
+            </div>
 
             <div class="pay-instructions">
               <div class="panel-title" style="margin-bottom:0">HOW TO PAY</div>
@@ -1433,31 +1463,31 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
         </div>
       </div>
       <div class="sign-card">
-        <div class="sc-label">FOR THE ACADEMY <span style="font-weight:600;color:#9b9481;letter-spacing:0;text-transform:none">(from Step 3 — reference only)</span></div>
+        <div class="sc-label">FOR THE ACADEMY</div>
         <div class="sign-line">
-          <label class="sl-label field-required" for="doc_acad_name">ACADEMY NAME</label>
-          <input class="fillable" id="doc_acad_name" name="doc_acad_name" type="text" placeholder="Academy name" readonly tabindex="-1">
+          <label class="sl-label field-required" for="acad_name">ACADEMY NAME</label>
+          <input class="fillable" id="acad_name" name="acad_name" type="text" placeholder="Academy name">
         </div>
         <div class="sign-line">
-          <label class="sl-label field-required" for="doc_acad_rep">AUTHORIZED REPRESENTATIVE</label>
-          <input class="fillable" id="doc_acad_rep" name="doc_acad_rep" type="text" placeholder="Full name" readonly tabindex="-1">
+          <label class="sl-label field-required" for="acad_rep">AUTHORIZED REPRESENTATIVE</label>
+          <input class="fillable" id="acad_rep" name="acad_rep" type="text" placeholder="Full name" autocomplete="name">
         </div>
         <div class="sign-line">
-          <label class="sl-label" for="doc_acad_position">POSITION</label>
-          <input class="fillable" id="doc_acad_position" name="doc_acad_position" type="text" placeholder="Position / title" readonly tabindex="-1">
+          <label class="sl-label" for="acad_position">POSITION</label>
+          <input class="fillable" id="acad_position" name="acad_position" type="text" placeholder="Position / title">
         </div>
         <div class="sign-line">
-          <label class="sl-label field-required" for="doc_acad_signature">SIGNATURE</label>
-          <input class="fillable sig" id="doc_acad_signature" name="doc_acad_signature" type="text" placeholder="Captured in Step 3" readonly tabindex="-1">
-          <div class="field-note">Drawn signature captured in Step 3 serves as the e-signature of record</div>
+          <label class="sl-label field-required" for="acad_signature">SIGNATURE</label>
+          <input class="fillable sig" id="acad_signature" name="acad_signature" type="text" placeholder="Type full name as signature">
+          <div class="field-note">Typed name serves as e-signature</div>
         </div>
         <div class="consent-line">
-          <input type="checkbox" id="doc_acad_consent" name="doc_acad_consent" disabled tabindex="-1">
-          <label for="doc_acad_consent">Reflects the Academy's consent confirmation captured in Step 3.</label>
+          <input type="checkbox" id="acad_consent" name="acad_consent">
+          <label for="acad_consent">I confirm the name typed above is my signature and that I am authorized to sign this Agreement on behalf of the Academy.</label>
         </div>
         <div class="sign-line" style="margin-bottom:0;">
-          <label class="sl-label field-required" for="doc_acad_date">DATE</label>
-          <input class="fillable" id="doc_acad_date" name="doc_acad_date" type="text" placeholder="Set in Step 3" readonly tabindex="-1">
+          <label class="sl-label field-required" for="acad_date">DATE</label>
+          <input class="fillable" id="acad_date" name="acad_date" type="date">
         </div>
       </div>
     </div>
@@ -1466,17 +1496,17 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
       <div class="ct-title">ACADEMY CONTACT</div>
       <div class="contact-grid">
         <div class="cg-item">
-          <label class="sl-label field-required" for="doc_acad_email">EMAIL</label>
-          <input class="fillable" id="doc_acad_email" name="doc_acad_email" type="email" placeholder="email@academy.com" readonly tabindex="-1">
+          <label class="sl-label field-required" for="acad_email">EMAIL</label>
+          <input class="fillable" id="acad_email" name="acad_email" type="email" placeholder="email@academy.com" autocomplete="email">
         </div>
         <div class="cg-item">
-          <label class="sl-label" for="doc_acad_mobile">MOBILE</label>
-          <input class="fillable" id="doc_acad_mobile" name="doc_acad_mobile" type="tel" placeholder="09xxxxxxxxx" readonly tabindex="-1">
+          <label class="sl-label" for="acad_mobile">MOBILE</label>
+          <input class="fillable" id="acad_mobile" name="acad_mobile" type="tel" placeholder="09xxxxxxxxx" autocomplete="tel">
         </div>
       </div>
       <div class="sign-line" style="margin-top:5mm; margin-bottom:0;">
-        <label class="sl-label" for="doc_acad_address">OFFICIAL ACADEMY ADDRESS</label>
-        <input class="fillable" id="doc_acad_address" name="doc_acad_address" type="text" placeholder="Complete address" readonly tabindex="-1">
+        <label class="sl-label" for="acad_address">OFFICIAL ACADEMY ADDRESS</label>
+        <input class="fillable" id="acad_address" name="acad_address" type="text" placeholder="Complete address">
       </div>
     </div>
   </div>
@@ -1496,45 +1526,113 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
 </div>
 
 <script>
+/* ===== MODULE: Supabase connection ===== */
+const SUPABASE_URL = 'https://fycgrvtimigmbmxlmjpr.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_mPFlcseQSLk1G-rAPcglzQ_Rn2cpLgr';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: { persistSession: false }
+});
+
 (function(){
   const pages=[1,2,3,4,5];
   let current=1;
   let maxReached=1;
   const selected=new Set();
-  let selectedChannel=null;
+  let selectedBank=null;
   let resizeSignaturePad=null;
 
   /* ============================================================
-     PRICING ENGINE — render-only mirror of the backend's copy.
-     The values below are DEFAULTS ONLY, used the instant the page
-     loads so the UI never looks broken while waiting on the network.
-     getPricingConfig() (Code.gs) is the actual source of truth —
-     loadPricingConfig() below overwrites this object as soon as the
-     backend responds. Never hand-edit pricing here only — edit
-     PRICING_CONFIG in Code.gs and this default will simply become
-     a same-second fallback.
+     PRICING ENGINE — single source of truth for every ₱ shown
+     in Step 2 (Review) and Step 4 (Payment). Every number the UI
+     displays is computed here, never hand-typed elsewhere, so
+     the source of any figure is always traceable to one of the
+     line items below.
+
+     CONFIRMED WITH BUSINESS (from Agreement Article II & VI):
+       - setupFee.discounted / .regular   → §2.1 Founding Academy Pricing
+       - recurring tiers (999 / 2,999)    → confirmed by academy owner
+       - referral.commissionPct           → §6.1 Direct Referral Commission
+     ASSUMED — NOT YET CONFIRMED (flagged so they're easy to find/change):
+       - headcount definition             → assumed players+coaches combined
+       - module add-on pricing            → assumed $0, bundled in tier
+       - tax handling                     → assumed tax-inclusive, no VAT line
      ============================================================ */
-  let PRICING_CONFIG = {
+  const PRICING_CONFIG = {
     currency: '₱',
-    setupFee: { regular: 35000, discounted: 15000, discountLabel: 'Founding Academy discount' },
+
+    // ---- ONE-TIME SETUP / DEPLOYMENT FEE (Agreement §2.1) ----
+    setupFee: {
+      regular: 35000,      // standard reference deployment price, no discount
+      discounted: 15000,   // Founding Academy one-time price (what this flow charges)
+      discountLabel: 'Founding Academy discount'
+    },
+
+    // ---- RECURRING PLATFORM & INFRASTRUCTURE FEE (Agreement §2.2) ----
+    // Tiered by total active seats (players + coaches/staff) on the tenant.
+    // ASSUMPTION: headcount = players + coaches/staff combined. Confirm and
+    // edit `headcountDefinition` + the tier `upTo` value if that's wrong.
     headcountDefinition: 'players + coaches/staff combined',
     recurringTiers: [
-      { upTo: 250,      monthly: 999  },
-      { upTo: Infinity, monthly: 2999 }
+      { upTo: 250,        monthly: 999  },  // 1–250 total seats
+      { upTo: Infinity,   monthly: 2999 }   // 251+ total seats
     ],
+
+    // ---- MODULES SELECTED IN STEP 1 ----
+    // ASSUMPTION: all modules (AI-Assisted, Rewards, Dashboards, Referral)
+    // are bundled into the recurring tier fee above at ₱0 add-on cost, per
+    // Agreement §2.2 ("continued access to supported ArtiPlay features").
+    // To make a module chargeable, give it a non-zero `monthly` here —
+    // the render layer will automatically pick it up and itemize it.
     moduleAddOns: {
-      'White-Label': 0, 'Academy Operations': 0, 'AI-Assisted': 0,
-      'Rewards & Engagement': 0, 'Dashboards & Analytics': 0, 'Referral Partner': 0
+      'White-Label':              0,
+      'Academy Operations':       0,
+      'AI-Assisted':              0,
+      'Rewards & Engagement':     0,
+      'Dashboards & Analytics':   0,
+      'Referral Partner':         0
     },
-    promoDiscounts: {},
+
+    // ---- DISCOUNTS ----
+    // Founding Academy pricing IS the discount (35,000 → 15,000). No
+    // separate promo-code or seasonal-discount system exists yet — this
+    // object is a placeholder for future coupon/discount codes.
+    promoDiscounts: {
+      // 'CODE123': { type:'percent', value:10, appliesTo:'setup' }
+    },
+
+    // ---- TAX ----
+    // ASSUMPTION: tax-inclusive, no separate VAT line, because the signed
+    // Agreement's commercial tables (§2.1, §2.2, §9.2) show no VAT line
+    // item. If the business becomes VAT-registered and wants VAT broken
+    // out, set `mode` to 'exclusive' and `ratePct` to e.g. 12 — the render
+    // layer will then show a separate "VAT (12%)" line automatically.
     tax: { mode: 'inclusive', ratePct: 0, label: 'VAT' },
+
+    // ---- SETUP FEE PRORATION / TRIAL / BILLING CYCLE ----
+    // No trial period exists in the current Agreement. Setup fee is due
+    // before deployment (Agreement §7.1); recurring fee bills monthly on
+    // the Academy's billing date, no mid-cycle proration defined yet.
     billingCycle: 'monthly',
     trialDays: 0,
     setupFeeProration: false,
+
+    // ---- RENEWAL / CANCELLATION / REFUND ----
+    // Renewal: recurring fee auto-continues monthly until terminated
+    // (Agreement §7.1). Cancellation: either party per §7.3 — no early
+    // termination fee defined. Refund: setup fee is non-refundable once
+    // deployment has started; monthly fee is non-refundable/non-prorated
+    // for the current billing cycle upon cancellation.
     renewalPolicy: 'auto-continues monthly until terminated (§7.1, §7.3)',
     cancellationPolicy: 'either party, per §7.3 — no early-termination fee on file',
-    refundPolicy: 'Setup fee non-refundable once deployment has started; monthly platform fee non-refundable and non-prorated for the current billing cycle upon cancellation',
-    referral: { commissionPct: 50, appliesTo: 'setupFeeOnly', attributionWindowDays: 90, payoutBusinessDays: 15 }
+      refundPolicy: 'Setup fee non-refundable once deployment has started; monthly platform fee non-refundable and non-prorated for the current billing cycle upon cancellation',
+
+    // ---- REFERRAL COMMISSION (Agreement §6.1) ----
+    referral: {
+      commissionPct: 50,          // % of the ACTUAL setup fee received, not the ₱35,000 reference price
+      appliesTo: 'setupFeeOnly',  // recurring monthly fee is NOT commissionable per §6.1
+      attributionWindowDays: 90,  // §6.2
+      payoutBusinessDays: 15      // §6.2
+    }
   };
 
   // Returns the recurring monthly fee for a given headcount, per the tier table above.
@@ -1553,7 +1651,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     const tier = getRecurringTier(headcount);
     const setup = isFounding ? cfg.setupFee.discounted : cfg.setupFee.regular;
     const setupDiscountAmount = isFounding ? (cfg.setupFee.regular - cfg.setupFee.discounted) : 0;
-    const moduleAddOnTotal = Object.values(cfg.moduleAddOns).reduce((a,b)=>a+b, 0);
+    const moduleAddOnTotal = Object.values(cfg.moduleAddOns).reduce((a,b)=>a+b, 0); // currently always 0 — see moduleAddOns comment
     const recurringBeforeTax = tier.monthly + moduleAddOnTotal;
     const taxAmount = cfg.tax.mode === 'exclusive' ? Math.round(recurringBeforeTax * (cfg.tax.ratePct/100)) : 0;
     const recurringTotal = recurringBeforeTax + taxAmount;
@@ -1571,7 +1669,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
       taxMode: cfg.tax.mode,
       recurringTotal,
       dueToday: setup,
-      grandTotalDueToday: setup + recurringTotal,
+      grandTotalDueToday: setup + recurringTotal, // ASSUMPTION: first month is billed together with the setup fee at signup — confirm with business, edit here if setup-only
       referralCommission,
       referralPct: cfg.referral.commissionPct
     };
@@ -1580,7 +1678,6 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
   function fmtPeso(n){ return PRICING_CONFIG.currency + Number(n||0).toLocaleString('en-PH'); }
 
   const $=id=>document.getElementById(id);
-  const hasGoogleScript = ()=> typeof google !== 'undefined' && google.script && google.script.run;
 
   function showToast(message, type){
     const stack=$('toastStack');
@@ -1661,78 +1758,29 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     render();
   }));
 
-  /* ============================================================
-     PAYMENT CHANNELS — rendered from backend data (getPaymentChannels
-     in Code.gs), not hardcoded here. Event delegation is used on the
-     grid container since the cards are (re)built dynamically.
-     ============================================================ */
-  function renderBankGrid(channels){
-    const grid = $('bankGrid');
-    if(!grid) return;
-    if(!channels || !channels.length){
-      grid.innerHTML = '<div class="bank-grid-loading">No payment accounts are configured yet. Please contact ArtiPlay Admin.</div>';
-      return;
-    }
-    grid.innerHTML = channels.map(c => {
-      const holderAttr = c.holderSuffix ? ` data-holder="${c.holderSuffix}"` : '';
-      return `
-        <button class="bank-card" type="button" data-channel-id="${c.id}" data-label="${c.label}" data-account="${c.accountDisplay}"${holderAttr}>
-          <span class="check">✓</span>
-          <div class="bank-name">${c.label}</div>
-          <div class="bank-account">${c.accountDisplay}</div>
-          <div class="bank-holder">${c.holderLabel || ''}</div>
-          <button type="button" class="bank-copy" data-copy="${c.accountRaw}">Copy account number</button>
-        </button>`;
-    }).join('');
-    selectedChannel = null;
-    if($('pay_bank')) $('pay_bank').value='';
-  }
-
-  function applyPaymentChannels(channels){
-    renderBankGrid(channels || []);
-  }
-
-  function loadPaymentChannels(){
-    if(hasGoogleScript()){
-      google.script.run
-        .withSuccessHandler(applyPaymentChannels)
-        .withFailureHandler(()=>{ showToast('Could not load payment accounts. Please refresh the page.','error'); })
-        .getPaymentChannels();
-    } else {
-      // Design-time / non-Apps-Script preview fallback only — the live
-      // deployment always renders from Code.gs's getPaymentChannels().
-      applyPaymentChannels([
-        {id:'bpi',label:'BPI',accountDisplay:'4036 4156 55',accountRaw:'4036415655',holderLabel:'Bank of the Philippine Islands'},
-        {id:'secbank',label:'SECURITY BANK',accountDisplay:'0000 0753 9311 2',accountRaw:'0000075393112',holderLabel:'Security Bank Corporation'},
-        {id:'maribank',label:'MARIBANK',accountDisplay:'1563 7086 918',accountRaw:'1563 7086 918',holderLabel:'Maribank Philippines'},
-        {id:'gotyme',label:'GOTYME',accountDisplay:'0151 2287 9664',accountRaw:'0151 2287 9664',holderLabel:'Efren E. Tambiga',holderSuffix:'Efren E. Tambiga'}
-      ]);
-    }
-  }
-
-  // Event delegation on the grid container — required because cards are
-  // (re)built dynamically from backend data rather than static markup.
-  $('bankGrid').addEventListener('click', (e)=>{
-    const copyBtn = e.target.closest('.bank-copy');
-    if(copyBtn){
+  // Bank / e-wallet selection
+  document.querySelectorAll('.bank-card').forEach(card=>{
+    card.addEventListener('click',(e)=>{
+      if(e.target.classList.contains('bank-copy')) return; // handled separately
+      document.querySelectorAll('.bank-card').forEach(c=>c.classList.remove('selected'));
+      card.classList.add('selected');
+      selectedBank=card.dataset.bank;
+      const holder=card.dataset.holder?(' — '+card.dataset.holder):'';
+      $('pay_bank').value=card.dataset.bank+' · '+card.dataset.account+holder;
+    });
+  });
+  document.querySelectorAll('.bank-copy').forEach(btn=>{
+    btn.addEventListener('click',(e)=>{
       e.stopPropagation();
-      const text=copyBtn.dataset.copy;
+      const text=btn.dataset.copy;
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(text).then(()=>{
-          const original=copyBtn.textContent;
-          copyBtn.textContent='Copied ✓';
-          setTimeout(()=>{copyBtn.textContent=original;},1400);
+          const original=btn.textContent;
+          btn.textContent='Copied ✓';
+          setTimeout(()=>{btn.textContent=original;},1400);
         }).catch(()=>{});
       }
-      return;
-    }
-    const card = e.target.closest('.bank-card');
-    if(!card) return;
-    $('bankGrid').querySelectorAll('.bank-card').forEach(c=>c.classList.remove('selected'));
-    card.classList.add('selected');
-    selectedChannel = { id: card.dataset.channelId, label: card.dataset.label, account: card.dataset.account };
-    const holderSuffix = card.dataset.holder ? (' — ' + card.dataset.holder) : '';
-    $('pay_bank').value = card.dataset.label + ' · ' + card.dataset.account + holderSuffix;
+    });
   });
 
   /* === START: PILL SPRING + HAPTIC === */
@@ -1795,7 +1843,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
       if(!$('acad_consent').checked){ guideToField($('acad_consent')); showToast('Please confirm the e-signature acceptance.','warn');return false;}
     }
     if(current===4){
-      if(!selectedChannel){ guideToField(document.getElementById('bankGrid')); showToast('Please select the account you sent the payment to.','warn'); return false; }
+      if(!selectedBank){ guideToField(document.getElementById('bankGrid')); showToast('Please select the account you sent the payment to.','warn'); return false; }
       const amtVal=$('pay_amount').value.trim();
       if(!amtVal){ guideToField($('pay_amount')); showToast('Please enter the amount you sent.','warn'); return false; }
       const enteredAmt=parseFloat(amtVal.replace(/[^0-9.]/g,''))||0;
@@ -1812,6 +1860,35 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
 
   function hapticTap(){ if(navigator.vibrate) navigator.vibrate(8); }
 
+  async function submitPaymentToSupabase(){
+    const p = computePricing(getHeadcountValue(), true);
+    const payload = {
+      academy_name: $('acad_name').value.trim(),
+      representative: $('acad_rep').value.trim(),
+      position: $('acad_position').value.trim(),
+      email: $('acad_email').value.trim(),
+      mobile: $('acad_mobile').value.trim(),
+      address: $('acad_address').value.trim(),
+      selected_features: Array.from(selected).join(', '),
+      headcount: p.headcount,
+      tier_monthly: p.recurringBase,
+      setup_fee: p.setupFee,
+      grand_total_due_today: p.grandTotalDueToday,
+      channel_id: selectedBank || '',
+      bank_label: $('pay_bank').value || '',
+      amount_sent: parseFloat(($('pay_amount').value||'').replace(/[^0-9.]/g,''))||0,
+      payment_reference: $('pay_reference').value.trim(),
+      signature_status: acadSignatureDataUrl ? 'Captured' : ''
+    };
+    const { data, error } = await sb.from('pending_payments').insert(payload).select().single();
+    if(error){
+      console.error('Supabase insert error:', error);
+      showToast('Could not submit — ' + error.message, 'error');
+      return null;
+    }
+    return data;
+  }
+
   function finishSubmission(){
     $('thanksEmail').textContent=$('acad_email').value||'your registered address';
     document.querySelector('.app').style.display='none';
@@ -1822,66 +1899,19 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     window.addEventListener('popstate', ()=>{ history.pushState(null, '', location.href); });
   }
 
-  /* ============================================================
-     STEP 4 → 5 SUBMISSION — this is the call that used to be
-     entirely missing: the wizard would fake a "submitted" state
-     locally with no backend record at all. Now it calls
-     submitPaymentReference() in Code.gs, and only advances to
-     Step 5 once the backend confirms the record was saved.
-     ============================================================ */
-  function buildPaymentSubmission(){
-    return {
-      acad_name: $('acad_name').value.trim(),
-      acad_rep: $('acad_rep').value.trim(),
-      acad_position: $('acad_position').value.trim(),
-      acad_email: $('acad_email').value.trim(),
-      acad_mobile: $('acad_mobile').value.trim(),
-      acad_address: $('acad_address').value.trim(),
-      acad_signature: acadSignatureDataUrl,
-      selectedFeatures: Array.from(selected),
-      headcount: getHeadcountValue(),
-      channelId: selectedChannel ? selectedChannel.id : '',
-      bankLabel: selectedChannel ? selectedChannel.label : '',
-      amount: parseFloat(($('pay_amount').value||'').replace(/[^0-9.]/g,''))||0,
-      referenceNumber: $('pay_reference').value.trim()
-    };
-  }
-
-  function submitPaymentForVerification(){
-    const data = buildPaymentSubmission();
-    const btn = $('nextBtn');
-    const originalLabel = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = 'Submitting...';
-
-    function done(){
-      btn.disabled = false;
-      btn.textContent = originalLabel;
-    }
-
-    if(hasGoogleScript()){
-      google.script.run
-        .withSuccessHandler(res=>{
-          done();
-          if(res && res.success===false){ showToast(res.error || 'Could not submit payment reference.','error'); return; }
-          current=5; render();
-        })
-        .withFailureHandler(err=>{
-          done();
-          showToast('Error submitting payment reference: '+(err && err.message ? err.message : err),'error');
-        })
-        .submitPaymentReference(data);
-    } else {
-      // Design-time / non-Apps-Script preview fallback only.
-      done();
-      current=5; render();
-    }
-  }
-
-  $('nextBtn').addEventListener('click',()=>{
+  $('nextBtn').addEventListener('click', async ()=>{
     if(!validStep()) return;
     hapticTap();
-    if(current===4){ submitPaymentForVerification(); return; }
+    if(current===4){
+      const btn=$('nextBtn');
+      const originalLabel=btn.textContent;
+      btn.disabled=true; btn.textContent='Submitting...';
+      const result = await submitPaymentToSupabase();
+      btn.disabled=false; btn.textContent=originalLabel;
+      if(!result) return; // error already toasted
+      current=5; render();
+      return;
+    }
     if(current<5){ current++; render(); return; }
     if(current===5){ finishSubmission(); return; }
   });
@@ -2085,42 +2115,9 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
   })();
   /* === END: PORTRAIT MODE TOGGLE === */
 
-  /* ============================================================
-     AGREEMENT DOCUMENT — SYNC FROM STEP 3
-     doc_acad_* fields inside the full Agreement were previously
-     literal id duplicates of the Step 3 fields (acad_name, acad_rep,
-     etc.), which meant getElementById always resolved to Step 3's
-     copy and the modal's own inputs were silently dead. They're now
-     uniquely-id'd, read-only mirrors, synced here whenever the
-     agreement is opened, so the document always reflects what the
-     Academy actually entered in Step 3 — with a single source of
-     truth instead of two disconnected forms.
-     ============================================================ */
-  function syncAgreementDocFields(){
-    const map = {
-      doc_acad_name: 'acad_name',
-      doc_acad_rep: 'acad_rep',
-      doc_acad_position: 'acad_position',
-      doc_acad_email: 'acad_email',
-      doc_acad_mobile: 'acad_mobile',
-      doc_acad_address: 'acad_address'
-    };
-    Object.keys(map).forEach(docId=>{
-      const docEl=$(docId), srcEl=$(map[docId]);
-      if(docEl && srcEl) docEl.value = srcEl.value;
-    });
-    const docDate=$('doc_acad_date'), srcDate=$('acad_date');
-    if(docDate && srcDate) docDate.value = srcDate.value;
-    const docSig=$('doc_acad_signature'), srcRep=$('acad_rep');
-    if(docSig && srcRep) docSig.value = srcRep.value ? (srcRep.value + ' (drawn signature on file)') : '';
-    const docConsent=$('doc_acad_consent'), srcConsent=$('acad_consent');
-    if(docConsent && srcConsent) docConsent.checked = srcConsent.checked;
-  }
-
   function openCompleteAgreement(){
     const overlay = $('agreementOverlay');
     if(!overlay) return;
-    syncAgreementDocFields();
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden','false');
     document.body.classList.add('agreement-open');
@@ -2145,16 +2142,13 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
   $('agreementOverlay').addEventListener('click',e=>{if(e.target===$('agreementOverlay')) $('closeAgreement').click();});
   document.addEventListener('keydown',e=>{if(e.key==='Escape' && $('agreementOverlay').classList.contains('open')) $('closeAgreement').click();});
 
-  // Data sent to Code.gs's saveAgreementToSheet() / generateAgreementPdf().
-  // Only the ArtiPlay-side (prov_*) fields and Step 3's canonical acad_*
-  // fields are read — the doc_acad_* mirrors are display-only and are
-  // never submitted, since they're derived, not authoritative.
+  // Preserve the original Agreement's Google Apps Script hooks when this file
+  // is served inside HTML Service. The original IDs remain in the agreement modal.
   window.collectAgreementData=function(){
     const ids=['prov_rep','prov_position','prov_signature','prov_date','prov_consent','acad_name','acad_rep','acad_position','acad_date','acad_consent','acad_email','acad_mobile','acad_address'];
     const data={};
     ids.forEach(id=>{const el=$(id); if(el) data[id]=el.type==='checkbox'?el.checked:el.value;});
     data.acad_signature = acadSignatureDataUrl;
-    data.headcount = getHeadcountValue();
     data.payment_bank=$('pay_bank')?$('pay_bank').value:'';
     data.payment_amount=$('pay_amount')?$('pay_amount').value:'';
     data.payment_reference=$('pay_reference')?$('pay_reference').value:'';
@@ -2186,13 +2180,14 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     if(missing){ tbSetStatus('Please complete: '+missing.id,true); missing.focus(); return false; }
     return true;
   }
+  function tbHasGoogleScript(){ return typeof google!=='undefined'&&google.script&&google.script.run; }
   function tbWithTimeout(seconds){
     return setTimeout(()=>{ tbToggleButtons(false); tbSetStatus('No response from server. Try again.',true); },seconds*1000);
   }
 
   window.saveAgreement=function(){
     if(!tbValidateOrWarn()) return;
-    if(!hasGoogleScript()){ tbSetStatus('Google Apps Script is not available in this preview.',true); return; }
+    if(!tbHasGoogleScript()){ tbSetStatus('Google Apps Script is not available in this preview.',true); return; }
     tbToggleButtons(true); tbSetStatus('Saving...');
     const timer=tbWithTimeout(20);
     const data=window.collectAgreementData();
@@ -2201,7 +2196,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
 
   window.generatePdf=function(){
     if(!tbValidateOrWarn()) return;
-    if(!hasGoogleScript()){ tbSetStatus('Google Apps Script is not available in this preview.',true); return; }
+    if(!tbHasGoogleScript()){ tbSetStatus('Google Apps Script is not available in this preview.',true); return; }
     tbToggleButtons(true); tbSetStatus('Generating PDF...');
     const timer=tbWithTimeout(30);
     const data=window.collectAgreementData();
@@ -2307,30 +2302,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     });
   }
 
-  /* ============================================================
-     BACKEND PRICING SYNC
-     getPricingConfig() (Code.gs) is the source of truth. The
-     PRICING_CONFIG default above is only what's on screen for the
-     first instant of the page load — this quietly overwrites it as
-     soon as the backend responds, then re-renders (no visible jump
-     for a first-time visitor since the defaults match exactly).
-     ============================================================ */
-  function applyPricingConfig(cfg){
-    if(cfg) PRICING_CONFIG = cfg;
-    renderPricing();
-  }
-  function loadPricingConfig(){
-    if(hasGoogleScript()){
-      google.script.run
-        .withSuccessHandler(applyPricingConfig)
-        .withFailureHandler(()=>{ /* keep local defaults silently */ })
-        .getPricingConfig();
-    }
-  }
-
   render();
-  loadPricingConfig();
-  loadPaymentChannels();
 })();
 
 /* ===== Find & replace within the agreement document ===== */
