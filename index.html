@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -176,7 +178,8 @@ h1{font:400 40px/1.08 var(--serif);color:var(--navy);margin:9px 0 10px;letter-sp
 .overlay.open{display:flex}
 .agreement-modal{width:100%;height:100%;margin:0;background:#e9e6de;border-radius:0;overflow:hidden;box-shadow:none;display:flex;flex-direction:column}
 .modal-head{height:62px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px 0 24px;flex:0 0 auto}
-.modal-title{font-size:11px;letter-spacing:.13em;font-weight:800}
+.modal-title{font-size:11px;letter-spacing:.13em;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 auto}
+css
 .close{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:transparent;color:#fff;display:grid;place-items:center;font-size:19px}
 
 /* Apple-like hover tooltip — works on any element with [data-tooltip] */
@@ -204,18 +207,22 @@ h1{font:400 40px/1.08 var(--serif);color:var(--navy);margin:9px 0 10px;letter-sp
 }
 [data-tooltip]:hover::after,[data-tooltip]:focus-visible::after{opacity:1;transform:translateY(-50%) translateX(0) scale(1)}
 @media(max-width:700px){[data-tooltip]::after,[data-tooltip]::before{display:none}}
-.modal-head-right{display:flex;align-items:center;gap:14px}
-.tb-status{font-family:"Helvetica Neue",Arial,sans-serif;font-size:9px;color:#a9b0c2;min-width:110px;text-align:right}
+.modal-head-right{display:flex;align-items:center;gap:14px;flex:0 0 auto}.tb-status{font-family:"Helvetica Neue",Arial,sans-serif;font-size:9px;color:#a9b0c2;min-width:110px;text-align:right}
 .icon-group{display:flex;align-items:center;gap:6px;background:rgba(242,239,230,.08);border:1px solid rgba(242,239,230,.14);border-radius:999px;padding:4px}
 .icon-btn{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:50%;width:34px;height:34px;padding:0;display:inline-flex;align-items:center;justify-content:center;transition:background .15s ease,border-color .15s ease,transform .1s ease}
 .icon-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .icon-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.5)}
 .icon-btn:active{transform:scale(.94)}
 .icon-btn:disabled{opacity:.45;cursor:not-allowed}
-.agreement-scroll{overflow:auto;flex:1}
-.agreement-doc{max-width:820px;margin:28px auto 40px;background:var(--ivory);box-shadow:0 4px 28px rgba(23,32,58,.18)}
-.agreement-doc .cover{min-height:760px;padding:55px 62px;display:flex;flex-direction:column;background:#fbfaf6;position:relative}
-.agreement-doc .letterhead{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--navy);padding-bottom:18px}
+ .agreement-scroll{overflow:auto;flex:1;background:#6b6f76;padding:24px 16px 40px}
+.pdf-preview-inline{overflow:auto;flex:1;background:#6b6f76;padding:26px 20px 40px}
+.pdf-preview-inline-banner{max-width:794px;margin:0 auto 16px;background:#17203a;color:#f5f2e8;font:600 11.5px "Helvetica Neue",Arial,sans-serif;padding:12px 16px;border-radius:10px;text-align:center;letter-spacing:.01em;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.pdf-preview-stack{display:flex;flex-direction:column;align-items:center;gap:22px}
+.pdf-preview-page{position:relative;overflow:hidden;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.35);border-radius:2px;flex:0 0 auto}
+.pdf-preview-page-label{position:absolute;bottom:6px;right:10px;font:600 10px "Helvetica Neue",Arial,sans-serif;color:#b8bcc4;background:rgba(255,255,255,.85);padding:2px 7px;border-radius:4px}
+@media(max-width:860px){.pdf-preview-inline{padding:16px 8px 30px}}
+.agreement-doc{max-width:820px;margin:0 auto;background:transparent;box-shadow:none;display:flex;flex-direction:column;gap:22px}
+.agreement-doc .cover{min-height:760px;padding:55px 62px;display:flex;flex-direction:column;background:#fbfaf6;position:relative;box-shadow:0 4px 20px rgba(0,0,0,.35);border-radius:2px}.agreement-doc .letterhead{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--navy);padding-bottom:18px}
 .agreement-doc .mark-word{font-size:15px;letter-spacing:.08em;color:var(--navy);font-weight:600}
 .agreement-doc .mark-sub{font-size:10px;letter-spacing:.12em;color:#7a5c2e}
 .agreement-doc .letterhead-doc{text-align:right;font-size:10px;color:#6b7180;line-height:1.5}
@@ -234,22 +241,25 @@ h1{font:400 40px/1.08 var(--serif);color:var(--navy);margin:9px 0 10px;letter-sp
 .agreement-doc .cover-tags span:first-child::before{content:""}
 .agreement-doc .cover-footer{margin-top:auto;padding-top:25px;display:flex;justify-content:space-between;gap:15px;border-top:1px solid #d9d2c0;align-items:end}
 .agreement-doc .cover-footer-tagline{font:italic 13px var(--serif);color:#7a5c2e}
-.agreement-doc .toc,.agreement-doc .page-inner{padding:48px 62px 25px}
-.agreement-doc .toc{border-bottom:1px solid #e4dfd4}
+.agreement-doc .toc{padding:48px 62px 25px;background:#fbfaf6;box-shadow:0 4px 20px rgba(0,0,0,.35);border-radius:2px}
+.agreement-doc .page-inner{padding:0;display:flex;flex-direction:column;gap:22px}
 .agreement-doc .toc-heading{font-size:10px;letter-spacing:.14em;color:#7a5c2e}
 .agreement-doc .toc-title{font:400 22px var(--serif);color:var(--navy);margin:5px 0 25px;border-bottom:2px solid var(--navy);padding-bottom:13px}
 .agreement-doc .toc-row{display:flex;gap:18px;padding:11px 0;border-bottom:1px dotted #d9d2c0;text-decoration:none;color:inherit}
 .agreement-doc .toc-num,.agreement-doc .sec-num{color:#7a5c2e;font-size:12px}
 .agreement-doc .toc-label{font-size:13px}
-.agreement-doc .part{padding:28px 0 5px;scroll-margin-top:70px}
+.agreement-doc .part{padding:48px 62px 40px;margin:0;background:#fbfaf6;box-shadow:0 4px 20px rgba(0,0,0,.35);border-radius:2px;scroll-margin-top:70px}
 .agreement-doc .part-title{font:400 23px var(--serif);color:var(--navy);margin:5px 0 25px;border-bottom:2px solid var(--navy);padding-bottom:14px}
 .agreement-doc .sec{margin-bottom:25px}
-.agreement-doc .sec-head{display:flex;gap:8px;align-items:baseline;margin-bottom:7px}
-.agreement-doc .sec-title{font-size:15px;font-weight:800;color:var(--navy)}
-.agreement-doc .sec p,.agreement-doc .sec li{font:14px/1.68 var(--serif);color:#383d4a}
+.agreement-doc .sec-head{display:flex;gap:8px;align-items:baseline;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #e4dfd0}
+.agreement-doc .sec-title{font-size:15px;font-weight:800;color:var(--navy);letter-spacing:.01em}
+/* === START: LEFT-ALIGN BODY TEXT (was justified) === */
+.agreement-doc .sec p,.agreement-doc .sec li{font:14px/1.72 var(--serif);color:#383d4a;text-align:left;orphans:3;widows:3}
+/* === END: LEFT-ALIGN BODY TEXT (was justified) === */
 .agreement-doc .sec p{margin:0 0 10px}
-.agreement-doc .sec ul{margin:7px 0 12px;padding-left:22px}
-.agreement-doc .sec li{margin-bottom:5px}
+.agreement-doc .sec ul{margin:7px 0 12px;padding-left:0;list-style:none}
+.agreement-doc .sec li{margin-bottom:6px;position:relative;padding-left:20px}
+.agreement-doc .sec li:before{content:"–";position:absolute;left:0;color:#7a5c2e;font-weight:700}
 .agreement-doc .callout-row{display:flex;gap:14px;flex-wrap:wrap;margin:13px 0}
 .agreement-doc .callout{flex:1;min-width:230px;background:#f5f2e8;border:1px solid #ddd3b8;border-left:3px solid #7a5c2e;padding:15px 18px}
 .agreement-doc .callout .k{font-size:9px;letter-spacing:.06em;color:#6b634c}
@@ -272,13 +282,44 @@ h1{font:400 40px/1.08 var(--serif);color:var(--navy);margin:9px 0 10px;letter-sp
 .agreement-doc .contact-strip{margin-top:28px;border-top:1px solid #d9d2c0;padding-top:18px}
 .agreement-doc .contact-grid{display:flex;gap:25px}
 .agreement-doc .cg-item{flex:1}
-.agreement-doc .closing{min-height:700px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px;border-top:1px solid #e2ddd1}
+.agreement-doc .closing{min-height:700px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px;background:#fbfaf6;box-shadow:0 4px 20px rgba(0,0,0,.35);border-radius:2px}
 .agreement-doc .closing-word{font-size:10px;letter-spacing:.14em;color:#7a5c2e}
 .agreement-doc .closing-title{font:400 25px var(--serif);color:var(--navy);margin:9px 0}
 .agreement-doc .closing-sub{font:italic 14px/1.65 var(--serif);color:#5b6270;max-width:560px}
 .agreement-doc .closing-tagline{font:italic 15px var(--serif);color:#7a5c2e;margin-top:24px}
 .agreement-doc .closing-built-by{margin-top:35px;font-size:9px;letter-spacing:.06em;color:#9b9481}
-@media(max-width:1000px){
+
+/* === PDF PAGE-BREAK RULES — keep in sync with previewPdfLayout() === */
+/* === START: A4 PAGE MARGIN SYSTEM === */
+@page{size:A4;margin:15mm 12mm}
+/* === END: A4 PAGE MARGIN SYSTEM === */
+@media print{
+  .agreement-doc{gap:0 !important}
+  .agreement-doc .cover,.agreement-doc .toc,.agreement-doc .part,.agreement-doc .closing{box-shadow:none !important;border-radius:0 !important}
+}
+.agreement-doc .toc,.agreement-doc .closing{break-before:page;page-break-before:always}
+.agreement-doc table.commercial,.agreement-doc .callout-row,.agreement-doc .note-box,.agreement-doc .sign-grid,.agreement-doc .contact-strip,.agreement-doc .parties-block{break-inside:avoid;page-break-inside:avoid}
+.agreement-doc table.commercial tr{break-inside:avoid;page-break-inside:avoid}
+.agreement-doc .sec p,.agreement-doc .sec li{break-inside:avoid;page-break-inside:avoid}
+/* === START: ARTICLE HEADING ORPHAN FIX === */
+.agreement-doc .part-kicker,.agreement-doc .part-title,.agreement-doc .sec-head{break-after:avoid;page-break-after:avoid}
+.agreement-doc .part-kicker+.part-title,.agreement-doc .part-title+.sec{break-before:avoid;page-break-before:avoid}
+/* === END: ARTICLE HEADING ORPHAN FIX === */
+.agreement-doc .sec-head+p,.agreement-doc .sec-head+ul{break-before:avoid;page-break-before:avoid}
+
+/* === TYPOGRAPHY / PRINT-QUALITY FIXES === */
+@media print{ *{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
+.agreement-doc{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.agreement-doc .strike{text-decoration:line-through;text-decoration-color:#a3492f;color:#9b9481;font-size:.6em;font-weight:400;margin-right:8px}
+.agreement-doc .unit{font-size:.48em;font-weight:400;color:#6b634c;margin-left:3px;letter-spacing:0}
+.agreement-doc .ct-title{font-size:10px;letter-spacing:.14em;font-weight:800;color:#7a5c2e;margin-bottom:14px}
+.agreement-doc .field-required:after{content:" *";color:#a3492f}
+.agreement-doc table.commercial td,.agreement-doc table.commercial th{font-variant-numeric:tabular-nums;vertical-align:top}
+.agreement-doc .callout .v,.agreement-doc .p-value{font-variant-numeric:tabular-nums}
+.agreement-doc table.commercial thead tr{background:#f5f2e8}
+.agreement-doc table.commercial tbody tr:last-child td{border-bottom:2px solid var(--navy)}
+.agreement-doc .toc-num{display:inline-block;min-width:26px}
+.agreement-doc .sec strong.inline{color:var(--navy)}@media(max-width:1000px){
  .app{grid-template-columns:300px 1fr}
  .content{padding:30px} .choice-grid{grid-template-columns:repeat(2,1fr)}
 }
@@ -287,8 +328,7 @@ h1{font:400 40px/1.08 var(--serif);color:var(--navy);margin:9px 0 10px;letter-sp
  .topbar{padding:0 18px} .content{padding:25px 18px} .bottom{padding:15px 18px}
  h1{font-size:32px} .choice-grid,.summary-grid,.pay-layout,.form-grid,.bank-grid{grid-template-columns:1fr}
  .field.full{grid-column:auto} .overlay{padding:0} .agreement-modal{height:100%;border-radius:0}
- .agreement-doc{margin:0;box-shadow:none} .agreement-doc .cover,.agreement-doc .toc,.agreement-doc .page-inner{padding:32px 24px}
- .agreement-doc .cover-title-block{margin-top:70px} .agreement-doc .parties-block,.agreement-doc .contact-grid{flex-direction:column;gap:18px}
+ .agreement-doc{margin:0;gap:14px} .agreement-doc .cover,.agreement-doc .toc,.agreement-doc .part,.agreement-doc .closing{padding:32px 24px} .agreement-doc .cover-title-block{margin-top:70px} .agreement-doc .parties-block,.agreement-doc .contact-grid{flex-direction:column;gap:18px}
  .agreement-doc .party+.party{border-left:0;border-top:1px solid #d9d2c0;padding-top:18px}
  .agreement-doc .cover-footer{flex-direction:column;align-items:flex-start}
 }
@@ -522,6 +562,37 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
 .agreement-hint[data-arrow="top-right"]:before{top:-6px;right:22px;transform:rotate(45deg)}
 .agreement-hint[data-arrow="bottom-right"]:before{bottom:-6px;right:22px;left:auto;transform:rotate(225deg);border-left:none;border-top:none;border-right:1px solid rgba(203,178,122,.45);border-bottom:1px solid rgba(203,178,122,.45)}
 /* === END: AGREEMENT HINT PILL === */
+
+/* === START: ROI CALCULATOR REDESIGN === */
+.roi-panel .roi-subtitle{margin:0 0 8px;color:#777d8a;font-size:11.5px;line-height:1.5;max-width:560px}
+.roi-badge{display:inline-block;font-size:9px;letter-spacing:.1em;font-weight:800;color:#7a5c2e;background:#fffdf8;border:1px solid #e0d3a0;border-radius:999px;padding:5px 11px;margin-bottom:14px}
+.roi-important{background:#fffdf8;border:1px solid #d8a874;border-left:3px solid #a3492f;border-radius:10px;padding:12px 15px;font-size:11px;line-height:1.55;color:#4d5261;margin-bottom:16px}
+.roi-important strong{color:#a3492f}
+.roi-view-toggle{display:inline-flex;background:#fffdf8;border:1px solid #e0d3a0;border-radius:999px;padding:3px;gap:2px;margin-bottom:4px}
+.roi-view-btn{border:0;background:transparent;color:#7e6742;font-size:11px;font-weight:800;letter-spacing:.02em;padding:7px 16px;border-radius:999px;transition:background .2s ease,color .2s ease}
+.roi-view-btn.active{background:var(--navy);color:#fff}
+.roi-divider{height:1px;background:#e0d3a0;margin:16px 0}
+.roi-step-label{font-size:10px;letter-spacing:.08em;font-weight:800;color:#7e6742;text-transform:uppercase;margin-bottom:8px}
+.roi-footnote{margin:8px 0 0;font-size:10px;color:#9a9484;line-height:1.5}
+.roi-main-result{background:var(--navy);color:#fff;border-radius:16px;padding:24px;position:relative;overflow:hidden;text-align:center}
+.roi-main-result:after{content:"";position:absolute;width:160px;height:160px;border:1px solid rgba(203,178,122,.18);border-radius:50%;right:-80px;top:-70px}
+.roi-main-label{font-size:9px;letter-spacing:.12em;color:var(--gold2);font-weight:800;text-transform:uppercase;position:relative;z-index:1}
+.roi-main-number{font:400 34px var(--serif);margin-top:10px;letter-spacing:-.01em;position:relative;z-index:1}
+.roi-main-sub{margin-top:8px;font-size:10.5px;color:#aeb5c4;position:relative;z-index:1}
+.roi-compare{display:grid;gap:0;margin-top:14px}
+.roi-compare-row{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid #e6ddc0;font-size:11.5px;color:#4d5261}
+.roi-compare-row:last-child{border-bottom:0}
+.roi-compare-row:first-child{color:#8b8478;font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;padding-bottom:4px}
+.roi-compare-row strong{color:var(--navy)}
+.roi-expand{margin-top:18px;border:1px solid #e3ddcc;border-radius:12px;background:#fffdf8;padding:0}
+.roi-expand summary{cursor:pointer;padding:12px 15px;font-size:11px;font-weight:800;color:var(--navy);list-style:none}
+.roi-expand summary::-webkit-details-marker{display:none}
+.roi-expand summary:before{content:"+ ";color:#7a5c2e}
+.roi-expand[open] summary:before{content:"– "}
+.roi-expand p{margin:0;padding:0 15px 14px;font-size:11px;line-height:1.6;color:#5c6270}
+.roi-disclaimer{margin:16px 0 0;font-size:10px;line-height:1.55;color:#9a9ea8}
+@media(max-width:700px){.roi-view-toggle{width:100%}.roi-view-btn{flex:1;text-align:center}}
+/* === END: ROI CALCULATOR REDESIGN === */
 </parameter>
 
 </style>
@@ -547,16 +618,21 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     <div class="topbar">
       <div class="top-status" id="topStatus">PARTNERSHIP &amp; PLATFORM LICENSE</div>
       <div class="topbar-actions">
+        <!-- === START: AGREEMENT LAUNCHER — VISIBLE TEXT LABEL === -->
         <button class="agreement-launcher" id="agreementLauncher" type="button"
-                aria-label="Open complete Partnership and Platform License Agreement"
-                data-tooltip="Agreement">
+                aria-label="Open complete Partnership and Platform License Agreement">
           <span class="agreement-launcher-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24">
               <path d="M7 3.5h7L18 7.5v13H7z"/>
               <path d="M14 3.5V7.5h4"/>
             </svg>
           </span>
+          <span class="agreement-launcher-text">
+            <strong>Agreement</strong>
+            <small>View full terms</small>
+          </span>
         </button>
+        <!-- === END: AGREEMENT LAUNCHER — VISIBLE TEXT LABEL === -->
       </div>
     </div>
 
@@ -576,14 +652,98 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
 
         <div class="panel" style="margin-top:22px">
           <div class="panel-title" style="margin-bottom:10px">ESTIMATED ACADEMY SIZE</div>
-          <p class="row-sub" style="margin:0 0 14px;color:#777d8a;font-size:11.5px;line-height:1.5">This sets your monthly platform tier. Counts every active seat on the tenant — players, coaches, and admins combined.</p>
+          <p class="row-sub" style="margin:0 0 14px;color:#777d8a;font-size:11.5px;line-height:1.5">This is a <strong>simulation only</strong> — a rough preview of your possible monthly fee (₱15/active account, ₱999 minimum). It is NOT billed today and does not lock in your actual bill. Real billing is based on accounts that actually attended ≥1 session that month, computed automatically at month-end.</p>
           <div class="form-grid" style="margin-top:0">
             <div class="field full">
-              <label>TOTAL PLAYERS + COACHES/STAFF *</label>
+              <label>ESTIMATED ACTIVE ACCOUNTS PER MONTH *</label>
               <input id="headcount_input" type="text" inputmode="numeric" placeholder="e.g. 120">
             </div>
           </div>
           <div id="tierPreview" class="ref-status" style="margin-top:12px">Enter a headcount to see your monthly tier</div>
+        </div>
+
+        <div class="panel" style="margin-top:16px">
+          <div class="panel-title" style="margin-bottom:10px">AUTHORIZATION / DISCOUNT CODE</div>
+          <p style="margin:0 0 14px;color:#777d8a;font-size:11.5px;line-height:1.5">If your Academy negotiated custom pricing with ArtiPlay directly, enter the authorization code you were given below to apply it. Leave blank to proceed with standard Founding Academy pricing.</p>
+          <div class="form-grid" style="margin-top:0">
+            <div class="field" style="grid-column:1/2">
+              <label>DISCOUNT / AUTHORIZATION CODE</label>
+              <input id="discount_code_input" type="text" placeholder="e.g. ARTIPLAY-XXXX">
+            </div>
+            <div class="field" style="display:flex;align-items:flex-end;background:transparent;border:0;box-shadow:none;padding:0">
+              <button type="button" id="discountApplyBtn" class="secondary" style="width:100%;height:48px">Apply Code</button>
+            </div>
+          </div>
+          <div id="discountStatus" class="ref-status" style="margin-top:12px">No discount code applied — standard pricing in effect</div>
+        </div>
+
+        <div class="panel roi-panel" style="margin-top:16px;background:#f5efdc;border-color:#e0d3a0">
+          <div class="panel-title" style="margin-bottom:4px">HOW THE PLATFORM COST COULD BE OFFSET</div>
+          <p class="roi-subtitle">Illustrative academy-side scenario.</p>
+          <span class="roi-badge">ILLUSTRATIVE ONLY · NOT CONTRACTUAL</span>
+
+          <div class="roi-important">
+            <strong>Important:</strong> This calculator illustrates an academy-side pricing/allocation scenario. It does not determine or replace ArtiPlay's contractual billing. ArtiPlay's recurring fee is calculated separately according to the Agreement (§2.3), based on active accounts that attended ≥1 session in the month — not on the enrollee count or allocation entered here.
+          </div>
+
+          <div class="roi-view-toggle" role="tablist" aria-label="View">
+            <button type="button" class="roi-view-btn active" id="roiViewMonthlyBtn" data-view="monthly">Monthly</button>
+            <button type="button" class="roi-view-btn" id="roiViewYear1Btn" data-view="year1">Year 1</button>
+          </div>
+
+          <div class="roi-divider"></div>
+
+          <div id="roiViewMonthly">
+            <div class="roi-step-label">1. Your academy</div>
+            <div class="field">
+              <label>ENROLLEES</label>
+              <input id="roi_headcount" type="text" inputmode="numeric" placeholder="e.g. 200">
+            </div>
+
+            <div class="roi-step-label" style="margin-top:16px">2. Choose an allocation</div>
+            <div class="field">
+              <label>ILLUSTRATIVE ALLOCATION (₱ / ENROLLEE / MONTH)</label>
+              <input id="roi_bufferPerEnrollee" type="text" inputmode="numeric" value="5">
+            </div>
+            <p class="roi-footnote" id="roiBreakEvenHint">Enter your enrollees above to see an illustrative break-even allocation.</p>
+
+            <div class="roi-divider"></div>
+
+            <div class="roi-step-label">3. See the result</div>
+            <div class="roi-main-result">
+              <div class="roi-main-label">ILLUSTRATIVE MONTHLY ALLOCATION</div>
+              <div class="roi-main-number" id="roiMonthlyTotal">₱0</div>
+              <div class="roi-main-sub" id="roiMonthlyFormula">Enter enrollees and an allocation above</div>
+            </div>
+
+            <div class="roi-compare">
+              <div class="roi-compare-row"><span>Compared with</span></div>
+              <div class="roi-compare-row"><span>Illustrative allocation</span><strong id="roiCompareAllocation">₱0</strong></div>
+              <div class="roi-compare-row"><span id="roiCompareCostLabel">Minimum platform fee</span><strong id="roiCompareCost">₱999 / month</strong></div>
+              <div class="roi-compare-row"><span>Illustrative coverage</span><strong id="roiCompareCoverage">—</strong></div>
+            </div>
+          </div>
+
+          <div id="roiViewYear1" style="display:none">
+            <div class="roi-step-label">Illustrating the initial ₱18,000</div>
+            <p class="roi-footnote" style="margin-top:0">This is the Founding Academy setup fee + yearly Domain &amp; Infrastructure Fee due today (§2.1–§2.2) — separate from, and not part of, the recurring platform fee shown in the Monthly view.</p>
+            <div class="roi-main-result">
+              <div class="roi-main-label">ILLUSTRATIVE YEAR 1 ALLOCATION</div>
+              <div class="roi-main-number" id="roiYear1PerEnrollee">₱0 / enrollee</div>
+              <div class="roi-main-sub" id="roiYear1Formula">Enter enrollees in the Monthly tab to see this</div>
+            </div>
+            <div class="roi-compare">
+              <div class="roi-compare-row"><span>Compared with</span></div>
+              <div class="roi-compare-row"><span>Total due today (setup + domain)</span><strong id="roiYear1Total">₱18,000</strong></div>
+            </div>
+          </div>
+
+          <details class="roi-expand">
+            <summary>What this means</summary>
+            <p>This example shows how a small academy-side allocation could offset an illustrative platform cost. It is not a required charge to students, a revenue guarantee, or a change to the Agreement's billing terms. ArtiPlay's actual recurring fee is computed separately from real attendance records (§2.3) and does not depend on the enrollee count or allocation entered here.</p>
+          </details>
+
+          <p class="roi-disclaimer">Illustrative scenario only, shown for discussion purposes — not a contractual term, financial projection, guarantee, or required pricing model. It does not appear in, and is not part of, the signed Agreement. This allocation is a hypothetical academy pricing decision and does not change ArtiPlay's actual billing basis, which remains active accounts (§2.3). Actual recovery speed and coverage depend entirely on the academy's own pricing decisions and real monthly attendance, both outside ArtiPlay's control.</p>
         </div>
       </div>
 
@@ -597,9 +757,12 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
             <div class="commercial-list">
               <div class="commercial-row"><span>Standard reference deployment (no discount)</span><strong id="sumRegularSetup">₱35,000</strong></div>
               <div class="commercial-row"><span>Founding Academy discount applied</span><strong id="sumDiscountAmount" style="color:var(--green)">−₱20,000</strong></div>
-              <div class="commercial-row"><span>Founding Academy deployment (one-time)</span><strong id="sumSetupFee">₱15,000</strong></div>
-              <div class="commercial-row"><span>Academy size / tier</span><strong id="sumTierLabel">Enter headcount in Step 1</strong></div>
-              <div class="commercial-row"><span>Platform &amp; infrastructure (monthly)</span><strong id="sumRecurring">— / month</strong></div>
+              <div class="commercial-row"><span>Founding Academy deployment (one-time)</span><strong id="sumSetupFee">₱15,000 one-time — due today</strong></div>
+              <div class="commercial-row"><span>Domain &amp; Infrastructure Fee (yearly)</span><strong id="sumDomainFee">₱3,000 / year — due today</strong></div>
+              <div class="commercial-row"><span>Academy size / active accounts (simulation)</span><strong id="sumTierLabel">Enter headcount in Step 1</strong></div>
+              <div class="commercial-row"><span>Platform fee — simulated estimate</span><strong id="sumRecurring">— / month</strong></div>
+              <div class="commercial-row" style="background:#fdf7e6"><span>Billing policy</span><strong id="sumBillingPolicy" style="text-align:left;font-weight:600;font-size:10.5px">Not charged today. Starts the month after signing.</strong></div>
+              <div class="commercial-row" id="sumDiscountRow" style="display:none;background:#eef6f0"><span>Negotiated discount applied</span><strong id="sumDiscountValue" style="color:var(--green)">—</strong></div>
               <div class="commercial-row" id="sumTaxRow" style="display:none"><span id="sumTaxLabel">VAT</span><strong id="sumTaxAmount">₱0</strong></div>
               <div class="commercial-row"><span>Module add-ons</span><strong id="sumModuleAddOns">₱0 — bundled in tier</strong></div>
               <div class="commercial-row"><span>Billing cycle</span><strong>Monthly, auto-continues until terminated</strong></div>
@@ -617,17 +780,17 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
           </div>
           <div>
             <div class="price-card">
-              <div class="price-label">FOUNDING ACADEMY DEPLOYMENT</div>
-              <div class="price" id="priceCardSetup">₱15,000</div>
-              <div class="price-note">One-time initial White-Label deployment under the Founding Academy commercial terms.</div>
+              <div class="price-label">DUE TODAY — SETUP + DOMAIN</div>
+              <div class="price" id="priceCardGrandTotal">₱18,000</div>
+              <div class="price-note">Founding Academy deployment (₱15,000) + yearly Domain &amp; Infrastructure Fee (₱3,000), billed together at signing. No platform/active-account fee is charged today.</div>
               <div class="rule"></div>
-              <div class="price-label">THEN</div>
+              <div class="price-label">SETUP FEE (ONE-TIME)</div>
+              <div style="font:25px var(--serif);margin-top:5px" id="priceCardSetup">₱15,000</div>
+              <div class="price-note">Reverts to ₱35,000 once the Founding Academy window closes.</div>
+              <div class="rule"></div>
+              <div class="price-label">SIMULATED MONTHLY ESTIMATE</div>
               <div style="font:25px var(--serif);margin-top:5px" id="priceCardRecurring">— / month</div>
-              <div class="price-note" id="priceCardTierNote">Enter your academy's headcount in Step 1 to see your monthly tier.</div>
-              <div class="rule"></div>
-              <div class="price-label">GRAND TOTAL DUE TODAY</div>
-              <div style="font:25px var(--serif);margin-top:5px" id="priceCardGrandTotal">₱15,000</div>
-              <div class="price-note">Founding Academy deployment + first month's platform fee, billed together at signup.</div>
+              <div class="price-note" id="priceCardTierNote">FYI only — based on Step 1 headcount. Not billed today. Real billing starts next month from actual attendance, itemized by email, collected every 5th.</div>
               <div class="rule"></div>
               <div class="feature-pills"><span class="pill">Tenant environment</span><span class="pill">Platform updates</span><span class="pill">Bug fixes</span><span class="pill">General support</span></div>
             </div>
@@ -658,6 +821,13 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
           </div>
         </div>
         <label class="consent"><input id="acad_consent" type="checkbox"><span>I confirm the signature drawn above is my own, I am authorized to sign this Agreement on behalf of the Academy, and I accept the applicable Agreement terms and commercial fees.</span></label>
+
+        <div class="panel" style="margin-top:16px">
+          <div class="panel-title" style="margin-bottom:10px">SIGNATURE STATUS</div>
+          <div class="commercial-row"><span>Signed by you (Academy)</span><strong id="sigStatusYou" style="color:#b28c3a">Not yet signed</strong></div>
+          <div class="commercial-row"><span>ArtiPlay signature</span><strong style="color:#b28c3a">Pending</strong></div>
+          <div class="commercial-row" style="background:#fdf7e6"><span>What happens next</span><strong style="text-align:left;font-weight:600;font-size:10.5px">Your signature will be recorded and emailed to you. ArtiPlay will countersign the agreement before it becomes fully executed.</strong></div>
+        </div>
       </div>
 
       <div class="step-page" id="step4">
@@ -702,7 +872,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
               <div class="panel-title" style="margin-bottom:0">HOW TO PAY</div>
               <ol>
                 <li>Select the account you'll be sending payment to above.</li>
-                <li>Transfer <strong>₱15,000</strong> from your bank or e-wallet app to that account.</li>
+                <li>Transfer <strong id="payInstructAmount">₱18,000</strong> from your bank or e-wallet app — this covers the setup fee and yearly domain fee only.</li>
                 <li>Copy the reference / transaction number from your bank's confirmation receipt.</li>
                 <li>Paste the reference number below and submit for verification.</li>
                 <li>ArtiPlay Admin will review and approve your payment — you'll be notified once confirmed.</li>
@@ -721,11 +891,12 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
           <div class="order-box">
             <div class="panel-title">ORDER SUMMARY</div>
             <div class="commercial-row"><span>Founding Academy deployment</span><strong id="orderSetupFee">₱15,000</strong></div>
-            <div class="commercial-row"><span>Platform fee (first month)</span><strong id="orderFirstMonth">— / month</strong></div>
-            <div class="order-total"><span>GRAND TOTAL DUE TODAY</span><strong id="orderDueToday">₱15,000</strong></div>
-            <div class="recurring"><span>Then, platform fee</span><strong id="orderRecurring">— / month</strong></div>
+            <div class="commercial-row"><span>Domain &amp; Infrastructure Fee (yearly)</span><strong id="orderDomainFee">₱3,000</strong></div>
+            <div class="order-total"><span>GRAND TOTAL DUE TODAY</span><strong id="orderDueToday">₱18,000</strong></div>
             <div class="commercial-row" id="orderTaxRow" style="display:none"><span id="orderTaxLabel">VAT</span><strong id="orderTaxAmount">₱0</strong></div>
-            <div class="commercial-row"><span>Academy size</span><strong id="orderHeadcount">Not entered</strong></div>
+            <div class="recurring"><span>FYI — simulated monthly estimate</span><strong id="orderRecurring">— / month</strong></div>
+            <div class="commercial-row" style="background:#fdf7e6"><span>Billing policy</span><strong id="orderBillingPolicy" style="text-align:left;font-weight:600;font-size:10.5px">Not billed today. Starts next month.</strong></div>
+            <div class="commercial-row"><span>Academy size (active accounts)</span><strong id="orderHeadcount">Not entered</strong></div>
             <div class="commercial-row"><span>Selected configuration</span><strong id="selectedCount">2 features</strong></div>
           </div>
         </div>
@@ -734,18 +905,19 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
       <div class="step-page" id="step5">
         <div class="eyebrow">05 / DIGITAL DELIVERY</div>
         <h1>Your submission is in for review.</h1>
-        <p class="lead">Your payment reference has been recorded. We'll verify the transfer, then email your invoice, signed agreement, and asset pack to your registered address.</p>
-        <div class="success pending" id="deliveryStatusBox"><div class="success-mark" id="deliveryMark">⏳</div><div><strong id="deliveryHeadline">Payment reference submitted — pending admin verification</strong><div id="deliveryMessage">Ready to send the tenant's digital package to the registered email once payment is approved.</div></div></div>
+        <p class="lead">Your client-signed copy has been emailed to you and your payment reference has been recorded. This is not yet a fully executed contract — once ArtiPlay's authorized representative countersigns, you'll receive a second email with the final invoice, fully signed agreement, and asset pack.</p>
+        <div class="success pending" id="deliveryStatusBox"><div class="success-mark" id="deliveryMark">⏳</div><div><strong id="deliveryHeadline">We received your signed agreement</strong><div id="deliveryMessage">Status: <span id="deliveryContractStatusInline" style="color:#b28c3a;font-weight:800">Awaiting ArtiPlay Signature</span> — your payment reference has been recorded. ArtiPlay's authorized representative will review and countersign before this becomes a fully executed contract.</div></div></div>
         <div class="panel" style="margin-top:18px">
           <div class="panel-title">WHAT HAPPENS NEXT</div>
           <div class="commercial-row"><span>1. Verification</span><strong>Admin reviews your payment reference</strong></div>
-          <div class="commercial-row"><span>2. Confirmation</span><strong>You'll get an email once approved</strong></div>
-          <div class="commercial-row"><span>3. Delivery</span><strong>Invoice, signed agreement &amp; asset pack sent</strong></div>
+          <div class="commercial-row"><span>2. Client copy</span><strong>You'll get an email now with your client-signed copy (not yet final)</strong></div>
+          <div class="commercial-row"><span>3. ArtiPlay signature</span><strong>Authorized ArtiPlay representative reviews &amp; countersigns</strong></div>
+          <div class="commercial-row"><span>4. Fully Executed</span><strong>You'll get a second email — "Your ArtiPlay Partnership Agreement is Fully Executed" — with the final PDF containing both signatures</strong></div>
         </div>
         <div style="margin-top:8px;font-size:11px"><a href="https://join.artiplay.app" target="_blank" rel="noopener" style="color:#765c32;font-weight:800;text-decoration:underline;text-underline-offset:3px">join.artiplay.app</a></div>
         <div class="delivery">
-          <div class="asset"><div class="asset-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div><div class="asset-title">Signed Partnership &amp; Platform License Agreement.pdf</div><div class="asset-sub">Final signed legal document</div></div></div>
-          <div class="asset"><div class="asset-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></div><div><div class="asset-title">Invoice.pdf</div><div class="asset-sub">₱15,000 initial deployment invoice — issued after verification</div></div></div>
+          <div class="asset"><div class="asset-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div><div class="asset-title">Client-Signed Partnership &amp; Platform License Agreement.pdf</div><div class="asset-sub">Client copy — pending ArtiPlay countersignature</div></div></div>
+          <div class="asset"><div class="asset-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></div><div><div class="asset-title">Invoice.pdf</div><div class="asset-sub" id="deliveryInvoiceSub">Initial deployment invoice — issued after verification</div></div></div>
           <div class="asset"><div class="asset-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg></div><div><div class="asset-title">Academy Digital Asset Pack.pdf</div><div class="asset-sub">Onboarding information and tenant setup essentials</div></div></div>
         </div>
         <div class="panel" style="margin-top:18px">
@@ -755,6 +927,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
           <div class="commercial-row"><span>Signed by</span><strong id="finalSignedBy">—</strong></div>
           <div class="commercial-row"><span>Paid to</span><strong id="finalBank">—</strong></div>
           <div class="commercial-row"><span>Reference number</span><strong id="finalReference">—</strong></div>
+          <div class="commercial-row"><span>Contract status</span><strong style="color:#b28c3a" id="finalContractStatus">Awaiting ArtiPlay Signature</strong></div>
           <div class="commercial-row"><span>Verification status</span><strong style="color:#b28c3a" id="finalStatus">Pending admin approval</strong></div>
           <div style="margin-top:14px;padding-top:14px;border-top:1px solid #ece7dc">
             <div style="font-size:9px;letter-spacing:.1em;color:#9a9ea8;font-weight:800;margin-bottom:8px">CAPTURED E-SIGNATURE</div>
@@ -785,7 +958,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
   <div class="thankyou-card">
     <div class="thankyou-mark">✓</div>
     <div class="thankyou-eyebrow">SUBMISSION COMPLETE</div>
-    <p class="thankyou-lead">Your payment reference has been recorded. We'll verify the transfer, then email your invoice, signed agreement, and asset pack to <strong id="thanksEmail">your registered address</strong>.</p>
+    <p class="thankyou-lead">Your client-signed copy has been emailed to <strong id="thanksEmail">your registered address</strong>. This is not yet a fully executed contract — once ArtiPlay's authorized representative countersigns, you'll receive a second email with the final invoice and fully signed agreement.</p>
 
     <div class="thankyou-divider"></div>
 
@@ -835,6 +1008,9 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
           <button type="button" class="icon-btn" id="btn-pdf" onclick="generatePdf()" title="Generate PDF" aria-label="Generate PDF">
             <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
           </button>
+          <button type="button" class="icon-btn" id="btn-pdf-preview" onclick="previewPdfLayout()" title="Preview PDF page breaks" aria-label="Preview PDF page breaks">
+            <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M4 10h16M4 16h16"/></svg>
+          </button>
           <button type="button" class="icon-btn" id="btn-save" onclick="saveAgreement()" title="Save" aria-label="Save">
             <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
           </button>
@@ -881,7 +1057,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
       </div>
       <div class="party">
         <div class="p-label">ACADEMY</div>
-        <div class="p-value">[ Academy Name ]</div>
+        <div class="p-value" id="coverAcademyName">[ Academy Name ]</div>
       </div>
     </div>
 
@@ -975,22 +1151,50 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     <div class="callout-row">
       <div class="callout">
         <div class="k">INITIAL WHITE-LABEL DEPLOYMENT</div>
-        <div class="v"><span class="strike">₱35,000</span>₱15,000</div>
+        <!-- === START: ARTICLE II SETUP FEE — DYNAMIC === -->
+<div class="v"><span class="strike" id="agArt2SetupRegular">₱35,000</span><span id="agArt2SetupDiscounted">₱15,000</span></div>
+<!-- === END: ARTICLE II SETUP FEE — DYNAMIC === -->
         <div class="note">One-time · Founding Academy price</div>
       </div>
     </div>
     <p>The Founding Academy price is a special commercial arrangement and does not establish the regular market price of future ArtiPlay deployments. It may be extended in consideration of the Academy serving as an early deployment, product feedback partner, demonstration environment, and potential referral partner.</p>
   </div>
 
+  <!-- === START: ARTICLE II §2.2 — DOMAIN & INFRASTRUCTURE FEE (NEW) === -->
   <div class="sec">
-    <div class="sec-head"><div class="sec-num">§2.2</div><div class="sec-title">Platform &amp; Infrastructure Fee</div></div>
+    <div class="sec-head"><div class="sec-num">§2.2</div><div class="sec-title">Domain &amp; Infrastructure Fee</div></div>
+    <p>In addition to the one-time deployment fee, the Academy shall pay an annual Domain &amp; Infrastructure Fee, covering the Academy's dedicated domain or access point (where applicable), initial hosting provisioning, and setup of the Academy's Tenant environment.</p>
     <div class="callout-row">
       <div class="callout">
-        <div class="k">RECURRING PLATFORM FEE</div>
-        <div class="v">₱999<span class="unit"> / month</span></div>
+        <div class="k">DOMAIN &amp; INFRASTRUCTURE FEE</div>
+        <div class="v" id="agArt2DomainFee">₱3,000<span class="unit"> / year</span></div>
+        <div class="note">Billed together with the one-time deployment fee at signing, then annually thereafter</div>
       </div>
     </div>
+    <p>This fee is separate from, and in addition to, the monthly Platform &amp; Infrastructure Fee described in §2.3, which covers ongoing hosting, maintenance, and support rather than annual domain/infrastructure provisioning.</p>
+  </div>
+  <!-- === END: ARTICLE II §2.2 — DOMAIN & INFRASTRUCTURE FEE (NEW) === -->
+
+  <div class="sec">
+    <div class="sec-head"><div class="sec-num">§2.3</div><div class="sec-title">Platform &amp; Infrastructure Fee</div></div>
+    <!-- === START: RECURRING FEE — PER-ACCOUNT MECHANISM DISCLOSED === -->
+    <div class="callout-row">
+      <div class="callout">
+        <div class="k">PER ACTIVE ACCOUNT</div>
+        <div class="v" id="agArt2PerAccountRate">₱15<span class="unit"> / month</span></div>
+        <div class="note">Charged per account that attended at least one session in the billing month</div>
+      </div>
+      <div class="callout">
+        <div class="k">MONTHLY MINIMUM</div>
+        <div class="v" id="agArt2MinimumMonthly">₱999<span class="unit"> / month</span></div>
+        <div class="note">Floor applied regardless of active account count</div>
+      </div>
+    </div>
+    <div class="note-box">
+      <strong>Not Part of Today's Payment</strong> — This recurring fee is separate from, and excluded from, the one-time amount due today under §9.2. Billing begins the month following the Academy's signing date, is computed from actual attendance records for that month, itemized to the Academy by email at month-end, and collected on the 5th of the following month. Any figure shown to the Academy prior to its first full billing month is an estimate for planning purposes only and is not a charge.
+    </div>
     <p>This recurring fee covers the Academy's continued access to the ArtiPlay platform, and may include:</p>
+    <!-- === END: RECURRING FEE — PER-ACCOUNT MECHANISM DISCLOSED === -->
     <ul class="tight">
       <li>Platform hosting and Academy environment</li>
       <li>Database infrastructure and automated backups as described in §5.10</li>
@@ -1004,7 +1208,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
   </div>
 
   <div class="sec">
-    <div class="sec-head"><div class="sec-num">§2.3</div><div class="sec-title">Custom Development</div></div>
+    <div class="sec-head"><div class="sec-num">§2.4</div><div class="sec-title">Custom Development</div></div>
     <p>Requests that materially change or extend the standard ArtiPlay platform may be treated as Custom Development — for example, new modules, custom workflows or integrations, specialized reporting, major UI restructuring, custom automation, custom database architecture, or academy-specific functionality outside the standard platform.</p>
     <p>Custom Development may be quoted separately. No custom development is considered included in the monthly platform fee unless expressly stated in writing.</p>
   </div>
@@ -1265,22 +1469,24 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
     <div class="callout-row">
       <div class="callout">
         <div class="k">DIRECT REFERRAL COMMISSION</div>
-        <div class="v">50%</div>
+        <div class="v" id="agArt6ReferralPct">50%</div>
         <div class="note">of the actual initial deployment / setup fee received by the Provider</div>
       </div>
     </div>
+    <!-- === START: ARTICLE VI REFERRAL EXAMPLE — DYNAMIC === -->
     <div class="note-box">
-      <strong>Example</strong> — The commission is calculated from the actual amount received, not the standard reference price. A referred academy that pays the ₱15,000 Founding Academy price yields a referring Academy commission of <strong>₱7,500</strong> (50% of the amount actually received).
+      <strong>Example</strong> — The commission is calculated from the actual amount received, not the standard reference price. A referred academy that pays the <span id="agArt6ExampleSetup">₱15,000</span> Founding Academy price yields a referring Academy commission of <strong><span id="agArt6ExampleCommission">₱7,500</span></strong> (50% of the amount actually received).
     </div>
+    <!-- === END: ARTICLE VI REFERRAL EXAMPLE — DYNAMIC === -->
     <p>The commission is calculated from the actual, agreed, and paid initial deployment/setup fee — not from any standard reference price. The remaining 50% belongs to the Provider. The Provider remains responsible for product demonstration, commercial proposal, contracting, payment collection, technical implementation, deployment, and platform support. The referring Academy is not required to provide technical support or software development. A commission applies only when the Provider confirms the prospect qualifies as a registered referral, under the Provider's reasonable attribution, payment, eligibility, and anti-abuse rules.</p>
     <p>The referring Academy may, at its sole discretion, allocate any portion of its own 50% commission to the member, player, parent, or representative who introduced the referral (a "Referral Token" or similar Academy-designated reward). The Provider has no obligation to fund, supplement, or directly pay such a token, and any amount the Academy provides comes from the Academy's own share — it does not reduce the Provider's 50%.</p>
-    <p>The commission applies only to the one-time initial deployment/setup fee. The recurring ₱999 monthly platform fee — including any discounted annual prepayment equivalent — is not commissionable, unless the Provider expressly establishes a separate written recurring referral program.</p>
+    <p>The commission applies only to the one-time initial deployment/setup fee. The recurring <span id="agArt6RecurringFeeRef">₱999</span> monthly platform fee — including any discounted annual prepayment equivalent — is not commissionable, unless the Provider expressly establishes a separate written recurring referral program.</p>
   </div>
 
   <div class="sec">
     <div class="sec-head"><div class="sec-num">§6.2</div><div class="sec-title">Referral Protection</div></div>
-    <p>A referral must be submitted to the Provider before or at the time the prospect is introduced. A prospect already actively engaged in discussions with the Provider may not qualify as a new referral. Unless otherwise specified, referral attribution remains valid for up to <strong class="inline">90 days</strong> from the confirmed introduction. The Provider reserves the right to reject duplicate, self-referred, fraudulent, or otherwise invalid referrals.</p>
-    <p>Approved commissions become payable once the referral is registered and accepted, the referred customer has signed the applicable agreement, and the Provider has received and cleared the corresponding setup payment. Commissions are released within <strong class="inline">15 business days</strong> after the customer's payment clears. If the setup fee is paid in installments, the 50% commission is released proportionally as each installment clears. If any portion of a qualifying payment is later refunded, charged back, or reversed, the corresponding commission is adjusted proportionally and any amount already released may be deducted from future commissions. Referral commissions are subject to applicable Philippine taxes and withholding requirements; the Provider may deduct required withholding before releasing the net commission.</p>
+    <p>A referral must be submitted to the Provider before or at the time the prospect is introduced. A prospect already actively engaged in discussions with the Provider may not qualify as a new referral. Unless otherwise specified, referral attribution remains valid for up to <strong class="inline" id="agArt6AttributionDays">90 days</strong> from the confirmed introduction. The Provider reserves the right to reject duplicate, self-referred, fraudulent, or otherwise invalid referrals.</p>
+    <p>Approved commissions become payable once the referral is registered and accepted, the referred customer has signed the applicable agreement, and the Provider has received and cleared the corresponding setup payment. Commissions are released within <strong class="inline" id="agArt6PayoutDays">15 business days</strong> after the customer's payment clears. If the setup fee is paid in installments, the 50% commission is released proportionally as each installment clears. If any portion of a qualifying payment is later refunded, charged back, or reversed, the corresponding commission is adjusted proportionally and any amount already released may be deducted from future commissions. Referral commissions are subject to applicable Philippine taxes and withholding requirements; the Provider may deduct required withholding before releasing the net commission.</p>
   </div>
 </div>
 
@@ -1422,22 +1628,25 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
         <tr><th>Item</th><th>Founding Academy Terms</th></tr>
       </thead>
       <tbody>
-        <tr><td>Standard Reference Deployment</td><td>₱35,000</td></tr>
-        <tr class="highlight"><td>Founding Academy Deployment</td><td>₱15,000 one-time</td></tr>
-        <tr><td>Platform &amp; Infrastructure</td><td>₱999 / month</td></tr>
+        <!-- === START: ARTICLE IX SUMMARY TABLE — DYNAMIC === -->
+        <tr><td>Standard Reference Deployment</td><td id="agSumRegularSetup">₱35,000</td></tr>
+        <tr class="highlight"><td>Founding Academy Deployment</td><td id="agSumFoundingSetup">₱15,000 one-time</td></tr>
+        <tr><td>Domain &amp; Infrastructure Fee</td><td id="agSumDomainFee">₱3,000 / year</td></tr>
+        <tr class="highlight"><td>Total Due Today (Setup + Domain)</td><td id="agSumDueToday">₱18,000</td></tr>
+         <tr><td>Platform &amp; Infrastructure <span style="font-weight:400;color:#9b9481">(from month 2, not part of Total Due Today)</span></td><td id="agSumPlatformFee">₱15/account, ₱999 minimum</td></tr>
+        <!-- === END: ARTICLE IX SUMMARY TABLE — DYNAMIC === -->
         <tr><td>White-Label Experience</td><td>Included</td></tr>
         <tr><td>Academy Tenant</td><td>Included</td></tr>
         <tr><td>General Platform Updates</td><td>Included</td></tr>
         <tr><td>General Bug Fixes</td><td>Included</td></tr>
         <tr><td>Custom Development</td><td>Quoted separately</td></tr>
         <tr><td>Referral Partner</td><td>Optional</td></tr>
-        <tr><td>Direct Referral Commission</td><td>50% of the actual qualifying initial deployment/setup fee received</td></tr>
+        <tr><td>Direct Referral Commission</td><td><span id="agSumReferralPct">50%</span> of the actual qualifying initial deployment/setup fee received</td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="sec" style="margin-top:10mm;">
-    <div class="sign-grid">
+  <div class="sec" style="margin-top:38px;">    <div class="sign-grid">
       <div class="sign-card">
         <div class="sc-label">FOR ARTIPLAY</div>
         <div class="sign-line">
@@ -1479,7 +1688,8 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
         <div class="sign-line">
           <label class="sl-label field-required" for="acad_signature">SIGNATURE</label>
           <input class="fillable sig" id="acad_signature" name="acad_signature" type="text" placeholder="Type full name as signature">
-          <div class="field-note">Typed name serves as e-signature</div>
+          <img id="acad_signature_rendered" alt="Academy signature" style="display:none;max-height:52px;max-width:100%;margin:4px 0">
+          <div class="field-note" id="acad_signature_note">Typed name serves as e-signature</div>
         </div>
         <div class="consent-line">
           <input type="checkbox" id="acad_consent" name="acad_consent">
@@ -1504,8 +1714,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
           <input class="fillable" id="acad_mobile" name="acad_mobile" type="tel" placeholder="09xxxxxxxxx" autocomplete="tel">
         </div>
       </div>
-      <div class="sign-line" style="margin-top:5mm; margin-bottom:0;">
-        <label class="sl-label" for="acad_address">OFFICIAL ACADEMY ADDRESS</label>
+      <div class="sign-line" style="margin-top:19px; margin-bottom:0;">        <label class="sl-label" for="acad_address">OFFICIAL ACADEMY ADDRESS</label>
         <input class="fillable" id="acad_address" name="acad_address" type="text" placeholder="Complete address">
       </div>
     </div>
@@ -1522,6 +1731,7 @@ mark.fr-hit{background:#f5dfa0;color:inherit;border-radius:2px}
 </div>
 
 </div><!-- /page-inner --></div></div>
+    <div class="pdf-preview-inline" id="pdfPagePreview" style="display:none"></div>
   </div>
 </div>
 
@@ -1540,6 +1750,7 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   const selected=new Set();
   let selectedBank=null;
   let resizeSignaturePad=null;
+  let appliedDiscount=null; // null = standard pricing; else {valid,code,notes,setupFeeOverride,domainFeeOverride,perAccountRateOverride,minimumMonthlyOverride} from validateDiscountCode()
 
   /* ============================================================
      PRICING ENGINE — single source of truth for every ₱ shown
@@ -1561,21 +1772,34 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     currency: '₱',
 
     // ---- ONE-TIME SETUP / DEPLOYMENT FEE (Agreement §2.1) ----
-    setupFee: {
-      regular: 35000,      // standard reference deployment price, no discount
-      discounted: 15000,   // Founding Academy one-time price (what this flow charges)
-      discountLabel: 'Founding Academy discount'
+    // Founding Academy price is a time-boxed promo: ₱15,000 only inside
+    // promoStart–promoEnd, auto-reverting to ₱35,000 once the window closes.
+        setupFee: {
+      regular: 35000,
+      discounted: 15000,
+      discountLabel: 'Founding Academy discount',
+      promoStart: '2026-09-17',
+      promoEnd: '2026-10-17'
     },
 
-    // ---- RECURRING PLATFORM & INFRASTRUCTURE FEE (Agreement §2.2) ----
-    // Tiered by total active seats (players + coaches/staff) on the tenant.
-    // ASSUMPTION: headcount = players + coaches/staff combined. Confirm and
-    // edit `headcountDefinition` + the tier `upTo` value if that's wrong.
-    headcountDefinition: 'players + coaches/staff combined',
-    recurringTiers: [
-      { upTo: 250,        monthly: 999  },  // 1–250 total seats
-      { upTo: Infinity,   monthly: 2999 }   // 251+ total seats
-    ],
+    domainFee: {
+      amount: 3000,
+      cycle: 'yearly',
+      label: 'Domain & Infrastructure Fee (yearly)'
+    },
+
+    // Per-active-account metered billing. Billing starts the month AFTER
+    // signing — never part of the amount due today. What's shown in this
+    // wizard is a SIMULATION only, based on the headcount typed in Step 1.
+    headcountDefinition: 'active accounts (attended ≥1 session in the billing month)',
+    recurringRate: {
+      perActiveAccount: 15,
+      minimumMonthly: 999,
+      billingDay: 5,
+      billingStartNote: 'This is NOT charged today. The active-account fee begins the month after signing, itemized by email at month-end and collected on the 5th of the following month.',
+      itemizationNote: 'Itemized via email at end of month; collected on the 5th of the following month.',
+      simulationNote: 'Simulation only — based on the headcount you enter. Actual monthly billing is computed from real attendance records, not this estimate.'
+    },
 
     // ---- MODULES SELECTED IN STEP 1 ----
     // ASSUMPTION: all modules (AI-Assisted, Rewards, Dashboards, Referral)
@@ -1635,41 +1859,70 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     }
   };
 
-  // Returns the recurring monthly fee for a given headcount, per the tier table above.
-  function getRecurringTier(headcount){
+  function isFoundingPromoActive(){
+    const cfg = PRICING_CONFIG.setupFee;
+    const now = new Date();
+    const start = new Date(cfg.promoStart + 'T00:00:00');
+    const end = new Date(cfg.promoEnd + 'T23:59:59');
+    return now >= start && now <= end;
+  }
+
+   function getEstimatedRecurringFee(headcount){
     const n = Math.max(0, parseInt(headcount, 10) || 0);
-    for(const tier of PRICING_CONFIG.recurringTiers){
-      if(n <= tier.upTo) return tier;
-    }
-    return PRICING_CONFIG.recurringTiers[PRICING_CONFIG.recurringTiers.length - 1];
+    const cfg = PRICING_CONFIG.recurringRate;
+    const rate = (appliedDiscount && appliedDiscount.perAccountRateOverride!=null) ? appliedDiscount.perAccountRateOverride : cfg.perActiveAccount;
+    const minimum = (appliedDiscount && appliedDiscount.minimumMonthlyOverride!=null) ? appliedDiscount.minimumMonthlyOverride : cfg.minimumMonthly;
+    return Math.max(n * rate, minimum);
   }
 
   // Full computed breakdown — every field here maps 1:1 to a line in the UI.
   // isFounding=true uses the discounted ₱15,000 setup fee; false uses ₱35,000.
-  function computePricing(headcount, isFounding){
+  function computePricing(headcount){
     const cfg = PRICING_CONFIG;
-    const tier = getRecurringTier(headcount);
-    const setup = isFounding ? cfg.setupFee.discounted : cfg.setupFee.regular;
-    const setupDiscountAmount = isFounding ? (cfg.setupFee.regular - cfg.setupFee.discounted) : 0;
-    const moduleAddOnTotal = Object.values(cfg.moduleAddOns).reduce((a,b)=>a+b, 0); // currently always 0 — see moduleAddOns comment
-    const recurringBeforeTax = tier.monthly + moduleAddOnTotal;
-    const taxAmount = cfg.tax.mode === 'exclusive' ? Math.round(recurringBeforeTax * (cfg.tax.ratePct/100)) : 0;
-    const recurringTotal = recurringBeforeTax + taxAmount;
+    const isFounding = isFoundingPromoActive();
+    const hasCustomDiscount = !!(appliedDiscount && appliedDiscount.valid);
+
+    const standardSetup = isFounding ? cfg.setupFee.discounted : cfg.setupFee.regular;
+    const setup = (hasCustomDiscount && appliedDiscount.setupFeeOverride!=null) ? appliedDiscount.setupFeeOverride : standardSetup;
+    const setupDiscountAmount = cfg.setupFee.regular - setup;
+
+    const standardDomainFee = cfg.domainFee.amount;
+    const domainFee = (hasCustomDiscount && appliedDiscount.domainFeeOverride!=null) ? appliedDiscount.domainFeeOverride : standardDomainFee;
+
+    const moduleAddOnTotal = Object.values(cfg.moduleAddOns).reduce((a,b)=>a+b, 0);
+    const estimatedRecurring = getEstimatedRecurringFee(headcount) + moduleAddOnTotal;
+    const taxAmount = cfg.tax.mode === 'exclusive' ? Math.round(estimatedRecurring * (cfg.tax.ratePct/100)) : 0;
+    const estimatedRecurringTotal = estimatedRecurring + taxAmount;
     const referralCommission = Math.round(setup * (cfg.referral.commissionPct/100));
+
+    const effectiveRate = (hasCustomDiscount && appliedDiscount.perAccountRateOverride!=null) ? appliedDiscount.perAccountRateOverride : cfg.recurringRate.perActiveAccount;
+    const effectiveMinimum = (hasCustomDiscount && appliedDiscount.minimumMonthlyOverride!=null) ? appliedDiscount.minimumMonthlyOverride : cfg.recurringRate.minimumMonthly;
+
+    // Due TODAY = setup fee + yearly domain fee ONLY (each possibly overridden
+    // by an admin-authorized negotiated discount).
     return {
       headcount: Math.max(0, parseInt(headcount,10) || 0),
-      tierLabel: tier.upTo === Infinity ? `${tier.upTo === Infinity ? 'Above ' + (cfg.recurringTiers[0].upTo) : ''}` : `Up to ${tier.upTo}`,
+      isFoundingPromoActive: isFounding,
+      hasCustomDiscount,
+      discountCode: hasCustomDiscount ? appliedDiscount.code : '',
+      discountNotes: hasCustomDiscount ? appliedDiscount.notes : '',
+      tierLabel: `₱${effectiveRate} / active account (min ₱${effectiveMinimum})`,
       setupFee: setup,
       setupFeeRegular: cfg.setupFee.regular,
       setupDiscountAmount,
+      domainFee,
+      domainFeeRegular: standardDomainFee,
+      domainFeeLabel: cfg.domainFee.label,
       moduleAddOnTotal,
-      recurringBase: tier.monthly,
+      estimatedRecurring: estimatedRecurringTotal,
+      isEstimateOnly: true,
       taxAmount,
       taxLabel: cfg.tax.label,
       taxMode: cfg.tax.mode,
-      recurringTotal,
-      dueToday: setup,
-      grandTotalDueToday: setup + recurringTotal, // ASSUMPTION: first month is billed together with the setup fee at signup — confirm with business, edit here if setup-only
+      dueToday: setup + domainFee,
+      grandTotalDueToday: setup + domainFee,
+      billingStartNote: cfg.recurringRate.billingStartNote,
+      simulationNote: cfg.recurringRate.simulationNote,
       referralCommission,
       referralPct: cfg.referral.commissionPct
     };
@@ -1678,6 +1931,100 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   function fmtPeso(n){ return PRICING_CONFIG.currency + Number(n||0).toLocaleString('en-PH'); }
 
   const $=id=>document.getElementById(id);
+
+  function syncCoverAcademyName(){
+    const nameEl=$('acad_name');
+    const coverEl=$('coverAcademyName');
+    if(!coverEl) return;
+    const name=(nameEl && nameEl.value.trim()) ? nameEl.value.trim() : '[ Academy Name ]';
+    coverEl.textContent=name;
+  }
+
+  // Article IX inside the Agreement modal re-declares the same ids as the
+  // Step 3 wizard fields (acad_name, acad_rep, acad_position, acad_email,
+  // acad_mobile, acad_address, acad_date, acad_consent). getElementById()
+  // always grabs the FIRST match (the Step 3 field), so the printed copy
+  // inside Article IX was never actually getting filled in. This syncs it
+  // so the on-screen Agreement AND the generated PDF both show real data.
+  function syncArticleIXAcademyFields(){
+    const sourceIds=['acad_name','acad_rep','acad_position','acad_email','acad_mobile','acad_address','acad_date'];
+    sourceIds.forEach(id=>{
+      const src=$(id);
+      if(!src) return;
+      const dupes=document.querySelectorAll('[id="'+id+'"]');
+      if(dupes.length>1) dupes[dupes.length-1].value=src.value;
+    });
+    const consentSrc=$('acad_consent');
+    const consentDupes=document.querySelectorAll('[id="acad_consent"]');
+    if(consentSrc && consentDupes.length>1) consentDupes[consentDupes.length-1].checked=consentSrc.checked;
+
+    // The real e-signature is the drawn canvas from Step 3, not a typed
+    // name. Show that image in Article IX and hide the typed fallback.
+    const sigImg=$('acad_signature_rendered');
+    const sigInput=$('acad_signature');
+    const sigNote=$('acad_signature_note');
+    if(sigImg && sigInput){
+      if(acadSignatureDataUrl){
+        sigImg.src=acadSignatureDataUrl;
+        sigImg.style.display='block';
+        sigInput.style.display='none';
+        if(sigNote) sigNote.textContent='Drawn signature captured in Step 3';
+      } else {
+        sigImg.style.display='none';
+        sigInput.style.display='';
+        if(sigNote) sigNote.textContent='Typed name serves as e-signature';
+      }
+    }
+  }
+
+  /* === START: AGREEMENT COMMERCIAL FIGURES SYNC === */
+  // Pulls every ₱ figure in the Agreement text from the SAME computePricing()
+  // call used by Steps 1–4 — including any active discount-code override —
+  // so the contract can never quote a setup fee that disagrees with what
+  // the Academy actually sees/pays in the wizard.
+  function syncAgreementCommercialFigures(){
+    const cfg = PRICING_CONFIG;
+    const p = computePricing(getHeadcountValue());
+    const setEl = (id, val) => { const el = $(id); if(el) el.textContent = val; };
+
+    const effectiveMinimum = (appliedDiscount && appliedDiscount.valid && appliedDiscount.minimumMonthlyOverride!=null)
+      ? appliedDiscount.minimumMonthlyOverride
+      : cfg.recurringRate.minimumMonthly;
+
+    // Article II §2.1 — strike = true regular reference, live = actual price now
+    setEl('agArt2SetupRegular', fmtPeso(p.setupFeeRegular));
+    setEl('agArt2SetupDiscounted', fmtPeso(p.setupFee));
+    const effectiveRate = (appliedDiscount && appliedDiscount.valid && appliedDiscount.perAccountRateOverride!=null)
+      ? appliedDiscount.perAccountRateOverride
+      : cfg.recurringRate.perActiveAccount;
+    setEl('agArt2PerAccountRate', fmtPeso(effectiveRate) + ' / month');
+    setEl('agArt2MinimumMonthly', fmtPeso(effectiveMinimum) + ' / month');
+    setEl('agArt2DomainFee', fmtPeso(p.domainFee) + ' / year');
+    setEl('agSumDomainFee', fmtPeso(p.domainFee) + ' / year');
+    setEl('agSumDueToday', fmtPeso(p.grandTotalDueToday));
+    setEl('agSumPlatformFee', fmtPeso(effectiveRate)+'/account, '+fmtPeso(effectiveMinimum)+' minimum');
+    setEl('agArt6RecurringFeeRef', fmtPeso(effectiveMinimum));
+    setEl('agArt6AttributionDays', cfg.referral.attributionWindowDays + ' days');
+    setEl('agArt6PayoutDays', cfg.referral.payoutBusinessDays + ' business days');
+
+    // Article IX §9.2 — commercial summary table
+    setEl('agSumRegularSetup', fmtPeso(p.setupFeeRegular));
+    setEl('agSumFoundingSetup', fmtPeso(p.setupFee) + ' one-time');
+    setEl('agSumReferralPct', cfg.referral.commissionPct + '%');
+
+    // Article VI §6.1 — referral callout + worked example (both derived
+    // from the SAME p.setupFee, so the example can never drift from reality)
+    setEl('agArt6ReferralPct', cfg.referral.commissionPct + '%');
+    setEl('agArt6ExampleSetup', fmtPeso(p.setupFee));
+    setEl('agArt6ExampleCommission', fmtPeso(Math.round(p.setupFee * cfg.referral.commissionPct / 100)));
+  }
+  /* === END: AGREEMENT COMMERCIAL FIGURES SYNC === */
+
+  function syncAgreementFromWizard(){
+    syncCoverAcademyName();
+    syncArticleIXAcademyFields();
+    syncAgreementCommercialFigures();
+  }
 
   function showToast(message, type){
     const stack=$('toastStack');
@@ -1697,6 +2044,18 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     setTimeout(dismiss,4200);
   }
 
+  function updateSigStatusUI(){
+    const el = $('sigStatusYou');
+    if(!el) return;
+    if(acadSignatureEmpty){
+      el.textContent = 'Not yet signed';
+      el.style.color = '#b28c3a';
+    } else {
+      el.textContent = 'Signed ✓';
+      el.style.color = '#2f6b52';
+    }
+  }
+
   function guideToField(el){
     if(!el) return;
     el.scrollIntoView({behavior:'smooth',block:'center'});
@@ -1704,6 +2063,7 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   }
 
   function render(){
+    syncAgreementFromWizard();
     pages.forEach(n=>$('step'+n).classList.toggle('active',n===current));
     document.querySelectorAll('.step-row').forEach(row=>{
       const n=+row.dataset.step;
@@ -1718,7 +2078,7 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     if(current===4){
       const amtEl=$('pay_amount');
       if(amtEl && !amtEl.value.trim()){
-        const p=computePricing(getHeadcountValue(), true);
+        const p=computePricing(getHeadcountValue());
         amtEl.value=p.grandTotalDueToday;
       }
       updateAmountStatus();
@@ -1736,6 +2096,7 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     $('footerStatus').textContent=current===1?selected.size+' capabilities selected.':current===5?'Awaiting admin verification.':'Step '+current+' of 5';
     $('selectedCount').textContent=selected.size+' feature'+(selected.size===1?'':'s');
     renderPricing();
+    computeROI();
     if(current===5){
       $('finalAcademy').textContent=$('acad_name').value||'Academy';
       $('finalEmail').textContent=$('acad_email').value||'registered email';
@@ -1747,7 +2108,10 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
         if(acadSignatureDataUrl){ sigImg.src=acadSignatureDataUrl; sigImg.style.display='inline-block'; }
         else { sigImg.style.display='none'; }
       }
-      $('deliveryMessage').textContent='Digital package prepared for '+($('acad_email').value||'the registered email')+'. It will be sent automatically once ArtiPlay Admin approves the submitted payment reference.';
+      $('deliveryMessage').textContent='Client-signed copy sent to '+($('acad_email').value||'the registered email')+'. The final invoice and fully executed agreement will follow in a second email once ArtiPlay\'s authorized representative countersigns.';
+      const finalPricingForInvoice = computePricing(getHeadcountValue());
+      const invoiceSubEl = $('deliveryInvoiceSub');
+      if(invoiceSubEl) invoiceSubEl.textContent = fmtPeso(finalPricingForInvoice.setupFee)+' initial deployment invoice — issued after verification';
     }
   }
 
@@ -1804,7 +2168,7 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     const note=$('amountMismatchNote');
     if(!el || !note) return;
     const entered=parseFloat(el.value.replace(/[^0-9.]/g,''))||0;
-    const p=computePricing(getHeadcountValue(), true);
+    const p=computePricing(getHeadcountValue());
     note.style.display = (entered>0 && entered!==p.grandTotalDueToday) ? 'block' : 'none';
   }
   function updateRefStatus(){
@@ -1858,10 +2222,48 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     return true;
   }
 
+  function applyDiscountCode(){
+    const input = $('discount_code_input');
+    const statusEl = $('discountStatus');
+    const btn = $('discountApplyBtn');
+    if(!input) return;
+    const code = input.value.trim();
+    if(!code){ showToast('Enter a code first.','warn'); return; }
+    if(!(typeof google!=='undefined' && google.script && google.script.run)){
+      showToast('Google Apps Script is not available in this preview — cannot verify codes here.','error');
+      return;
+    }
+    btn.disabled = true; const originalLabel = btn.textContent; btn.textContent='Checking...';
+    google.script.run
+      .withSuccessHandler(result=>{
+        btn.disabled = false; btn.textContent = originalLabel;
+        if(result && result.valid){
+          appliedDiscount = result;
+          statusEl.textContent = 'Custom pricing authorized (Code: ' + result.code + ')' + (result.notes ? ' — ' + result.notes : '');
+          statusEl.classList.add('ok');
+          input.disabled = true;
+          btn.textContent = 'Applied ✓';
+          btn.disabled = true;
+          showToast('Discount code applied — pricing updated.','warn');
+        } else {
+          appliedDiscount = null;
+          statusEl.textContent = (result && result.reason) ? result.reason : 'Invalid code.';
+          statusEl.classList.remove('ok');
+          showToast((result && result.reason) ? result.reason : 'Invalid discount code.','error');
+        }
+        render();
+      })
+      .withFailureHandler(err=>{
+        btn.disabled = false; btn.textContent = originalLabel;
+        showToast('Could not verify code: ' + err.message, 'error');
+      })
+      .validateDiscountCode(code);
+  }
+
   function hapticTap(){ if(navigator.vibrate) navigator.vibrate(8); }
 
   async function submitPaymentToSupabase(){
-    const p = computePricing(getHeadcountValue(), true);
+    const p = computePricing(getHeadcountValue());
     const payload = {
       academy_name: $('acad_name').value.trim(),
       representative: $('acad_rep').value.trim(),
@@ -1871,8 +2273,10 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       address: $('acad_address').value.trim(),
       selected_features: Array.from(selected).join(', '),
       headcount: p.headcount,
-      tier_monthly: p.recurringBase,
+      simulated_monthly_estimate: p.estimatedRecurring,
       setup_fee: p.setupFee,
+      domain_fee: p.domainFee,
+      discount_code: p.discountCode || '',
       grand_total_due_today: p.grandTotalDueToday,
       channel_id: selectedBank || '',
       bank_label: $('pay_bank').value || '',
@@ -1888,6 +2292,47 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     }
     return data;
   }
+
+  // TEMP: submitting via Google Apps Script -> Google Sheet (PendingPayments)
+  // instead of Supabase, while the Supabase schema/table is still pending.
+  // Calls the existing Code.gs function submitPaymentReference(data), which
+  // also emails the signed agreement PDF to the academy on success.
+  function submitPaymentToAppsScript(){
+    return new Promise((resolve)=>{
+      if(!(typeof google!=='undefined' && google.script && google.script.run)){
+        showToast('Google Apps Script is not available in this preview — cannot submit here.','error');
+        resolve(null);
+        return;
+      }
+      const data = {
+        acad_name: $('acad_name').value.trim(),
+        acad_rep: $('acad_rep').value.trim(),
+        acad_position: $('acad_position').value.trim(),
+        acad_email: $('acad_email').value.trim(),
+        acad_mobile: $('acad_mobile').value.trim(),
+        acad_address: $('acad_address').value.trim(),
+        selectedFeatures: Array.from(selected),
+        headcount: getHeadcountValue(),
+        discountCode: (appliedDiscount && appliedDiscount.valid) ? appliedDiscount.code : '',
+        channelId: selectedBank || '',
+        bankLabel: $('pay_bank').value || '',
+        amount: parseFloat(($('pay_amount').value||'').replace(/[^0-9.]/g,''))||0,
+        referenceNumber: $('pay_reference').value.trim(),
+        acad_signature: acadSignatureDataUrl || '',
+        contractStatus: 'AWAITING_ARTIPLAY_SIGNATURE',
+        agreementHtml: buildAgreementPdfHtml()
+      };
+      google.script.run
+        .withSuccessHandler(res=>{ resolve(res); })
+        .withFailureHandler(err=>{
+          console.error('Apps Script submit error:', err);
+          showToast('Could not submit — ' + err.message, 'error');
+          resolve(null);
+        })
+        .submitPaymentReference(data);
+    });
+  }
+
 
   function finishSubmission(){
     $('thanksEmail').textContent=$('acad_email').value||'your registered address';
@@ -1906,7 +2351,7 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       const btn=$('nextBtn');
       const originalLabel=btn.textContent;
       btn.disabled=true; btn.textContent='Submitting...';
-      const result = await submitPaymentToSupabase();
+      const result = await submitPaymentToAppsScript();
       btn.disabled=false; btn.textContent=originalLabel;
       if(!result) return; // error already toasted
       current=5; render();
@@ -1963,16 +2408,20 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       if(!drawing) return;
       drawing = false;
       acadSignatureDataUrl = canvas.toDataURL('image/png');
+      syncAgreementFromWizard();
+      updateSigStatusUI();
     }
     canvas.addEventListener('pointerdown', start);
     canvas.addEventListener('pointermove', move);
     canvas.addEventListener('pointerup', end);
     canvas.addEventListener('pointerleave', end);
-    $('sigClearBtn').addEventListener('click', ()=>{
+     $('sigClearBtn').addEventListener('click', ()=>{
       const rect = canvas.getBoundingClientRect();
       ctx.clearRect(0,0,rect.width,160);
       acadSignatureEmpty = true;
       acadSignatureDataUrl = '';
+      syncAgreementFromWizard();
+      updateSigStatusUI();
     });
   })();
 
@@ -2118,11 +2567,16 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   function openCompleteAgreement(){
     const overlay = $('agreementOverlay');
     if(!overlay) return;
+    syncAgreementFromWizard();
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden','false');
     document.body.classList.add('agreement-open');
     const scroll = overlay.querySelector('.agreement-scroll');
     if(scroll) scroll.scrollTop = 0;
+    const previewEl = $('pdfPagePreview');
+    if(previewEl && previewEl.style.display==='none' && typeof window.previewPdfLayout==='function'){
+      window.previewPdfLayout();
+    }
   }
   $('openAgreement').addEventListener('click',openCompleteAgreement);
   $('agreementLauncher').addEventListener('click',openCompleteAgreement);
@@ -2137,6 +2591,13 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     $('agreementOverlay').classList.remove('open');
     $('agreementOverlay').setAttribute('aria-hidden','true');
     document.body.classList.remove('agreement-open');
+    const pdfPreviewEl = $('pdfPagePreview');
+    const agreementScrollEl = document.querySelector('.agreement-scroll');
+    if(pdfPreviewEl && pdfPreviewEl.style.display !== 'none'){
+      pdfPreviewEl.style.display = 'none';
+      pdfPreviewEl.innerHTML = '';
+      if(agreementScrollEl) agreementScrollEl.style.display = '';
+    }
   });
   /* === END: X BUTTON — EXIT PORTRAIT FIRST, ELSE CLOSE MODAL === */
   $('agreementOverlay').addEventListener('click',e=>{if(e.target===$('agreementOverlay')) $('closeAgreement').click();});
@@ -2194,12 +2655,165 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     google.script.run.withSuccessHandler(res=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('Saved to Sheet ✓'+(res&&res.row?(' (row '+res.row+')'):''));}).withFailureHandler(err=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('Error: '+err.message,true);}).saveAgreementToSheet(data);
   };
 
+  // Serializes the EXACT on-screen Agreement — same markup, same <style>
+  // rules already in use — into a standalone HTML document. The backend
+  // converts this straight to PDF, so there's no second hand-rebuilt
+  // version of the document that can drift out of sync in wording, fonts,
+  // or layout.
+  function buildAgreementPdfHtml(){
+    syncAgreementFromWizard();
+    const source=document.querySelector('.agreement-doc');
+    if(!source) return '';
+    const clone=source.cloneNode(true);
+
+    // Inputs keep their live value/checked state on clone — render them as
+    // plain text/marks for a static PDF instead of empty-looking boxes.
+    clone.querySelectorAll('input.fillable').forEach(inp=>{
+      const span=document.createElement('span');
+      span.id=inp.id;
+      span.style.cssText='display:inline-block;min-width:140px;border-bottom:1px solid #c9c0a4;padding:2px 0;font-family:var(--serif);color:var(--navy)';
+      span.textContent=inp.value || '\u00A0';
+      if(inp.classList.contains('sig')) span.style.fontStyle='italic';
+      inp.replaceWith(span);
+    });
+    clone.querySelectorAll('input[type="checkbox"]').forEach(cb=>{
+      const span=document.createElement('span');
+      span.textContent=(cb.checked?'\u2611':'\u2610')+' ';
+      cb.replaceWith(span);
+    });
+
+    // Inline the page's own CSS rules so the PDF uses identical fonts,
+    // colors, spacing, and table styling as the browser.
+    let css='';
+    for(const sheet of document.styleSheets){
+      try{
+        for(const rule of sheet.cssRules) css+=rule.cssText+'\n';
+      }catch(e){ /* cross-origin stylesheet, none expected here */ }
+    }
+
+    return '<!DOCTYPE html><html><head><meta charset="UTF-8">'
+      + '<style>' + css
+      + 'html,body{height:auto !important;max-height:none !important;overflow:visible !important;background:#fff;margin:0}'
+      + '.agreement-doc{max-width:none;margin:0;box-shadow:none;overflow:visible !important}'
+      + '.agreement-scroll,.overlay,.agreement-modal{height:auto !important;overflow:visible !important}'
+      + '</style></head><body>' + clone.outerHTML + '</body></html>';
+  }
+
+  // Shows the A4-paginated preview IN-PLACE inside the agreement modal —
+  // swapping out the normal scrollable .agreement-scroll view for a stack
+  // of real page-sized boxes, cloned straight from the live, already-synced
+  // .agreement-doc in the DOM (same node that feeds buildAgreementPdfHtml()).
+  // Clicking the button again toggles back to the normal scroll view.
+  // Approximation only — Apps Script's actual HTML→PDF conversion may shift
+  // breaks by a few px — but anything cut off at a page edge below is very
+  // likely the thing that gets cut in the real emailed PDF too.
+  window.previewPdfLayout=function(){
+    const scrollEl = document.querySelector('.agreement-scroll');
+    const previewEl = $('pdfPagePreview');
+    const toggleBtn = $('btn-pdf-preview');
+    if(!scrollEl || !previewEl) return;
+
+    const isShowingPreview = previewEl.style.display !== 'none';
+    if(isShowingPreview){
+      previewEl.style.display = 'none';
+      previewEl.innerHTML = '';
+      scrollEl.style.display = '';
+      if(toggleBtn){ toggleBtn.title='Preview PDF page breaks'; toggleBtn.setAttribute('aria-label','Preview PDF page breaks'); toggleBtn.setAttribute('data-tooltip','Preview PDF page breaks'); }
+      return;
+    }
+
+    syncAgreementFromWizard();
+    const source = document.querySelector('.agreement-doc');
+    if(!source){ showToast('Nothing to preview yet.','warn'); return; }
+
+    const clone = source.cloneNode(true);
+    clone.querySelectorAll('input.fillable').forEach(inp=>{
+      const span=document.createElement('span');
+      span.id=inp.id;
+      span.style.cssText='display:inline-block;min-width:140px;border-bottom:1px solid #c9c0a4;padding:2px 0;font-family:var(--serif);color:var(--navy)';
+      span.textContent=inp.value || '\u00A0';
+      if(inp.classList.contains('sig')) span.style.fontStyle='italic';
+      inp.replaceWith(span);
+    });
+    clone.querySelectorAll('input[type="checkbox"]').forEach(cb=>{
+      const span=document.createElement('span');
+      span.textContent=(cb.checked?'\u2611':'\u2610')+' ';
+      cb.replaceWith(span);
+    });
+    clone.style.margin = '0';
+    clone.style.boxShadow = 'none';
+    clone.style.maxWidth = 'none';
+
+    /* === START: A4 MARGIN-AWARE PAGINATION === */
+    // Mirrors the real @page{margin:15mm 12mm} rule used for the actual
+    // PDF export, so the preview shows genuine breathing room at EVERY
+    // page cut — including mid-article breaks — not a raw guillotine.
+    const PAGE_W = 794, PAGE_H = 1123;
+    const MARGIN_TOP = 57, MARGIN_BOTTOM = 57, MARGIN_SIDE = 45;
+    const CONTENT_W = PAGE_W - (MARGIN_SIDE * 2);
+    const CONTENT_H = PAGE_H - MARGIN_TOP - MARGIN_BOTTOM;
+    /* === END: A4 MARGIN-AWARE PAGINATION === */
+
+    // Measure the true rendered height off-screen before slicing into pages.
+    const measureWrap = document.createElement('div');
+    measureWrap.style.cssText = 'position:absolute;left:-99999px;top:0;width:'+CONTENT_W+'px;';
+    measureWrap.appendChild(clone);
+    document.body.appendChild(measureWrap);
+    const totalH = clone.scrollHeight;
+    document.body.removeChild(measureWrap);
+
+    const pageCount = Math.max(1, Math.ceil(totalH / CONTENT_H));
+
+    previewEl.innerHTML = '';
+
+    const banner = document.createElement('div');
+    banner.className = 'pdf-preview-inline-banner';
+    banner.textContent = '📄 A4 PAGE PREVIEW — ' + pageCount + ' page' + (pageCount===1?'':'s') + '. This is what the emailed PDF will look like — anything cut off at a page edge below will be cut/split in the real PDF.';
+    previewEl.appendChild(banner);
+
+    const stack = document.createElement('div');
+    stack.className = 'pdf-preview-stack';
+
+    for(let i=0;i<pageCount;i++){
+      const page = document.createElement('div');
+      page.className = 'pdf-preview-page';
+      page.style.width = PAGE_W + 'px';
+      page.style.height = PAGE_H + 'px';
+      page.style.boxSizing = 'border-box';
+      page.style.padding = MARGIN_TOP+'px '+MARGIN_SIDE+'px '+MARGIN_BOTTOM+'px';
+
+      const sliceWrap = document.createElement('div');
+      sliceWrap.style.position = 'relative';
+      sliceWrap.style.overflow = 'hidden';
+      sliceWrap.style.width = CONTENT_W + 'px';
+      sliceWrap.style.height = CONTENT_H + 'px';
+
+      const slice = clone.cloneNode(true);
+      slice.style.position = 'relative';
+      slice.style.top = (-i * CONTENT_H) + 'px';
+      sliceWrap.appendChild(slice);
+      page.appendChild(sliceWrap);
+
+      const label = document.createElement('div');
+      label.className = 'pdf-preview-page-label';
+      label.textContent = 'Page ' + (i + 1) + ' of ' + pageCount;
+      page.appendChild(label);
+
+      stack.appendChild(page);
+    }
+    previewEl.appendChild(stack);
+
+   scrollEl.style.display = 'none';
+    previewEl.style.display = 'block';
+    if(toggleBtn){ toggleBtn.title='Switch to edit view'; toggleBtn.setAttribute('aria-label','Switch to edit view'); toggleBtn.setAttribute('data-tooltip','Switch to edit view'); }
+  };
   window.generatePdf=function(){
     if(!tbValidateOrWarn()) return;
     if(!tbHasGoogleScript()){ tbSetStatus('Google Apps Script is not available in this preview.',true); return; }
     tbToggleButtons(true); tbSetStatus('Generating PDF...');
     const timer=tbWithTimeout(30);
     const data=window.collectAgreementData();
+    data.agreementHtml=buildAgreementPdfHtml();
     google.script.run.withSuccessHandler(res=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('PDF ready ✓');window.open(res.url,'_blank');}).withFailureHandler(err=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('Error: '+err.message,true);}).generateAgreementPdf(data);
   };
 
@@ -2237,18 +2851,18 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   }
   function renderPricing(){
     const headcount = getHeadcountValue();
-    const p = computePricing(headcount, true /* Founding Academy discount applies */);
-    const tierText = headcount>0 ? (headcount<=PRICING_CONFIG.recurringTiers[0].upTo ? `Up to ${PRICING_CONFIG.recurringTiers[0].upTo} seats · ${headcount} entered` : `${PRICING_CONFIG.recurringTiers[0].upTo}+ seats · ${headcount} entered`) : 'Enter headcount in Step 1';
-    const recurText = fmtPeso(p.recurringBase)+' / month';
+    const p = computePricing(headcount);
+    const tierText = headcount>0 ? `${headcount} active account${headcount===1?'':'s'} × ₱${PRICING_CONFIG.recurringRate.perActiveAccount} (simulation)` : 'Enter headcount in Step 1';
+    const recurText = fmtPeso(p.estimatedRecurring)+' / month (simulation — not billed today)';
 
     // Step 1 tier preview chip
     const tierPreviewEl = $('tierPreview');
     if(tierPreviewEl){
       if(headcount>0){
-        tierPreviewEl.textContent = `${headcount} total seats → ${fmtPeso(p.recurringBase)}/month tier`;
+        tierPreviewEl.textContent = `SIMULATION: ${headcount} active accounts → ~${fmtPeso(p.estimatedRecurring)}/month (not charged today)`;
         tierPreviewEl.classList.add('ok');
       } else {
-        tierPreviewEl.textContent = 'Enter a headcount to see your monthly tier';
+        tierPreviewEl.textContent = 'Enter a headcount to preview a simulated monthly estimate';
         tierPreviewEl.classList.remove('ok');
       }
     }
@@ -2256,11 +2870,20 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     // Step 2 commercial summary panel
     if($('sumRegularSetup')) $('sumRegularSetup').textContent = fmtPeso(p.setupFeeRegular);
     if($('sumDiscountAmount')) $('sumDiscountAmount').textContent = '−'+fmtPeso(p.setupDiscountAmount);
-    if($('sumSetupFee')) $('sumSetupFee').textContent = fmtPeso(p.setupFee)+' one-time';
+    if($('sumSetupFee')) $('sumSetupFee').textContent = fmtPeso(p.setupFee)+' one-time — due today';
+    if($('sumDomainFee')) $('sumDomainFee').textContent = fmtPeso(p.domainFee)+' / year — due today, with the setup fee';
     if($('sumTierLabel')) $('sumTierLabel').textContent = tierText;
     if($('sumRecurring')) $('sumRecurring').textContent = recurText;
-    if($('sumModuleAddOns')) $('sumModuleAddOns').textContent = p.moduleAddOnTotal>0 ? fmtPeso(p.moduleAddOnTotal)+' / month' : '₱0 — bundled in tier';
+    if($('sumBillingPolicy')) $('sumBillingPolicy').textContent = p.billingStartNote;
+    if($('sumModuleAddOns')) $('sumModuleAddOns').textContent = p.moduleAddOnTotal>0 ? fmtPeso(p.moduleAddOnTotal)+' / month' : '₱0 — bundled in the active-account rate';
     if($('sumReferralPct')) $('sumReferralPct').textContent = p.referralPct+'% of the actual setup fee received';
+    const sumDiscountRow = $('sumDiscountRow');
+    if(sumDiscountRow){
+      if(p.hasCustomDiscount){
+        sumDiscountRow.style.display='';
+        $('sumDiscountValue').textContent = 'Code ' + p.discountCode + (p.discountNotes ? ' — ' + p.discountNotes : '');
+      } else { sumDiscountRow.style.display='none'; }
+    }
     const sumTaxRow = $('sumTaxRow');
     if(sumTaxRow){
       if(p.taxMode==='exclusive' && p.taxAmount>0){
@@ -2274,16 +2897,18 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     if($('priceCardSetup')) $('priceCardSetup').textContent = fmtPeso(p.setupFee);
     if($('priceCardRecurring')) $('priceCardRecurring').textContent = recurText;
     if($('priceCardTierNote')) $('priceCardTierNote').textContent = headcount>0
-      ? `Platform & infrastructure fee — ${tierText}.`
-      : `Platform & infrastructure fee. Enter your academy's headcount in Step 1 to confirm your tier.`;
+      ? `FYI, simulation only: ${tierText} ≈ ${fmtPeso(p.estimatedRecurring)}/mo. Not billed today — starts next month from actual attendance, itemized by email, collected every 5th.`
+      : `Enter your academy's headcount in Step 1 to preview a simulated monthly estimate. Never billed today.`;
     if($('priceCardGrandTotal')) $('priceCardGrandTotal').textContent = fmtPeso(p.grandTotalDueToday);
 
-    // Step 4 order summary
+     // Step 4 order summary
     if($('orderSetupFee')) $('orderSetupFee').textContent = fmtPeso(p.setupFee);
-    if($('orderFirstMonth')) $('orderFirstMonth').textContent = fmtPeso(p.recurringTotal);
+    if($('orderDomainFee')) $('orderDomainFee').textContent = fmtPeso(p.domainFee);
     if($('orderDueToday')) $('orderDueToday').textContent = fmtPeso(p.grandTotalDueToday);
     if($('orderRecurring')) $('orderRecurring').textContent = recurText;
-    if($('orderHeadcount')) $('orderHeadcount').textContent = headcount>0 ? (headcount+' seats · '+tierText.split(' · ')[0]) : 'Not entered';
+    if($('orderBillingPolicy')) $('orderBillingPolicy').textContent = p.billingStartNote;
+    if($('orderHeadcount')) $('orderHeadcount').textContent = headcount>0 ? (headcount+' active accounts (simulation)') : 'Not entered';
+    if($('payInstructAmount')) $('payInstructAmount').textContent = fmtPeso(p.grandTotalDueToday);
     const orderTaxRow = $('orderTaxRow');
     if(orderTaxRow){
       if(p.taxMode==='exclusive' && p.taxAmount>0){
@@ -2299,10 +2924,139 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       const cleaned = headcountEl.value.replace(/[^0-9]/g,'');
       if(headcountEl.value !== cleaned) headcountEl.value = cleaned;
       renderPricing();
+      computeROI();
     });
   }
 
+  function getRoiHeadcount(){
+    const el = $('roi_headcount');
+    return el ? Math.max(0, parseInt((el.value||'').replace(/[^0-9]/g,''),10) || 0) : 0;
+  }
+  function getRoiAllocation(){
+    const el = $('roi_bufferPerEnrollee');
+    return el ? Math.max(0, parseFloat((el.value||'').replace(/[^0-9.]/g,'')) || 0) : 0;
+  }
+  function getMinMonthly(){
+    return (appliedDiscount && appliedDiscount.valid && appliedDiscount.minimumMonthlyOverride!=null) ? appliedDiscount.minimumMonthlyOverride : PRICING_CONFIG.recurringRate.minimumMonthly;
+  }
+  function getRoiCompareCost(){
+    // If Step 1 has a real headcount, use ArtiPlay's actual computed monthly
+    // cost for that estimate; otherwise fall back to the bare minimum. Either
+    // way this is informational only — never derived from roi_headcount.
+    const rate = (appliedDiscount && appliedDiscount.valid && appliedDiscount.perAccountRateOverride!=null) ? appliedDiscount.perAccountRateOverride : PRICING_CONFIG.recurringRate.perActiveAccount;
+    const minMonthly = getMinMonthly();
+    const stepOneHeadcount = getHeadcountValue();
+    return stepOneHeadcount > 0 ? Math.max(stepOneHeadcount * rate, minMonthly) : minMonthly;
+  }
+
+  function computeROI(){
+    const n = getRoiHeadcount();
+    const allocation = getRoiAllocation();
+    const minMonthly = getMinMonthly();
+    const compareCost = getRoiCompareCost();
+    const stepOneHeadcount = getHeadcountValue();
+
+    // --- Break-even hint (Step 2 helper text) ---
+    const hintEl = $('roiBreakEvenHint');
+    if(hintEl){
+      hintEl.textContent = n>0
+        ? 'Illustrative break-even for '+n+' enrollees: ≈ '+fmtPeso(Math.ceil(minMonthly / n))+' / enrollee / month, to cover the ₱'+minMonthly+' minimum.'
+        : 'Enter your enrollees above to see an illustrative break-even allocation.';
+    }
+
+    // --- Main result: monthly allocation total ---
+    const monthlyTotal = n * allocation;
+    if($('roiMonthlyTotal')) $('roiMonthlyTotal').textContent = fmtPeso(monthlyTotal);
+    const formulaEl = $('roiMonthlyFormula');
+    if(formulaEl){
+      formulaEl.textContent = (n>0 && allocation>0)
+        ? n+' enrollees × '+fmtPeso(allocation)+' allocation'
+        : 'Enter enrollees and an allocation above';
+    }
+
+    // --- Compare card ---
+    if($('roiCompareAllocation')) $('roiCompareAllocation').textContent = fmtPeso(monthlyTotal);
+    const costLabelEl = $('roiCompareCostLabel');
+    const costEl = $('roiCompareCost');
+    if(costLabelEl && costEl){
+      if(stepOneHeadcount>0){
+        costLabelEl.textContent = 'Estimated platform cost (simulation)';
+        costEl.textContent = fmtPeso(compareCost)+' / month';
+      } else {
+        costLabelEl.textContent = 'Minimum platform fee';
+        costEl.textContent = fmtPeso(compareCost)+'+ / month';
+      }
+    }
+    const coverageEl = $('roiCompareCoverage');
+    if(coverageEl){
+      coverageEl.textContent = (n>0 && allocation>0)
+        ? '≈ '+Math.round((monthlyTotal / compareCost) * 100)+'%'
+        : '—';
+    }
+
+    // --- Year 1 view ---
+    const p = computePricing(stepOneHeadcount);
+    if($('roiYear1Total')) $('roiYear1Total').textContent = fmtPeso(p.grandTotalDueToday);
+    const y1PerEnrolleeEl = $('roiYear1PerEnrollee');
+    const y1FormulaEl = $('roiYear1Formula');
+    if(y1PerEnrolleeEl && y1FormulaEl){
+      if(n>0){
+        y1PerEnrolleeEl.textContent = fmtPeso(Math.ceil(p.grandTotalDueToday / n))+' / enrollee';
+        y1FormulaEl.textContent = fmtPeso(p.grandTotalDueToday)+' ÷ '+n+' enrollees';
+      } else {
+        y1PerEnrolleeEl.textContent = '₱0 / enrollee';
+        y1FormulaEl.textContent = 'Enter enrollees in the Monthly tab to see this';
+      }
+    }
+  }
+
+  const roiHeadcountFieldEl = $('roi_headcount');
+  if(roiHeadcountFieldEl){
+    roiHeadcountFieldEl.addEventListener('input', ()=>{
+      const cleaned = roiHeadcountFieldEl.value.replace(/[^0-9]/g,'');
+      if(roiHeadcountFieldEl.value !== cleaned) roiHeadcountFieldEl.value = cleaned;
+      computeROI();
+    });
+  }
+  const roiBufferEl = $('roi_bufferPerEnrollee');
+  if(roiBufferEl) roiBufferEl.addEventListener('input', computeROI);
+
+  const roiViewMonthlyBtn = $('roiViewMonthlyBtn');
+  const roiViewYear1Btn = $('roiViewYear1Btn');
+  function setRoiView(view){
+    const isMonthly = view==='monthly';
+    if($('roiViewMonthly')) $('roiViewMonthly').style.display = isMonthly ? '' : 'none';
+    if($('roiViewYear1')) $('roiViewYear1').style.display = isMonthly ? 'none' : '';
+    if(roiViewMonthlyBtn) roiViewMonthlyBtn.classList.toggle('active', isMonthly);
+    if(roiViewYear1Btn) roiViewYear1Btn.classList.toggle('active', !isMonthly);
+  }
+  if(roiViewMonthlyBtn) roiViewMonthlyBtn.addEventListener('click', ()=>{ hapticTap(); setRoiView('monthly'); });
+  if(roiViewYear1Btn) roiViewYear1Btn.addEventListener('click', ()=>{ hapticTap(); setRoiView('year1'); });
+
   render();
+
+  /* === START: FETCH CANONICAL PRICING FROM BACKEND === */
+  // Code.gs is the REAL source of truth (server validates every payment
+  // against it — a client can never spoof it). This frontend copy of
+  // PRICING_CONFIG exists only so the wizard renders instantly and still
+  // works in preview mode without Apps Script. The moment the real config
+  // is available, we overwrite the local copy with it and re-render — so
+  // if someone updates a price in Code.gs and forgets to touch index.html,
+  // the wizard corrects itself instead of silently showing the old number.
+  if(typeof google!=='undefined' && google.script && google.script.run){
+    google.script.run
+      .withSuccessHandler(serverCfg=>{
+        if(serverCfg){
+          Object.assign(PRICING_CONFIG, serverCfg);
+          render();
+        }
+      })
+      .withFailureHandler(err=>{
+        console.error('Could not fetch canonical pricing config, using local fallback:', err.message);
+      })
+      .getPricingConfig();
+  }
+  /* === END: FETCH CANONICAL PRICING FROM BACKEND === */
 })();
 
 /* ===== Find & replace within the agreement document ===== */
