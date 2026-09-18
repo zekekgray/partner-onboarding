@@ -1744,7 +1744,7 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
 });
 
 /* ===== MODULE: Apps Script backend bridge (Vercel-safe fetch) ===== */
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz2n_HlOILJbewcO9YtZVZr4MDeJpQ5FbNJGiK1XfXE4zZ4JS7MtRMDKGkphIJC1p21aw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxI0wSsPwKqWyV3y8R35ZSNH4MzJ4DV_oCxAaEZwn2hVdfP6fuXJiFD9toBMDg4jjOvgQ/exec';
 function callApi(action, payload){
   return fetch(APPS_SCRIPT_URL, {
     method: 'POST',
