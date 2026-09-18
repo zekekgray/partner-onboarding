@@ -1743,6 +1743,24 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: { persistSession: false }
 });
 
+/* ===== MODULE: Apps Script backend bridge (Vercel-safe fetch) ===== */
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxhLjqAja3CBmFsOPAMc2ucq59IIPnEm-NIg_QCmW027HRcrUecF5-RzuqwvIcNr7w-Dw/exec';
+function callApi(action, payload){
+  return fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    // text/plain avoids a CORS preflight (OPTIONS), which Apps Script
+    // Web Apps do not support — Code.gs must still parse JSON manually.
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ action, payload })
+  }).then(res=>{
+    if(!res.ok) throw new Error('Server responded with '+res.status);
+    return res.json();
+  }).then(json=>{
+    if(json && json.error) throw new Error(json.error);
+    return json;
+  });
+}
+
 (function(){
   const pages=[1,2,3,4,5];
   let current=1;
@@ -2229,13 +2247,9 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     if(!input) return;
     const code = input.value.trim();
     if(!code){ showToast('Enter a code first.','warn'); return; }
-    if(!(typeof google!=='undefined' && google.script && google.script.run)){
-      showToast('Google Apps Script is not available in this preview — cannot verify codes here.','error');
-      return;
-    }
     btn.disabled = true; const originalLabel = btn.textContent; btn.textContent='Checking...';
-    google.script.run
-      .withSuccessHandler(result=>{
+    callApi('validateDiscountCode', { code })
+      .then(result=>{
         btn.disabled = false; btn.textContent = originalLabel;
         if(result && result.valid){
           appliedDiscount = result;
@@ -2253,11 +2267,10 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
         }
         render();
       })
-      .withFailureHandler(err=>{
+      .catch(err=>{
         btn.disabled = false; btn.textContent = originalLabel;
         showToast('Could not verify code: ' + err.message, 'error');
-      })
-      .validateDiscountCode(code);
+      });
   }
 
   function hapticTap(){ if(navigator.vibrate) navigator.vibrate(8); }
@@ -2298,12 +2311,6 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   // Calls the existing Code.gs function submitPaymentReference(data), which
   // also emails the signed agreement PDF to the academy on success.
   function submitPaymentToAppsScript(){
-    return new Promise((resolve)=>{
-      if(!(typeof google!=='undefined' && google.script && google.script.run)){
-        showToast('Google Apps Script is not available in this preview — cannot submit here.','error');
-        resolve(null);
-        return;
-      }
       const data = {
         acad_name: $('acad_name').value.trim(),
         acad_rep: $('acad_rep').value.trim(),
@@ -2322,15 +2329,12 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
         contractStatus: 'AWAITING_ARTIPLAY_SIGNATURE',
         agreementHtml: buildAgreementPdfHtml()
       };
-      google.script.run
-        .withSuccessHandler(res=>{ resolve(res); })
-        .withFailureHandler(err=>{
+      return callApi('submitPaymentReference', data)
+        .catch(err=>{
           console.error('Apps Script submit error:', err);
           showToast('Could not submit — ' + err.message, 'error');
-          resolve(null);
-        })
-        .submitPaymentReference(data);
-    });
+          return null;
+        });
   }
 
 
@@ -2648,11 +2652,12 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
 
   window.saveAgreement=function(){
     if(!tbValidateOrWarn()) return;
-    if(!tbHasGoogleScript()){ tbSetStatus('Google Apps Script is not available in this preview.',true); return; }
     tbToggleButtons(true); tbSetStatus('Saving...');
     const timer=tbWithTimeout(20);
     const data=window.collectAgreementData();
-    google.script.run.withSuccessHandler(res=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('Saved to Sheet ✓'+(res&&res.row?(' (row '+res.row+')'):''));}).withFailureHandler(err=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('Error: '+err.message,true);}).saveAgreementToSheet(data);
+    callApi('saveAgreementToSheet', data)
+      .then(res=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('Saved to Sheet ✓'+(res&&res.row?(' (row '+res.row+')'):''));})
+      .catch(err=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('Error: '+err.message,true);});
   };
 
   // Serializes the EXACT on-screen Agreement — same markup, same <style>
@@ -2809,12 +2814,13 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   };
   window.generatePdf=function(){
     if(!tbValidateOrWarn()) return;
-    if(!tbHasGoogleScript()){ tbSetStatus('Google Apps Script is not available in this preview.',true); return; }
     tbToggleButtons(true); tbSetStatus('Generating PDF...');
     const timer=tbWithTimeout(30);
     const data=window.collectAgreementData();
     data.agreementHtml=buildAgreementPdfHtml();
-    google.script.run.withSuccessHandler(res=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('PDF ready ✓');window.open(res.url,'_blank');}).withFailureHandler(err=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('Error: '+err.message,true);}).generateAgreementPdf(data);
+    callApi('generateAgreementPdf', data)
+      .then(res=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('PDF ready ✓');window.open(res.url,'_blank');})
+      .catch(err=>{clearTimeout(timer);tbToggleButtons(false);tbSetStatus('Error: '+err.message,true);});
   };
 
   (function trackDirty(){
@@ -3043,19 +3049,16 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   // is available, we overwrite the local copy with it and re-render — so
   // if someone updates a price in Code.gs and forgets to touch index.html,
   // the wizard corrects itself instead of silently showing the old number.
-  if(typeof google!=='undefined' && google.script && google.script.run){
-    google.script.run
-      .withSuccessHandler(serverCfg=>{
-        if(serverCfg){
-          Object.assign(PRICING_CONFIG, serverCfg);
-          render();
-        }
-      })
-      .withFailureHandler(err=>{
-        console.error('Could not fetch canonical pricing config, using local fallback:', err.message);
-      })
-      .getPricingConfig();
-  }
+  callApi('getPricingConfig', {})
+    .then(serverCfg=>{
+      if(serverCfg){
+        Object.assign(PRICING_CONFIG, serverCfg);
+        render();
+      }
+    })
+    .catch(err=>{
+      console.error('Could not fetch canonical pricing config, using local fallback:', err.message);
+    });
   /* === END: FETCH CANONICAL PRICING FROM BACKEND === */
 })();
 
@@ -3129,3 +3132,4 @@ function toggleFindReplace(){
 </script>
 </body>
 </html>
+
