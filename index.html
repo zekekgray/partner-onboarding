@@ -1744,6 +1744,24 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
 });
 
 /* ===== MODULE: Apps Script backend bridge (Vercel-safe fetch) ===== */
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbziX2fPNKNp3TXuN_klUkTyoVLM6Di8EC6PGnzI6aGWDBAgpuVy6CrSWIClU5vneYTt1g/exec';
+function callApi(action, payload){
+  return fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    // text/plain avoids a CORS preflight (OPTIONS), which Apps Script
+    // Web Apps do not support — Code.gs must still parse JSON manually.
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ action, payload })
+  }).then(res=>{
+    if(!res.ok) throw new Error('Server responded with '+res.status);
+    return res.json();
+  }).then(json=>{
+    if(json && json.error) throw new Error(json.error);
+    return json;
+  });
+}
+
+/* ===== MODULE: Apps Script backend bridge (Vercel-safe fetch) ===== */
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxhLjqAja3CBmFsOPAMc2ucq59IIPnEm-NIg_QCmW027HRcrUecF5-RzuqwvIcNr7w-Dw/exec';
 function callApi(action, payload){
   return fetch(APPS_SCRIPT_URL, {
